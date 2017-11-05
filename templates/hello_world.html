@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="EN" charset="UTF-8">
+<head>
+  <meta charset="utf-8"/>
+  <title>Hello from Flask</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}"/>
+</head>
+
+<header>
+  <div class="navbar-header">
+    <a class="navbar-brand" href="/hello_world/">
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+      <div class = "container-fluid">
+          <button type="button" class="btn btn-primary" aria-label="Left Align" style="margin-top: 5px; margin-bottom: 5px; margin-right: 15px" href="/hello_world/">
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            <div>
+              {% if name %}
+                <h1>Hello {{ name }}!</h1>
+              {% else %}
+                <h1>Hello World!</h1>
+              {% endif %}
+            </div>
+          </button>
+        <div style="margin-right: 10px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;"  class="container-fluid"/>
+      </div>
+    </a>
+  </div>
+</header>
+
+<body>
+  <img style="max-width:60px; margin-top: 20px; margin-left: 20px" src="{{ url_for('static', filename='favicon.ico') }}"/>
+  <img style="max-width:60px; margin-top: 20px; margin-left: 20px" src="{{ url_for('static', filename='images/jinja-small.png') }}"/>
+  <img style="max-width:60px; margin-top: 20px; margin-left: 20px" src="{{ url_for('static', filename='images/bootstrap-stack.png') }}"/>
+</body>
+
+</html>
