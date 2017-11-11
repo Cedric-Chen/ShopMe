@@ -7,7 +7,7 @@ class DMHours(DataModel):
     def __init__(self, cls):
         super().__init__(cls)
 
-    def get_hour(self, business_id):
+    def get_hours(self, business_id):
         self.query_sql = u'SELECT hours FROM hours WHERE business_id = "%s"' \
             % (business_id)
         ret = super().select()

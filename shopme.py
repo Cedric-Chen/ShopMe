@@ -4,16 +4,14 @@
 import os
 import __init__
 
-from flask import render_template
 from config import app, app_debug, log_dir
 from www import url
 
 @app.route(u'/hello_world/')
-@app.route(u'/hello_world/<name>')
-def hello_world(name=None):
-    return render_template(u'hello_world.html', name=name)
+def hello_world():
+    return u'Hello World!\n'
 
-@app.route(u'/hello_database')
+@app.route(u'/hello_database/')
 def hello_database():
     from random import random
     from database.mysql.engine import DbCtx

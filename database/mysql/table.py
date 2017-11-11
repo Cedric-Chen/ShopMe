@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from config import app
 from __init__ import sql_attr
 from database.metadatabase import MetaDatabase
 from database.mysql.engine import DbCtx
@@ -27,11 +28,13 @@ class Table(MetaDatabase):
     def execute(self, query):
         db = DbCtx()
         with db() as cursor:
+            app.logger.info(u'[EXECUTE] %s' % (query))
             cursor.execute(query)
 
     def select(self, query):
         db = DbCtx()
         with db() as cursor:
+            app.logger.info(u'[SELECT] %s' % (query))
             cursor.execute(query)
             return cursor.fetchall()
 
