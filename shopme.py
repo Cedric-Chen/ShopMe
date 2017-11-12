@@ -4,12 +4,15 @@
 import os
 import __init__
 
+from flask import render_template
+
 from config import app, app_debug, log_dir
 from www import url
 
 @app.route(u'/hello_world/')
-def hello_world():
-    return u'Hello World!\n'
+@app.route(u'/hello_world/<name>/')
+def hello_world(name=None):
+    return render_template(u'hello_world.html', name=name)
 
 @app.route(u'/hello_database/')
 def hello_database():
@@ -24,7 +27,7 @@ def hello_database():
         name_list = [x[0] for x in cursor.fetchall()]
     return u'name list:\n' + u'\n'.join(name_list[1:min(len(name_list), 50)])
 
-@app.route(u'/hello_log')
+@app.route(u'/hello_log/')
 def hello_log():
     app.logger.error(u'This is debug log')
     app.logger.info(u'This is info log')
