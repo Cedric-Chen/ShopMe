@@ -7,4 +7,4 @@ class Attribute(DMAttribute):
     def __init__(self):
         super().__init__(self)
 
-model = Attribute()
+attribute = Attribute()

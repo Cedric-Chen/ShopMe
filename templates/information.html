@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="EN" charset="UTF-8">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}" type="text/javascript" ></script>
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+  <title>{{business['name']}}</title>
+  <link href="{{ url_for('static', filename='favicon.ico') }}" rel="shortcut icon">
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+<div class="container">
+    <div class="row clearfix" style="margin-bottom: 60px">
+        <div class="col-md-12 column">
+            {% include "navbar.html" %}
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-4 column">
+            <div class="jumbotron" style="padding:8px;8px;8px;8px;">
+                <!-- Add Google Maps -->
+                <div id="googleMap" style="height:400px;width:100%;"></div>
+                {% include "googlemap.html" %}
+            </div>
+        </div>
+        <div class="col-md-8 column">
+            <div class="page-header">
+                <h1>
+                    {{business["name"]}}
+                    <small>
+                    {% if business["is_open"] %}
+                        <span class="label label-success">Open</span>
+                    {% else %}
+                        <span class="label label-default">Closed</span>
+                    {% endif %}
+                    </small>
+                </h1>
+            </div>
+            <p>
+                <strong>Address:</strong> {{business["address"]}}. {{business["city"]}}. {{business["state"]}}. {{business["postal_code"]}}
+            </p>
+            <p>
+                <strong>Neighborhood: </strong>
+                {% if business["neighborhood"] %}
+                <span class="label label-warning">business["neighborhood"]</span>
+                {% endif %}
+            </p>
+            <p>
+                <strong>Attibutes:</strong>
+                {% for key in attribute:%}
+                    <span class="label label-sucess">{{ attribute[key] }}</span>
+                {% endfor %}
+            </p>
+            <p>
+                <strong>Category:</strong>
+                {% for key in category:%}
+                    <span class="label label-warning">{{ category[key] }}</span>
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-9 column">
+            <div class="page-header">
+                <h1>
+                    Reviews <small>What people are talking</small>
+                </h1>
+            </div>
+            <style>
+                .review-button {width: 60px}
+            </style>
+            <div class="btn-group" data-toggle="buttons">
+                <button class="btn btn-primary review-button" type="button" onclick="sortField('stars')">
+                    <input type="radio" autocomplete="off">
+                    <em class="glyphicon glyphicon-star"></em>
+                </button>
+                <button class="btn btn-success review-button" type="button" onclick="sortField('useful')">
+                    <input type="radio" autocomplete="off">
+                    <em class="glyphicon glyphicon-thumbs-up"></em>
+                </button>
+                <button class="btn btn-danger review-button" type="button" onclick="sortField('funny')">
+                    <input type="radio" autocomplete="off">
+                    <em class="glyphicon glyphicon-heart"></em>
+                </button>
+                <button class="btn btn-info review-button" type="button" onclick="sortField('cool')">
+                    <input type="radio" autocomplete="off">
+                    <em class="glyphicon glyphicon-sunglasses"></em>
+                </button>
+            </div>
+            <div class="btn-group" data-toggle="buttons">
+                <button class="btn btn-default" type="button" onclick="sortReview(-1)">
+                    <input type="radio" autocomplete="off">
+                    <em class="glyphicon glyphicon-sort-by-attributes-alt"></em>
+                </button>
+                <button class="btn btn-default" type="button" onclick="sortReview(1)">
+                    <input type="radio" autocomplete="off">
+                    <em class="glyphicon glyphicon-sort-by-attributes"></em>
+                </button>
+                <button class="btn btn-default" type="button" onclick="showReview()">
+                    <em class="glyphicon glyphicon-eye-open"></em>
+                </button>
+            </div>
+            <script>
+                function sortField(field) {
+                    if(document.getElementById("review_board").getAttribute("value") == field)
+                        document.getElementById("review_board").setAttribute("value", "date");
+                    else
+                        document.getElementById("review_board").setAttribute("value", field);
+                };
+                function sortReview(orderby) {
+                    var sortby = document.getElementById("review_board").getAttribute("value");
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("review_board").innerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open("GET", "{{ url_for('review_sort') }}" + "{{ business['id'] }}"+ ":" + sortby + ":" + orderby, true);
+                    xhttp.send();
+                };
+                function showReview() {
+                    $("[name='review']").show(500);
+                };
+            </script>
+            <div class="btn-group">
+                 <button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="disabled btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li>
+                         <a href="#">op1</a>
+                    </li>
+                    <li class="disabled">
+                         <a href="#">op2</a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                         <a href="#">other</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div id="review_board" value="date">
+                {% include "review_board.html" %}
+            </div>
+            <form role="form">
+                <div class="form-group">
+                     <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
+                </div>
+                <div class="form-group">
+                     <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
+                </div>
+                <div class="form-group">
+                     <label for="exampleInputFile">File input</label><input type="file" id="exampleInputFile" />
+                    <p class="help-block">
+                        Example block-level help text here.
+                    </p>
+                </div>
+                <div class="checkbox">
+                     <label><input type="checkbox" />Check me out</label>
+                </div> <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-3 column">
+            <div class="page-header">
+                <h1>
+                    Information<br/><small>{{business["name"]}}</small>
+                </h1>
+            </div>
+            <p>
+                {% for key in category:%}
+                  <div style="margin-bottom: 3px">
+                    <div class="label label-warning">{{ category[key] }}</div><br>
+                  </div>
+                {% endfor %}
+            </p> <address> <strong>{{business["name"]}}</strong><br /> {{ business["address"] }}<br /> {{ business["city"] }}, {{ business["state"] }} {{ business["postal_code"] }}<br /></address>
+            {% include "hours.html" %}
+            <ul class="nav nav-pills">
+                <li class="active">
+                     <a href="#"> <span class="badge pull-right">42</span> Home</a>
+                </li>
+                <li>
+                     <a href="#"> <span class="badge pull-right">16</span> More</a>
+                </li>
+            </ul>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                     <a href="#">home</a>
+                </li>
+                <li>
+                     <a href="#">intro</a>
+                </li>
+                <li class="disabled">
+                     <a href="#">info</a>
+                </li>
+                <li class="dropdown pull-right">
+                     <a href="#" data-toggle="dropdown" class="dropdown-toggle">下拉<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                             <a href="#">op</a>
+                        </li>
+                        <li>
+                             <a href="#">config</a>
+                        </li>
+                        <li>
+                             <a href="#">more</a>
+                        </li>
+                        <li class="divider">
+                        </li>
+                        <li>
+                             <a href="#">divider</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="row clearfix">
+                <div class="col-md-12 column">
+                </div>
+            </div>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" />
+                    </div>
+                </div>
+                <div class="form-group">
+                     <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword3" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                             <label><input type="checkbox" />Remember me</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                         <button type="submit" class="btn btn-default">Sign in</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+  {% include "contact.html" %}
+</div>
+
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>Bootstrap Theme Made By <a href="https://www.shopme.com" title="Visit ShopMe">www.shopme.com</a></p>
+</footer>
+
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+</script>
+</body>
+</html>

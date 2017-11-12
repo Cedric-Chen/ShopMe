@@ -11,9 +11,16 @@ class DMReview(DataModel):
         ]
 
     def select(self, business_id, user_id):
-        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
-            + u'FROM review WHERE business_id = "%s" AND user_id = "%s"' \
-            % (business_id, user_id)
+        if business_id == u'*':
+            self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
+                + u'FROM review WHERE user_id = "%s"' % (user_id)
+        elif user_id == u'*':
+            self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
+                + u'FROM review WHERE business_id = "%s"' % (business_id)
+        else:
+            self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
+                + u'FROM review WHERE business_id = "%s" AND user_id = "%s"' \
+                % (business_id, user_id)
         ret = super().select()
         result = dict()
         for entry in ret:
@@ -47,12 +54,12 @@ class DMReview(DataModel):
             super().execute()
 
     def insert(self, business_id, user_id, review):
-        from datamodel.business import model as m_business
-        if len(m_business.select(business_id)) < 1:
-            m_business.insert(business_id, {})
-        from datamodel.user import model as m_user
-        if len(m_user.select(user_id)) < 1:
-            m_user.insert(user_id, {})
+        from datamodel.business import business
+        if len(business.select(business_id)) < 1:
+            business.insert(business_id, {})
+        from datamodel.user import user
+        if len(user.select(user_id)) < 1:
+            user.insert(user_id, {})
         for key, val in review.items():
             k = [u'id']
             v = [self.quote_sql(key)]

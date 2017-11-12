@@ -7,4 +7,4 @@ class User(DMUser):
     def __init__(self):
         super().__init__(self)
 
-model = User()
+user = User()

@@ -7,4 +7,4 @@ class Photo(DMPhoto):
     def __init__(self):
         super().__init__(self)
 
-model = Photo()
+photo = Photo()

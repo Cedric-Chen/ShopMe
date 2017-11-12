@@ -98,6 +98,8 @@ ENV/
 
 # cedric specific
 package_list.txt
+*swp*
 
 .idea
-*swp*
+static
+.DS_Store

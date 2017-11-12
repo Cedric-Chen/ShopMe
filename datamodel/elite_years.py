@@ -7,4 +7,4 @@ class Elite_Years(DMElite_Years):
     def __init__(self):
         super().__init__(self)
 
-model = Elite_Years()
+elite_years = Elite_Years()

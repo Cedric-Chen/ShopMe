@@ -29,9 +29,9 @@ class DMHours(DataModel):
             super().execute()
 
     def insert(self, business_id, hours):
-        from datamodel.business import model as m_business
-        if len(m_business.select(business_id)) < 1:
-            m_business.insert(business_id, {})
+        from datamodel.business import business
+        if len(business.select(business_id)) < 1:
+            business.insert(business_id, {})
         for key, val in hours.items():
             self.query_sql = \
                 u'INSERT INTO `hours`(`business_id`, `hours`) ' \
