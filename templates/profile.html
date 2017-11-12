@@ -25,6 +25,7 @@
   <!-- Custom styles for this template-->
   <link href="static/css/sb-admin.css" rel="stylesheet">
   <link href="static/css/merchant.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/bootstrap.timepicker/0.2.6/css/bootstrap-timepicker.min.css" rel="stylesheet" />
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -232,6 +233,15 @@
     <!-- Custom scripts for this page-->
     <script src="static/js/sb-admin-datatables.min.js"></script>
     <script src="static/js/sb-admin-charts.min.js"></script>
+    <!-- custom scripts -->
+    <script src="https://cdn.jsdelivr.net/bootstrap.timepicker/0.2.6/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.timepicker').timepicker({
+                format: 'LT'
+            });
+        });
+    </script>
   </div>
 </body>
 

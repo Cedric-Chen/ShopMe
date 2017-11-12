@@ -95,3 +95,6 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+
+# cedric specific
+package_list.txt
