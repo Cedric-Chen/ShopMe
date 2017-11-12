@@ -1,0 +1,635 @@
+{% extends "profile.html" %}
+
+{% block sidenav_content %}
+    <ul class="navbar-nav navbar-sidenav nav tabs">
+      <li class="active nav-item">
+        <a class="nav-link" href="#moments" data-toggle="tab">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Moments</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#profile" data-toggle="tab">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Profile</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#attribute" data-toggle="tab">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Features</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#hours" data-toggle="tab">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Opening Hours</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#checkin" data-toggle="tab">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">CheckIn Information</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#photo" data-toggle="tab">
+          <i class="fa fa-fw fa-dashboard"></i>
+          <span class="nav-link-text">Photos</span>
+        </a>
+      </li>
+
+    </ul>
+<!--
+  <ul class="navbar-nav navbar-sidenav navbar-light" id="exampleAccordion">
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+      <a class="nav-link" href="index.html"> <i class="fa fa-fw fa-dashboard"></i> <span class="nav-link-text">Profile</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+      <a class="nav-link" href="charts.html">
+        <i class="fa fa-fw fa-area-chart"></i>
+        <span class="nav-link-text">Photos</span>
+      </a>
+    </li> <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+      <a class="nav-link" href="tables.html">
+        <i class="fa fa-fw fa-table"></i>
+        <span class="nav-link-text">Posts</span>
+      </a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+      <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+        <i class="fa fa-fw fa-wrench"></i>
+        <span class="nav-link-text">Following</span>
+      </a>
+      <ul class="sidenav-second-level collapse" id="collapseComponents">
+        <li>
+          <a href="navbar.html">Navbar</a>
+        </li>
+        <li>
+          <a href="cards.html">Cards</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+-->
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="container-fluid tab-content">
+
+      <div class="tab-pane fade in active text-dark" id="moments" >
+        <h3>Moments</h3>
+        <p>Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.</p>
+        <p>Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.Some content.</p>
+      </div> <!-- <div class="tab-pane ..." id="moments" -->
+
+   <!-- profile page -->
+      <div class="tab-pane fade" id="profile" >
+
+    <ul class="navbar-nab nav tabs">
+      <li class="active nav-item"><a class="nav-link" href="#info" data-toggle="tab"> Information</a></li>
+      <li class="nav-item"><a class="nav-link" href="#update_info" data-toggle="tab">Update</a></li>
+    </ul>
+
+
+    <div class="container-fluid tab-content">
+
+      <div class="tab-pane active in fade" id="info">
+        <div class=" col-md-6 col-lg-6 "> 
+
+          <h5> Basic Information </h5>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Name</td>
+                <td>{{ business.name }}</td>
+              </tr>
+              <tr>
+                <td>Open</td>
+                <td>
+                    {% if business.is_open == 1 %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td>Category</td>
+                <td> 
+                    {% for field,value in category.items() %}
+                    {{ value }} &nbsp;&nbsp;&nbsp;&nbsp;
+                    {% endfor %} 
+                </td>
+              </tr>
+              <tr>
+                <td>Stars</td>
+                <td>{{ business.stars }}</td>
+              </tr>
+              <tr>
+                <td>Review Count</td>
+                <td>{{ business.review_count }}</td>
+              </tr>
+            </tbody>
+          </table><br><br>
+   
+          <h5> Address </h5>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Street</td>
+                <td>{{ business.address }}</td>
+              </tr>
+              <tr>
+                <td>City</td>
+                <td>{{ business.city }}</td>
+              </tr>
+           
+             <tr>
+                <td>State</td>
+                <td>{{ business.state }}</td>
+              </tr>
+                <tr>
+                <td>Neighbourhood</td>
+                <td>{{ business.neighborhood }}</td>
+              </tr>
+              <tr>
+                <td>Postal Code</td>
+                <td>{{ business.postal_code }}</td>
+              </tr>
+              <tr>
+                <td>Latitude</td>
+                <td>{{ business.latitude }}</td>
+              </tr>
+              <tr>
+                <td>Longitude</td>
+                <td>{{ business.longitude }}</td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+        </div> <!-- <div class="tab-pane active in fade" id="info"> -->
+
+      <div class="tab-pane fade" id="update_info">
+        <form class="" method="post" action="#">
+             <div class="form-group">
+                <label for="newname" class="col-4 control-label">
+                    New Name</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newname"
+                            placeholder="Enter your new name"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="openornot" class="col-4 control-label">
+                    OpenOrNot</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="openornot"
+                            placeholder="Yes or No"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newstreet" class="col-4 control-label">
+                    New Street</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newstreet"
+                            placeholder="Enter your new street"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newcity" class="col-4 control-label">
+                    New city</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newcity"
+                            placeholder="Enter your new city"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newname" class="col-4 control-label">
+                    New State</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newstate"
+                            placeholder="Enter your new state"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newneighbourhood" class="col-4 control-label">
+                    New Neighbourhood</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newneighbourhood"
+                            placeholder="Enter your new neighbourhood"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newpostalcode" class="col-4 control-label">
+                    New Postal Code</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newpostalcode"
+                            placeholder="Enter your new postal code"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newlatitude" class="col-4 control-label">
+                    New Latitude</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newlatitude"
+                            placeholder="Enter your new latitude"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newlongitude" class="col-4 control-label">
+                    New Longitude</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newlongitude"
+                            placeholder="Enter your new longitude"/>
+                    </div>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="newlongitude" class="col-4 control-label">
+                    New Longitude</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newlongitude"
+                            placeholder="Enter your new longitude"/>
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-default">
+                Update</button>
+        </form>
+      </div>
+      </div> <!-- <div class="container-fluid tab-content"> -->
+
+      </div> <!-- <div class="tab-pane ..." id="profile" -->
+  <!-- end of profile page -->
+
+  <!-- Attribute page -->
+      <div class="tab-pane fade" id="attribute" >
+    <ul class="navbar-nab nav tabs">
+      <li class="active nav-item"><a class="nav-link" href="#attr_info" data-toggle="tab">Current</a></li>
+      <li class="nav-item"><a class="nav-link" href="#update_attr" data-toggle="tab">Update</a></li>
+    </ul>
+
+
+    <div class="container-fluid tab-content">
+
+      <div class="tab-pane active in fade" id="attr_info">
+        <div class=" col-md-4 col-lg-4 "> 
+
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Credit Card</td>
+                <td></td>
+                <td>
+                    {% if business.BusinessAcceptsCreditCards %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td>Parking</td>
+                <td>Bike</td>
+                <td>
+                    {% if attribute.BikeParking %}
+                        Yes {% else %}
+                        No
+                    {% endif %}
+                    </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Garage</td>
+                <td>
+                    {% if attribute.BusinessParking.garage %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                    </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Lot</td>
+                <td>
+                    {% if attribute.BusinessParking.lot %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                    </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Street</td>
+                <td>
+                    {% if attribute.BusinessParking.street %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                    </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Valet</td>
+                <td>
+                    {% if attribute.BusinessParking.valet %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                    </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Validated</td>
+                <td>
+                    {% if attribute.BusinessParking.validated %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                    </td>
+              </tr>
+              <tr>
+                <td>Appointment Only</td>
+                <td></td>
+                <td>
+                    {% if attribute.ByAppointmentOnly %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+              </tr>
+              <tr>
+                <td>Price Range</td>
+                <td></td>
+                <td>
+                    {{ attribute.RestaurantsPriceRange2 }}
+                </td>
+              </tr>
+              <tr>
+                <td>Wheel Chair Accessibility</td>
+                <td></td>
+                <td>
+                    {% if attribute.WheelchairAccessible %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+              </tr>
+
+            </tbody>
+          </table><br><br>
+   
+        </div>
+        </div> <!-- <div class="tab-pane active in fade" id="attr_info"> -->
+
+      <div class="tab-pane fade" id="update_attr">
+        <div class=" col-md-4 col-lg-4 "> 
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td> Credit Card </td>
+                    <td> </td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Parking </td>
+                    <td> Bike</td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td> Garage</td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td> Lot</td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td> Street</td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td> Valet</td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>  </td>
+                    <td> Validated</td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> Appointment Only </td>
+                    <td> </td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Wheel Chair Accessibility </td>
+                    <td> </td>
+                    <td>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input">
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        </div>
+            <button type="submit" class="btn btn-default">
+                Update</button>
+        </form>
+      </div>
+      </div> <!-- <div class="container-fluid tab-content"> -->
+
+      </div> <!-- <div class="tab-pane ..." id="attributes" -->
+    <!-- end of attribute page -->
+
+  <!-- opening hours page -->
+      <div class="tab-pane fade" id="hours" >
+    <ul class="navbar-nab nav tabs">
+      <li class="active nav-item"><a class="nav-link" href="#hours_info" data-toggle="tab">Current</a></li>
+      <li class="nav-item"><a class="nav-link" href="#update_hours" data-toggle="tab">Update</a></li>
+    </ul>
+
+
+    <div class="container-fluid tab-content">
+
+      <div class="tab-pane active in fade" id="hours_info">
+        <div class=" col-md-4 col-lg-4 "> 
+
+          <table class="table">
+            <tbody>
+              <tr>
+                <td> Monday </td>
+                <td> {{ hours.Monday }} </td>
+              </tr>
+              <tr>
+                <td> Tuesday </td>
+                <td> {{ hours.Tuesday }} </td>
+              </tr>
+              <tr>
+                <td> Wednesday </td>
+                <td> {{ hours.Wednesday }} </td>
+              </tr>
+              <tr>
+                <td> Tursday </td>
+                <td> {{ hours.Thursday }} </td>
+              </tr>
+              <tr>
+                <td> Friday </td>
+                <td> {{ hours.Friday }} </td>
+              </tr>
+              <tr>
+                <td> Saturday </td>
+                <td> {{ hours.Saturday }} </td>
+              </tr>
+              <tr>
+                <td> Sunday </td>
+                <td> {{ hours.Sunday }} </td>
+              </tr>
+
+            </tbody>
+          </table>
+   
+        </div>
+        </div> <!-- <div class="tab-pane active in fade" id="hours_info"> -->
+
+      <div class="tab-pane fade" id="update_hours">
+        <div class=" col-md-4 col-lg-4 "> 
+
+        <form class="" method="post" action="#">
+             <div class="form-group">
+                <label for="newname" class="col-4 control-label">
+                    New Name</label>
+                <div class="col-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                        <i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" 
+                            name="newname"
+                            placeholder="Enter your new name"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+            <button type="submit" class="btn btn-default">
+                Update</button>
+        </form>
+      </div>
+      </div> <!-- <div class="container-fluid tab-content"> -->
+
+      </div> <!-- <div class="tab-pane ..." id="attributes" -->
+  <!-- end of opening hours -->
+
+
+  </div> <!--< div class="container-fluid tab-content"> -->
+</div> <!-- <div class="content-wrapper"> -->
+{% endblock %}

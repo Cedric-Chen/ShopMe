@@ -2,16 +2,29 @@
 # -*- coding: utf-8 -*-
 
 import os
-from flask import request, url_for
 from config import app, log_dir
+from flask import render_template, redirect, url_for, request
+from flask_sqlalchemy import SQLAlchemy
+from flask.ext.security import Security, SQLAlchemyUserDatastore, \
+    UserMixin, RoleMixin, login_required
+# back-end function
+from datamodel.business import model as Business
+from datamodel.attribute import model as Attribute
+from datamodel.category import model as Category
+from datamodel.hours import model as Hours
+from datamodel.photo import model as Photo
+from datamodel.user import model as User
+from datamodel.friend import model as Friend
+
 
 @app.route(u'/log/')
 def log():
     file_list = []
     for file in os.listdir(log_dir):
         file_list.append(os.path.basename(file))
-    return u'%s/\n    %s'\
-        % (os.path.basename(log_dir), u'\n    '.join(file_list))
+    return u'%s/\n    %s' \
+           % (os.path.basename(log_dir), u'\n    '.join(file_list))
+
 
 @app.route(u'/log/<string:filename>:<int:max_lines>/')
 @app.route(u'/log/<string:filename>/')
@@ -33,3 +46,68 @@ def log_file(filename, max_lines=100):
                         break
                 return u''.join(re_lines)
     return u'File %s Not Found' % (filename)
+
+
+@app.route('/index')
+def index():
+    return render_template('index.html')
+
+
+@app.route('/merchant')
+def merchant():
+    #    businessname = 'Cedric'
+    #    business = get_business(businessname)
+    #    attribute = get_attribute(businessname)
+    #    category = get_category(businessname)
+    #    hours = get_hour(businessname)
+    #    photo = get_photo(businessname)
+
+    # for debug
+    business = Business.get_business()
+    attribute = Attribute.get_attribute()
+    category = Category.get_category()
+    hours = Hours.get_hours()
+    photo = Photo.get_photo()
+
+    return render_template(
+        'merchant.html',
+        business=business,
+        attribute=attribute,
+        category=category,
+        hours=hours,
+        photo=photo
+    )
+
+
+friends = Friend.get_friend()
+Me = User.get_user()
+
+
+@app.route('/user/<user_id>')
+def user(user_id):
+    return render_template('user.html',
+                           user=Me,
+                           friend=friends
+                           )
+
+
+@app.route('/friend')
+def friend():
+    url_for('static', filename='css/user.css')
+    return render_template('friend.html',
+                           user=User.get_user()
+                           )
+
+
+@app.route('/friend/remove/<friend_id>/<id>')
+def remove_friend(friend_id, id):
+    friends.pop(friend_id)
+
+
+@app.route('/friend/add/<friend_id>/<id>')
+def add_friend(friend_id, id):
+    friends[friend_id] = "newFriend"
+
+@app.route('/update/name/<name>/<id>')
+def update_name(name, id):
+    Me["name"] = name
