@@ -26,25 +26,25 @@ class _Connection(object):
 
     def cleanup(self):
         if self.__conn:
-            app.logger.info(u'[CONNECTION] <%s> CLOSE' % hex(id(self.__conn)))
+            app.logger.debug(u'[CONNECTION] <%s> CLOSE' % hex(id(self.__conn)))
             self.__conn.close()
             self.__conn = None
 
     def commit(self):
         if self.__conn:
-            app.logger.info('[CONNECTION] <%s> COMMIT' % hex(id(self.__conn)))
+            app.logger.debug('[CONNECTION] <%s> COMMIT' % hex(id(self.__conn)))
             self.__conn.commit()
 
     def cursor(self):
         if self.__conn is None:
             self.__conn = database.connect()
-            app.logger.info('[CONNECTION] <%s> OPEN' % hex(id(self.__conn)))
+            app.logger.debug('[CONNECTION] <%s> OPEN' % hex(id(self.__conn)))
         return self.__conn.cursor()
 
     def rollback(self):
         if self.__conn:
             self.__conn.rollback()
-            app.logger.info('[CONNECTION] <%s> ROLLBACK' % hex(id(self.__conn)))
+            app.logger.debug('[CONNECTION] <%s> ROLLBACK' % hex(id(self.__conn)))
 
 class DbCtx(threading.local):
     # define short cut for all the available db operations
