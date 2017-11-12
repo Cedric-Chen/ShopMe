@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from config_override import app_debug, override_db
+# from config_override import app_debug, override_db
 
 config_db = { 
     u'user': u'user',
@@ -17,13 +17,13 @@ config_db = {
     u'buffered': True,
 }
 
-for k, v in config_db.items():
-    config_db[k] = override_db.get(k, v)
+# for k, v in config_db.items():
+#     config_db[k] = override_db.get(k, v)
 
 # create Flask app
 from flask import Flask
 app = Flask(__name__)
-app.debug = app_debug
+# app.debug = app_debug
 
 # directory
 app_dir = os.path.dirname(__file__)

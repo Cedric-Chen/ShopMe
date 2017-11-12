@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="577bb8ef-6d55-4d43-9c84-a9738ebd0816" name="CS411" url="http://fa17-cs411-12.cs.illinois.edu/">
+        <fileTransfer host="fa17-cs411-12.cs.illinois.edu" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
