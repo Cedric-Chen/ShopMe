@@ -90,6 +90,7 @@
   <body>
     <nav class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
+        <!-- NAV BAR CONTENT START -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -147,12 +148,12 @@
                   <div class="panel panel-default">
                       <div class="panel-body">
                           <h6 class="nomargin">
-                              {{business_list|length}} results <small class="text-success">(0.07 seconds) </small>
+                              {{result_list|length}} results <small class="text-success">(0.07 seconds) </small>
                           </h6>
                           <hr style="margin-bottom:0px">
                           <!-- SEARCH RESULTS -->
 
-                          {% for business in business_list %}
+                          {% for result in result_list %}
                           <div class="clearfix search-result"> <!-- item start-->
                               <div class="row">
                                 <!-- The avatar was disabled -->
@@ -162,17 +163,17 @@
                                   </a>
                                 </div> -->
                                 <div class="col-lg-6">
-                                    <h4><a href="#" class="search-result-title">{{loop.index}}. {{business['name']}}</a></h4>
+                                    <h4><a href="#" class="search-result-title">{{loop.index}}. {{result['business']['name']}}</a></h4>
                                   <div class="primary-attributes">
                                     <div class="row">
-                                      <!-- <p>Stars: {{business['stars']}}</p> -->
+                                      <!-- <p>Stars: {{result['business']['stars']}}</p> -->
                                       <table>
                                         <tr>
                                           <td style="padding-right:10px">
                                             <label for="input-star1" class="control-label">Stars</label>
                                           </td>
                                           <td>
-                                            <input id="input-star1" name="input-star1" value={{business['stars']}} class="rating rating-loading" data-size="xxs">
+                                            <input id="input-star1" name="input-star1" value={{result['business']['stars']}} class="rating rating-loading" data-size="xxs">
                                           </td>
                                         </tr>
                                       </table>
@@ -184,22 +185,22 @@
                                       <p>\number\ check-ins in the past week</p>
                                     </div>
                                     <!-- <div class="row">
-                                      <p class="review-number">{{business['review_count']}} reviews</p>
+                                      <p class="review-number">{{result['business']['review_count']}} reviews</p>
                                     </div> -->
                                   </div>
                                 </div>
                                 <div class="secondary-attributes col-lg-4">
-                                  <p>{{business['address']}}</p>
-                                  <p>{{business['city']+ ", "+ business['state'] + " " + business['postal_code']}}<p>
+                                  <p>{{result['business']['address']}}</p>
+                                  <p>{{result['business']['city']+ ", "+ result['business']['state'] + " " + result['business']['postal_code']}}<p>
                                 </div>
                               </div>
                               <div class="review-block">
-                                <p><a href="#">{{user_list[0]['name']+": "}}</a>
-                                    {% for key, value in review_list[0].items() %}
+                                <p><a href="#">{{result['user']['name']+": "}}</a>
+                                    {% for key, value in result['review'].items() %}
                                     {{value['text']}}
                                     {% endfor %}
                                 </p>
-                                <p><a href="#"> >> {{business['review_count']-1}} more reviews...</a></p>
+                                <p><a href="#"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
                               </div>
 
                           </div>
