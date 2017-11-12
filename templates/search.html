@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <title>Search Results</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/offcanvas.css') }}" rel="stylesheet">
+    <!-- <link href="../static/css/search-results.css" rel="stylesheet"> -->
+    <link href="{{ url_for('static', filename='css/search-results.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/star-rating.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/star-rating.min.css') }}" rel="stylesheet">
+
+    <style>
+      .top-column{
+        margin-left: 30px;
+      }
+      .search-result-avatar{
+          width: 100px;
+          height: 100px;
+      }
+      .search-result-title{
+        font-size: 16pt;
+      }
+      .primary-attributes{
+        margin-left: 20px;
+        margin-top: 0px;
+      }
+      .control-label{
+        font-weight: 400;
+      }
+      .categories{
+        margin-top: 10px;
+      }
+      .review-number{
+        margin-top: 0px;
+      }
+      .secondary-attributes{
+        font-size: 12pt;
+      }
+      .review-block{
+        margin-top:10px;
+        font-size:12pt;
+      }
+      .filter-list ul{
+
+      }
+      .filter{
+        float: left;
+        margin-right: 60px;
+      }
+      .map-wrapper{
+        position:fixed;
+        width:300px;
+        height:350px;
+        zoom: 1;
+        z-index: 1;
+        margin-top: 0px;
+        padding-top: 10px;
+        margin-left: 25px;
+      }
+    </style>
+
+
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">ShopMe</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </nav><!-- /.navbar -->
+
+    <div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-12 col-lg-12">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="top-shelf top-shelf-grey row">
+            <div class="top-column">
+              <div class="search-header">
+                <h3>Search results for XXX in Urbana Champaign, IL </h3>
+              </div>
+              <!-- FILTER START -->
+              <!-- <div class="filter-panel">
+                <div class="filter-bar">
+                  <ul class="filter-list">
+                    <li class="filter"><a>filter1</a></li>
+                    <li class="filter"><a>filter2</a></li>
+                    <li class="filter"><a>filter3</a></li>
+                  </ul>
+                </div>
+              </div> -->
+              <!-- FILTER END -->
+            </div>
+          </div>
+          <div class="row">
+            <!-- <div class="col-xs-6 col-lg-4">
+              <h2>Heading</h2>
+              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div> -->
+            <!--/.col-xs-6.col-lg-4-->
+            <div class="col-xs-8 col-sm-8 col-lg-8">
+              <div id="content" class="container col-xs-12 col-sm-12 col-lg-12">
+                  <div class="panel panel-default">
+                      <div class="panel-body">
+                          <h6 class="nomargin">
+                              {{business_list|length}} results <small class="text-success">(0.07 seconds) </small>
+                          </h6>
+                          <hr style="margin-bottom:0px">
+                          <!-- SEARCH RESULTS -->
+
+                          {% for business in business_list %}
+                          <div class="clearfix search-result"> <!-- item start-->
+                              <div class="row">
+                                <!-- The avatar was disabled -->
+                                <!-- <div class="Avatar col-lg-2">
+                                  <a href="#">
+                                    <img class="search-result-avatar" src="{{ url_for('static', filename='images/180s.jpg') }}" alt="Avatar">
+                                  </a>
+                                </div> -->
+                                <div class="col-lg-6">
+                                    <h4><a href="#" class="search-result-title">{{loop.index}}. {{business['name']}}</a></h4>
+                                  <div class="primary-attributes">
+                                    <div class="row">
+                                      <!-- <p>Stars: {{business['stars']}}</p> -->
+                                      <table>
+                                        <tr>
+                                          <td style="padding-right:10px">
+                                            <label for="input-star1" class="control-label">Stars</label>
+                                          </td>
+                                          <td>
+                                            <input id="input-star1" name="input-star1" value={{business['stars']}} class="rating rating-loading" data-size="xxs">
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                    <div class="row">
+                                      <p class="categories">Category: business category goes here</p>
+                                    </div>
+                                    <div class="row">
+                                      <p>\number\ check-ins in the past week</p>
+                                    </div>
+                                    <!-- <div class="row">
+                                      <p class="review-number">{{business['review_count']}} reviews</p>
+                                    </div> -->
+                                  </div>
+                                </div>
+                                <div class="secondary-attributes col-lg-4">
+                                  <p>{{business['address']}}</p>
+                                  <p>{{business['city']+ ", "+ business['state'] + " " + business['postal_code']}}<p>
+                                </div>
+                              </div>
+                              <div class="review-block">
+                                <p><a href="#">{{user_list[0]['name']+": "}}</a>
+                                    {% for key, value in review_list[0].items() %}
+                                    {{value['text']}}
+                                    {% endfor %}
+                                </p>
+                                <p><a href="#"> >> {{business['review_count']-1}} more reviews...</a></p>
+                              </div>
+
+                          </div>
+                          <!-- /item end -->
+                          {% endfor %}
+
+                          <!-- <div class="clearfix search-result">
+
+                              <h4><a href="#">Admin – fully responsive webapp</a></h4>
+                              <small class="text-danger">Dashboard / About</small>
+                              <p>Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa.</p>
+                          </div>
+                           -->
+
+
+                          <!-- /SEARCH RESULTS -->
+
+
+                          <!-- PAGINATION -->
+                          <div class = "text-center margin-top-20">
+                            <ul class="pagination">
+                              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </div>
+                          <!-- /PAGINATION -->
+                      </div>  <!-- panel body -->
+                  </div>  <!-- panel -->
+              </div>  <!-- content -->
+            </div> <!--col-xs-8 col-sm-8 col-lg-8 -->
+
+
+            <!-- /sidebar -->
+            <div class="col-xs-4 col-sm-4 col-lg-4">
+              <div class="container col-xs-12 col-sm-12 col-lg-12">
+              <div class="map-wrapper">
+                <!-- include 'google-map.html' here -->
+                <div class="list-group" >
+                  <a href="#" class="list-group-item active">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                  <a href="#" class="list-group-item">Link</a>
+                </div>
+            </div>
+            <div>
+            </div> <!--/.sidebar-offcanvas-->
+
+          </div><!--/row-->
+        </div><!--/. col-xs-4 col-sm-4 col-lg-4 -->
+
+
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+
+    </div><!--/.container-->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script> -->
+    <!-- <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.8.2/umd/popper.js"></script>
+    <script src="{{ url_for('static', filename='js/star-rating.js') }}" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+    $(document).on('ready', function(){
+        $('#input-star1').rating({
+          displayOnly: true,
+          step: 1,
+          starCaptions: false
+         });
+    });
+    </script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+    <!-- <script src="{{ url_for('static', filename='js/offcanvas.js') }}"></script> -->
+  </body>
+</html>
