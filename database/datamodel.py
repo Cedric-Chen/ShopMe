@@ -22,6 +22,12 @@ class DataModel(Table):
             app.logger.warning(u'NOT FOUNT PHYSICALMODEL: %s' \
                 % (self.MetaDB_name))
 
+    def basetype_sql(self, value):
+        return type(value) in [bool, float, int]
+
+    def quote_sql(self, value):
+        return u'%s' % value if self.basetype_sql(value) else u'"%s"' % value
+
     def execute(self):
         # delete, insert, update
         if self.db == self.MetaDB_relational:

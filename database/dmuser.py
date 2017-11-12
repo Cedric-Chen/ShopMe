@@ -14,7 +14,7 @@ class DMUser(DataModel):
             u'compliment_writer', u'compliment_photos'
         ]
 
-    def get_user(self, _id):
+    def select(self, _id):
         self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
             + u'FROM user WHERE id = "%s"' % (_id)
         ret = super().select()
@@ -25,3 +25,35 @@ class DMUser(DataModel):
                 for index, value in enumerate(entry)
             }
         return result
+
+    def delete(self, _id, user):
+        from datamodel.elite_years import model as m_elite_years
+        from datamodel.friend import model as m_friend
+        from datamodel.review import model as m_review
+        from datamodel.tip import model as m_tip
+        for model in [m_elite_years, m_friend]:
+            model.delete(_id, {})
+        for model in [m_review, m_tip]:
+            model.delete(u'*', _id, {})
+        self.query_sql = u'DELETE FROM `user` where id="%s"' % _id
+        super().execute()
+
+    def insert(self, user_id, user):
+        key = []
+        value = []
+        user[u'id'] = user_id
+        for attr in self.dm_attr:
+            if attr in user:
+                key.append(attr)
+                value.append(self.quote_sql(user[attr]))
+        self.query_sql = u'INSERT INTO `user`(%s) VALUES(%s)' \
+            % (u','.join([u'`%s`' % k for k in key]), u','.join(value))
+        super().execute()
+
+    def update(self, user_id, user):
+        pair = []
+        for key, value in user.items():
+            pair.append(u'%s=%s' % (key, self.quote_sql(value)))
+        self.query_sql = u'UPDATE `user` SET %s WHERE id="%s"' \
+            % (u','.join(pair), user_id)
+        super().execute()
