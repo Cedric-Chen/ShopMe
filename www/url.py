@@ -105,15 +105,15 @@ def merchant():
     )
 
 
-friends = Friend.get_friend()
-Me = User.get_user()
+# friends = Friend.select()
+# Me = User.select()
 
 
 @app.route('/user/<user_id>')
 def user(user_id):
     return render_template('user.html',
-                           user=Me,
-                           friend=friends
+                           user=User.select(user_id),
+                           friend=Friend.select(user_id)
                            )
 
 
@@ -127,13 +127,16 @@ def friend():
 
 @app.route('/friend/remove/<friend_id>/<id>')
 def remove_friend(friend_id, id):
-    friends.pop(friend_id)
+    # friends.pop(friend_id)
+    pass
 
 
 @app.route('/friend/add/<friend_id>/<id>')
 def add_friend(friend_id, id):
-    friends[friend_id] = "newFriend"
+    # friends[friend_id] = "newFriend"
+    pass
 
 @app.route('/update/name/<name>/<id>')
 def update_name(name, id):
-    Me["name"] = name
+    # Me["name"] = name
+    pass
