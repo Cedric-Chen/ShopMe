@@ -7,4 +7,4 @@ class Friend(DMFriend):
     def __init__(self):
         super().__init__(self)
 
-model = Friend()
+friend = Friend()

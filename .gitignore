@@ -98,3 +98,7 @@ ENV/
 
 # cedric specific
 package_list.txt
+
+.idea
+static
+.DS_Store

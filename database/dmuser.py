@@ -27,13 +27,13 @@ class DMUser(DataModel):
         return result
 
     def delete(self, _id, user):
-        from datamodel.elite_years import model as m_elite_years
-        from datamodel.friend import model as m_friend
-        from datamodel.review import model as m_review
-        from datamodel.tip import model as m_tip
-        for model in [m_elite_years, m_friend]:
+        from datamodel.elite_years import elite_years
+        from datamodel.friend import friend
+        from datamodel.review import review
+        from datamodel.tip import tip
+        for model in [elite_years, friend]:
             model.delete(_id, {})
-        for model in [m_review, m_tip]:
+        for model in [review, tip]:
             model.delete(u'*', _id, {})
         self.query_sql = u'DELETE FROM `user` where id="%s"' % _id
         super().execute()
