@@ -28,13 +28,14 @@ class Table(MetaDatabase):
     def execute(self, query):
         db = DbCtx()
         with db() as cursor:
-            app.logger.info(u'[EXECUTE] %s' % (query))
+            app.logger.debug(u'[EXECUTE] %s' % (query))
             cursor.execute(query)
+            db.commit()
 
     def select(self, query):
         db = DbCtx()
         with db() as cursor:
-            app.logger.info(u'[SELECT] %s' % (query))
+            app.logger.debug(u'[SELECT] %s' % (query))
             cursor.execute(query)
             return cursor.fetchall()
 
