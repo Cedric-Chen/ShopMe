@@ -19,3 +19,5 @@ from www import assets
 # from database.mysql.engine import create_database
 # create_database(config_db)
 # sql_attr = [u'Field', u'Type', u'Null', u'Key', u'Default', u'Extra']
+
+import views
