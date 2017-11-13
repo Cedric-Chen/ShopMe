@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6e83e12b-9732-4882-9d80-248e7e3147e2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/user.html" afterPath="$PROJECT_DIR$/templates/user.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,7 +70,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="url.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="url.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/url.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
@@ -101,14 +102,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="user.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/user.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="138" column="70" lean-forward="false" selection-start-line="138" selection-start-column="70" selection-end-line="138" selection-end-column="70" />
+            <state relative-caret-position="423">
+              <caret line="158" column="66" lean-forward="false" selection-start-line="158" selection-start-column="66" selection-end-line="158" selection-end-column="66" />
               <folding>
                 <element signature="n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1510549544000" expanded="true" signature="20908:20943" ph="..." />
+                <marker date="1510549960000" expanded="true" signature="20956:20991" ph="..." />
               </folding>
             </state>
           </provider>
@@ -156,8 +157,8 @@
         <option value="$PROJECT_DIR$/www/views_merchant.py" />
         <option value="&lt;577bb8ef-6d55-4d43-9c84-a9738ebd0816&gt;/etc/httpd/conf.d/shopme.conf" />
         <option value="$PROJECT_DIR$/shopme.wsgi" />
-        <option value="$PROJECT_DIR$/templates/user.html" />
         <option value="$PROJECT_DIR$/www/url.py" />
+        <option value="$PROJECT_DIR$/templates/user.html" />
       </list>
     </option>
   </component>
@@ -585,7 +586,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510549643570</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="adjust">
+      <created>1510549647161</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1510549647161</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -859,23 +867,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="138" column="70" lean-forward="false" selection-start-line="138" selection-start-column="70" selection-end-line="138" selection-end-column="70" />
-          <folding>
-            <element signature="n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1510549544000" expanded="true" signature="20908:20943" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/url.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="85" column="32" lean-forward="false" selection-start-line="85" selection-start-column="32" selection-end-line="85" selection-end-column="32" />
           <folding>
             <element signature="e#43#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="423">
+          <caret line="158" column="66" lean-forward="false" selection-start-line="158" selection-start-column="66" selection-end-line="158" selection-end-column="66" />
+          <folding>
+            <element signature="n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <marker date="1510549960000" expanded="true" signature="20956:20991" ph="..." />
           </folding>
         </state>
       </provider>
