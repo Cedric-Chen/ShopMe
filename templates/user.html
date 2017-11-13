@@ -96,7 +96,7 @@
 
            <div class="panel panel-default">
                 <div class="panel-heading">{{ user.name }}'s Friends</div>
-                   <div class="input-group col-sm-8">
+                   <div class="input-group col-md-12">
                         <input id="friend_id" type="text" class="form-control input-lg"
                                placeholder="Enter your friend's ID"/>
                         <span class="input-group-btn">
@@ -109,7 +109,7 @@
                     <div class="container panel-default">
                         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap3.min.css') }}"/>
                             <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
-                        <div class="col-sm-8">
+                        <div class="col-8">
                         {% for field,value in friend.items() %}
 
                             <div class="row user-row">
@@ -118,7 +118,7 @@
                                          src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
                                          alt="User Pic">
                                 </div>
-                                <div class="col-sm-8">
+                                <div class="col-8">
                                     <strong>{{value}}</strong><br>
                                     <span class="text-muted">User ID: {{field}}</span>
                                 </div>
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                             <div class="row user-infos {{field}}">
-                                <div class="col-sm-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                                <div class="col-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">User information</h3>
