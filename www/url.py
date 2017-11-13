@@ -84,6 +84,7 @@ def user(user_id):
     friends = {}
     for id in Friend.select(user_id):
         friends[id] = User.select(id)
+        print(friends[id])
         if friends[id]["name"] == "":
             friends[id]["name"] = "anonymous"
     return render_template('user.html',
