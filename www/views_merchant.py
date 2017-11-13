@@ -41,7 +41,7 @@ def update_merchant_info():
     business = {}
 
     newname = request.form['newname']
-    if newname != '' and newlongitude != merchant.business['name']:
+    if newname != '' and newname != merchant.business['name']:
         business['name'] = newname
 
     newopenornot = request.form.get('newopenornot')
@@ -53,22 +53,22 @@ def update_merchant_info():
             business['is_open'] = 0
 
     newstreet = request.form['newstreet']
-    if newstreet != '' and newlongitude != merchant.business['street']:
-        business['street'] = newstreet
+    if newstreet != '' and newstreet != merchant.business['address']:
+        business['address'] = newstreet
     newcity = request.form['newcity']
-    if newcity != '' and newlongitude != merchant.business['city']:
+    if newcity != '' and newcity != merchant.business['city']:
         business['city'] = newname
     newstate = request.form['newstate']
-    if newstate != '' and newlongitude != merchant.business['state']:
+    if newstate != '' and newstate != merchant.business['state']:
         business['state'] = newstate
     newneighborhood = request.form['newneighborhood']
-    if newneighborhood != '' and newlongitude != merchant.business['neighborhood']:
+    if newneighborhood != '' and newneighborhood != merchant.business['neighborhood']:
         business['neighborhood'] = newneighborhood
     newpostal_code = request.form['newpostal_code']
-    if newpostal_code != '' and newlongitude != merchant.business['postal_code']:
+    if newpostal_code != '' and newpostal_code != merchant.business['postal_code']:
         business['postal_code'] = newpostal_code
-    newlatitude = request.form['n from app import aewlatitude']
-    if newlatitude != '' and newlongitude != merchant.business['latitude']:
+    newlatitude = request.form['newlatitude']
+    if newlatitude != '' and newlatitude != merchant.business['latitude']:
         business['latitude'] = newlatitude
     newlongitude = request.form['newlongitude']
     if newlongitude != '' and newlongitude != merchant.business['longitude']:
@@ -113,4 +113,4 @@ def update_merchant_hours():
         if newvalue != '-' and newvalue != merchant.hours[date]:
             hours[date] = newvalue
 
-    return str(hours)
+    return redirect(request.referrer)
