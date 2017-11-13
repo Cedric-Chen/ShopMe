@@ -67,8 +67,7 @@ def update_merchant_info():
     newpostal_code = request.form['newpostal_code']
     if newpostal_code != '' and newlongitude != merchant.business['postal_code']:
         business['postal_code'] = newpostal_code
-    newlatitude = request.form['n
-from app import aewlatitude']
+    newlatitude = request.form['n from app import aewlatitude']
     if newlatitude != '' and newlongitude != merchant.business['latitude']:
         business['latitude'] = newlatitude
     newlongitude = request.form['newlongitude']

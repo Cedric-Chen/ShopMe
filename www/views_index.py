@@ -2,8 +2,8 @@ from flask import render_template, redirect, url_for, request
 from config import app
 
 # other views
-import views_merchant
-import views_utility
+from www import views_merchant
+from www import views_utility
 
 @app.route('/')
 @app.route('/index')

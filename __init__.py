@@ -16,7 +16,6 @@ app.logger.info(u'Restarting @ {}'.format(datetime.utcnow()))
 from www import assets
 # create database
 
-import views
 from config import config_db
 from database.mysql.engine import create_database
 create_database(config_db)

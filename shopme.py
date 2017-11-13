@@ -10,7 +10,6 @@ from www.url import *
 from www import assets, \
     views_index, views_merchant, views_merchant
 
-import views
 
 @app.route(u'/hello_world/')
 @app.route(u'/hello_world/<name>/')

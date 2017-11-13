@@ -81,9 +81,14 @@ def information(business_id=None):
 
 @app.route('/user/<user_id>')
 def user(user_id):
+    friends = {}
+    for id in Friend.select(user_id):
+        friend = User.select(id)
+        if 'name' in friend:
+            friends[id] = friend
     return render_template('user.html',
                            user=User.select(user_id),
-                           friend=Friend.select(user_id)
+                           friend=friends
                            )
 
 
@@ -97,16 +102,15 @@ def friend():
 
 @app.route('/friend/remove/<friend_id>/<id>')
 def remove_friend(friend_id, id):
-    # friends.pop(friend_id)
-    pass
+    Friend.delete(id, [friend_id])
 
 
 @app.route('/friend/add/<friend_id>/<id>')
 def add_friend(friend_id, id):
-    # friends[friend_id] = "newFriend"
-    pass
+    Friend.insert(id, [friend_id])
 
 @app.route('/update/name/<name>/<id>')
 def update_name(name, id):
+    User.update(id,{"name":name})
     # Me["name"] = name
     pass
