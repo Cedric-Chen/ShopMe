@@ -59,7 +59,7 @@
       <file leaf-file-name="dmuser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/database/dmuser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-606">
+            <state relative-caret-position="-780">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <marker date="1510539264000" expanded="true" signature="1442:1474" ph="DELETE FROM " />
@@ -73,8 +73,8 @@
       <file leaf-file-name="url.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/url.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="104" column="33" lean-forward="false" selection-start-line="104" selection-start-column="33" selection-end-line="104" selection-end-column="33" />
+            <state relative-caret-position="410">
+              <caret line="111" column="38" lean-forward="true" selection-start-line="111" selection-start-column="38" selection-end-line="111" selection-end-column="38" />
               <folding>
                 <element signature="e#43#52#0" expanded="true" />
               </folding>
@@ -606,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510549964759</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="adjust">
+      <created>1510550328829</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1510550328829</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -860,26 +867,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/datamodel/user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/dmuser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-606">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1510539264000" expanded="true" signature="1442:1474" ph="DELETE FROM " />
-            <marker date="1510539264000" expanded="true" signature="1792:1825" ph="INSERT INTO `user`... " />
-            <marker date="1510539264000" expanded="true" signature="2115:2149" ph="UPDATE `user... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/user.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="423">
@@ -904,10 +891,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/datamodel/user.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/dmuser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-780">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1510539264000" expanded="true" signature="1442:1474" ph="DELETE FROM " />
+            <marker date="1510539264000" expanded="true" signature="1792:1825" ph="INSERT INTO `user`... " />
+            <marker date="1510539264000" expanded="true" signature="2115:2149" ph="UPDATE `user... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/url.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="104" column="33" lean-forward="false" selection-start-line="104" selection-start-column="33" selection-end-line="104" selection-end-column="33" />
+        <state relative-caret-position="410">
+          <caret line="111" column="38" lean-forward="true" selection-start-line="111" selection-start-column="38" selection-end-line="111" selection-end-column="38" />
           <folding>
             <element signature="e#43#52#0" expanded="true" />
           </folding>
