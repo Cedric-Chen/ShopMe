@@ -92,70 +92,11 @@
 
                 </div>
             </div>
-            <!--<div class="panel panel-default target">-->
-                <!--<div class="panel-heading" contenteditable="false">Pets I Own</div>-->
-                <!--<div class="panel-body">-->
-                  <!--<div class="row">-->
-				<!--<div class="col-md-4">-->
-					<!--<div class="thumbnail">-->
-						<!--<img alt="300x200" src="http://lorempixel.com/600/200/people">-->
-						<!--<div class="caption">-->
-							<!--<h3>-->
-								<!--Rover-->
-							<!--</h3>-->
-							<!--<p>-->
-								<!--Cocker Spaniel who loves treats.-->
-							<!--</p>-->
-							<!--<p>-->
-
-							<!--</p>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</div>-->
-				<!--<div class="col-md-4">-->
-					<!--<div class="thumbnail">-->
-						<!--<img alt="300x200" src="http://lorempixel.com/600/200/city">-->
-						<!--<div class="caption">-->
-							<!--<h3>-->
-								<!--Marmaduke-->
-							<!--</h3>-->
-							<!--<p>-->
-								<!--Is just another friendly dog.-->
-							<!--</p>-->
-							<!--<p>-->
-
-							<!--</p>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</div>-->
-				<!--<div class="col-md-4">-->
-					<!--<div class="thumbnail">-->
-						<!--<img alt="300x200" src="http://lorempixel.com/600/200/sports">-->
-						<!--<div class="caption">-->
-							<!--<h3>-->
-								<!--Rocky-->
-							<!--</h3>-->
-							<!--<p>-->
-								<!--Loves catnip and naps. Not fond of children.-->
-							<!--</p>-->
-							<!--<p>-->
-
-							<!--</p>-->
-						<!--</div>-->
-                <!--</div>-->
-
-            <!--</div>-->
-
-            <!--</div>-->
-
-        <!--</div>-->
-
-    <!--</div>-->
 
 
            <div class="panel panel-default">
                 <div class="panel-heading">{{ user.name }}'s Friends</div>
-                   <div class="input-group col-md-12">
+                   <div class="input-group col-sm-8">
                         <input id="friend_id" type="text" class="form-control input-lg"
                                placeholder="Enter your friend's ID"/>
                         <span class="input-group-btn">
@@ -168,7 +109,7 @@
                     <div class="container panel-default">
                         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap3.min.css') }}"/>
                             <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
-                        <div class="col-8">
+                        <div class="col-sm-8">
                         {% for field,value in friend.items() %}
 
                             <div class="row user-row">
@@ -177,7 +118,7 @@
                                          src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
                                          alt="User Pic">
                                 </div>
-                                <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+                                <div class="col-sm-8">
                                     <strong>{{value}}</strong><br>
                                     <span class="text-muted">User ID: {{field}}</span>
                                 </div>
@@ -186,7 +127,7 @@
                                 </div>
                             </div>
                             <div class="row user-infos {{field}}">
-                                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                                <div class="col-sm-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">User information</h3>
