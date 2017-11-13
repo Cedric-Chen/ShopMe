@@ -3,16 +3,17 @@
 
 from database.datamodel import DataModel
 
+
 class DMBusiness(DataModel):
     def __init__(self, cls):
         super().__init__(cls)
         self.dm_attr = [u'id', u'name', u'neighborhood', u'address', u'city', \
-            u'state', u'postal_code', u'latitude', u'longitude', \
-            u'stars', u'review_count', u'is_open']
+                        u'state', u'postal_code', u'latitude', u'longitude', \
+                        u'stars', u'review_count', u'is_open']
 
     def select(self, business_id):
         self.query_sql = u'SELECT %s FROM business WHERE id = "%s"' \
-            % (u', '.join(self.dm_attr), business_id)
+                         % (u', '.join(self.dm_attr), business_id)
         ret = super().select()
         result = dict()
         for entry in ret:
@@ -21,16 +22,16 @@ class DMBusiness(DataModel):
         return result
 
     def delete(self, business_id, business):
-        from datamodel.attribute import model as m_attribute
-        from datamodel.category import model as m_category
-        from datamodel.checkin import model as m_checkin
-        from datamodel.hours import model as m_hours
-        from datamodel.photo import model as m_photo
-        from datamodel.review import model as m_review
-        from datamodel.tip import model as m_tip
-        for model in [m_attribute, m_category, m_checkin, m_hours, m_photo]:
+        from datamodel.attribute import attribute
+        from datamodel.category import category
+        from datamodel.checkin import checkin
+        from datamodel.hours import hours
+        from datamodel.photo import photo
+        from datamodel.review import review
+        from datamodel.tip import tip
+        for model in [attribute, category, checkin, hours, photo]:
             model.delete(business_id, {})
-        for model in [m_review, m_tip]:
+        for model in [review, tip]:
             model.delete(business_id, u'*', {})
         self.query_sql = u'DELETE FROM `business` WHERE id="%s"' % business_id
         super().execute()

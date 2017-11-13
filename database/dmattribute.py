@@ -42,9 +42,9 @@ class DMAttribute(DataModel):
             super().execute()
 
     def insert(self, business_id, attribute):
-        from datamodel.business import model as m_business
-        if len(m_business.select(business_id)) < 1:
-            m_business.insert(business_id, {})
+        from datamodel.business import business
+        if len(business.select(business_id)) < 1:
+            business.insert(business_id, {})
         for key, val in attribute.items():
             self.query_sql = \
                 u'INSERT INTO `attribute`(`business_id`, `name`, `value`) ' \
