@@ -7,4 +7,4 @@ class CheckIn(DMCheckIn):
     def __init__(self):
         super().__init__(self)
 
-model = CheckIn()
+checkin = CheckIn()

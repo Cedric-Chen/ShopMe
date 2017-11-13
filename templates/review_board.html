@@ -1,0 +1,117 @@
+{# required datemodel: pagination, review #}
+<style>
+.review {
+    border: 2px solid #ddd;
+    display: flex;
+    overflow: hidden;
+}
+</style>
+{% for key in review:%}
+<div id="review-{{key}}" name="review" class="row clearfix review">
+    <div class="col-md-11 column">
+        <h2>
+            {{ review[key]["date"] }}
+        </h2>
+        <p>
+            {{ review[key]["text"] }}
+        </p>
+        <p>
+            {% if "stars" in review[key] %}
+                <span class="label label-primary">stars: <span name="review-{{key}}-stars">{{ review[key]["stars"] }}</span></span>
+            {% endif %}
+            {% if "useful" in review[key] %}
+                <span class="label label-success">useful: <span name="review-{{key}}-useful">{{ review[key]["useful"] }}</span></span>
+            {% endif %}
+            {% if "funny" in review[key] %}
+                <span class="label label-danger">funny: <span name="review-{{key}}-funny">{{ review[key]["funny"] }}</span></span>
+            {% endif %}
+            {% if "cool" in review[key] %}
+                <span class="label label-info">cool: <span name="review-{{key}}-cool">{{ review[key]["cool"] }}</span></span>
+            {% endif %}
+        <p>
+             <a class="btn" href="#">View details »</a>
+        </p>
+    </div>
+    <div class="col-md-1 column" style="padding: 15px">
+        <div class="btn-group btn-group-sm btn-group-vertical" data-toggle="buttons">
+            {% if "stars" in review[key] %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'stars')">
+                    <input type="checkbox" autocomplete="off">
+                    <em class="glyphicon glyphicon-star"></em>
+                    <span name="review-{{key}}-stars" value=true>{{ review[key]["stars"] }}</span>
+                </button>
+            {% endif %}
+            {% if "useful" in review[key] %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'useful')">
+                    <input type="checkbox" autocomplete="off">
+                    <em class="glyphicon glyphicon-thumbs-up"></em>
+                    <span name="review-{{key}}-useful" value=true>{{ review[key]["useful"] }}</span>
+                </button>
+            {% endif %}
+            {% if "funny" in review[key] %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'funny')">
+                    <input type="checkbox" autocomplete="off">
+                    <em class="glyphicon glyphicon-heart"></em>
+                    <span name="review-{{key}}-funny" value=true> {{ review[key]["funny"] }}</span>
+                </button>
+            {% endif %}
+            {% if "cool" in review[key] %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'cool')">
+                    <input type="checkbox" autocomplete="off">
+                    <em class="glyphicon glyphicon-sunglasses"></em>
+                    <span name="review-{{key}}-cool" value=true> {{ review[key]["cool"] }}</span>
+                </button>
+            {% endif %}
+            <button class="btn btn-default" type="button" onclick="hideReview('#review-{{key}}')">
+                <em class="glyphicon glyphicon-eye-close"></em>
+            </button>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="row clearfix">
+    {% if pagination["page_no"]|length > 1 %}
+    <ul class="pagination" style="display: flex; justify-content: center;">
+        <li>
+             <a href="#">Prev</a>
+        </li>
+        {% for pageno in pagination["page_no"] %}
+        <li>
+             <a href="#">{{ pageno }}</a>
+        </li>
+        {% endfor %}
+        <li>
+             <a href="#">Next</a>
+        </li>
+    </ul>
+    {% endif %}
+</div>
+<script>
+    function toggleReviewCount(key, btnName) {
+        var name = "review-" + key + "-" + btnName;
+        if(document.getElementsByName(name)[1].getAttribute("value") == "true") {
+            updateReviewCount(name, btnName, 1, false);
+        } else {
+            updateReviewCount(name, btnName, -1, true);
+        }
+    };
+    function updateReviewCount(name, btnName, value, state) {
+        var cuurent = document.getElementsByName(name)[0].innerHTML;
+            document.getElementsByName(name)[0].innerHTML = parseInt(cuurent, 10) + value;
+            document.getElementsByName(name)[1].innerHTML = parseInt(cuurent, 10) + value;
+            document.getElementsByName(name)[1].setAttribute("value", state);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status != 200) {
+                alert("Update " + btnName + "Failed!");
+            }
+        };
+        xhttp.open("GET", "{{ url_for('review_update') }}" + "{{ business['id'] }}"+ ":" + btnName + ":" + value, true);
+        xhttp.send();
+    };
+    function hideReview(elem_id) {
+        $(elem_id).toggle(500);
+    };
+</script>
