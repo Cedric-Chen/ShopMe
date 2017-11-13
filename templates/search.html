@@ -62,15 +62,10 @@
         float: left;
         margin-right: 60px;
       }
-      .map-wrapper{
-        position:fixed;
-        width:300px;
-        height:350px;
-        zoom: 1;
-        z-index: 1;
-        margin-top: 0px;
-        padding-top: 10px;
-        margin-left: 25px;
+      #googleMap{
+        width: 300px;
+        height: 400px;
+        background-color: grey;
       }
     </style>
 
@@ -237,20 +232,9 @@
             <!-- /sidebar -->
             <div class="col-xs-4 col-sm-4 col-lg-4">
               <div class="container col-xs-12 col-sm-12 col-lg-12">
-              <div class="map-wrapper">
+              <div id="googleMap"></div>
                 <!-- include 'google-map.html' here -->
-                <div class="list-group" >
-                  <a href="#" class="list-group-item active">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                  <a href="#" class="list-group-item">Link</a>
-                </div>
+                {% include "googlemap.html" %}
             </div>
             <div>
             </div> <!--/.sidebar-offcanvas-->
@@ -289,6 +273,7 @@
          });
     });
     </script>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
     <!-- <script src="{{ url_for('static', filename='js/offcanvas.js') }}"></script> -->
