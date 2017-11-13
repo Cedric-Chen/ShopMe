@@ -1,0 +1,23 @@
+<script>
+function myMap() {
+var myCenter = new google.maps.LatLng({{ business['latitude'] }}, {{ business['longitude'] }});
+var mapOptions = {
+  center: myCenter,
+  draggable:true,
+  mapTypeControl: true,
+  mapTypeId:google.maps.MapTypeId.ROADMAP,
+  overviewMapControl: true,
+  panControl: true,
+  rotateControl: true,
+  scaleControl: true,
+  scrollwheel:true,
+  streetViewControl: true,
+  zoomControl: true,
+  zoom: 12
+};
+var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+var marker = new google.maps.Marker({position:myCenter});
+marker.setMap(map);
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyKxTcsSfNGBm_8ZxP_mz1OFX2sG1VBxg&callback=myMap"></script>

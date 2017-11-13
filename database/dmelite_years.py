@@ -28,9 +28,9 @@ class DMElite_Years(DataModel):
             super().execute()
 
     def insert(self, user_id, elite_years):
-        from datamodel.user import model as m_user
-        if len(m_user.select(user_id)) < 1:
-            m_user.insert(user_id, {})
+        from datamodel.user import user
+        if len(user.select(user_id)) < 1:
+            user.insert(user_id, {})
         for key in elite_years:
             self.query_sql = \
                 u'INSERT INTO `elite_years`(`user_id`, `year`) ' \

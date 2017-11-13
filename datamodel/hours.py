@@ -7,4 +7,4 @@ class Hours(DMHours):
     def __init__(self):
         super().__init__(self)
 
-model = Hours()
+hours = Hours()

@@ -7,4 +7,4 @@ class Business(DMBusiness):
     def __init__(self):
         super().__init__(self)
 
-model = Business()
+business = Business()
