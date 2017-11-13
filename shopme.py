@@ -9,6 +9,8 @@ from config import app, app_debug, log_dir
 from www.url import *
 from www import assets
 
+import views
+
 @app.route(u'/hello_world/')
 @app.route(u'/hello_world/<name>/')
 def hello_world(name=None):
