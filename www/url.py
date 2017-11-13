@@ -102,12 +102,14 @@ def friend():
 
 @app.route('/friend/remove/<friend_id>/<id>')
 def remove_friend(friend_id, id):
+    Friend.delete(id, [friend_id])
     # friends.pop(friend_id)
     pass
 
 
 @app.route('/friend/add/<friend_id>/<id>')
 def add_friend(friend_id, id):
+    Friend.insert(id, [friend_id])
     # friends[friend_id] = "newFriend"
     pass
 
