@@ -20,219 +20,7 @@
 
 </head>
 <body>
-
-<hr class="">
-<div class="container target">
-    <div class="row">
-        <div class="col-sm-10">
-             <h1 class="" value="{{user.id}}" id="editable">{{ user.name }}</h1>
-
-          <button type="button" class="btn btn-success">Follow</button>  <button type="button" class="btn btn-info">Send me a message</button>
-<br>
-        </div>
-      <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.rlsandbox.com/img/profile.jpg"></a>
-
-        </div>
-    </div>
-  <br>
-    <div class="row">
-        <div class="col-sm-4">
-            <!--left col-->
-            <ul class="list-group">
-                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                <li class="list-group-item text-left">
-                    <span class="pull-left"><strong class="">Joined</strong>&nbsp;&nbsp;
-                    </span> {{user.yelping_since}}
-                </li>
-                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Last seen  </strong>&nbsp;&nbsp;</span> Yesterday</li>
-                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">id  </strong>&nbsp;&nbsp;</span> {{user.id}}</li>
-              <li class="list-group-item text-left"><span class="pull-left"><strong class="">Average Stars </strong>&nbsp;&nbsp;</span> {{user.average_stars}}
-
-                      </li>
-            </ul>
-            <p>
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
-
-                </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Reveiw Count</strong></span> {{user.review_count}}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Useful</strong></span> {{user.useful}}</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Fans</strong></span> {{user.fans}}</li>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Funny</strong></span> {{user.funny}}</li>
-            </ul>
-            <!--<div class="panel panel-default">-->
-                <!--<div class="panel-heading">Social Media</div>-->
-                <!--<div class="panel-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i>-->
-                    <!--<i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>-->
-
-                <!--</div>-->
-            <!--</div>-->
-        </div>
-        <!--/col-3-->
-        <div class="col-sm-8" style="" contenteditable="false">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{ user.name }}'s Bio</div>
-                <div class="panel-body"> Hi! This is {{ user.name}}.
-
-                </div>
-            </div>
-
-
-           <div class="panel panel-default">
-                <div class="panel-heading">{{ user.name }}'s Friends</div>
-                   <div class="input-group col-md-12">
-                        <input id="friend_id" type="text" class="form-control input-lg"
-                               placeholder="Enter your friend's ID"/>
-                        <span class="input-group-btn">
-                            <button id="add_friend" class="btn btn-info btn-lg" type="button">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </button>
-                        </span>
-                    </div>
-               <p></p>
-                    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap3.min.css') }}"/>
-                    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
-                     {% for field,value in friend.items() %}
-
-                        <div class="row user-row col-xs-offset-0 col-sm-offset-0 col-md-offset-0.5">
-                            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
-                                <img class="img-circle"
-                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
-                                     alt="User Pic">
-                            </div>
-                            <div class="col-md-10">
-                                <strong>{{value.name}}</strong><br>
-                                <span class="text-muted">User ID: {{field}}</span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".{{field}}">
-                                <i class="glyphicon glyphicon-chevron-down text-muted"></i>
-                            </div>
-                        </div>
-                        <div class="row user-infos {{field}}">
-                            <div class="col-md-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">User information</h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
-                                                <img class="img-circle"
-                                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
-                                                     alt="User Pic">
-                                            </div>
-                                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
-                                                <img class="img-circle"
-                                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
-                                                     alt="User Pic">
-                                            </div>
-                                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
-                                                <strong>{{value.name}}</strong><br>
-                                                <dl>
-                                                    <dt>Review count</dt>
-                                                    <dd>{{value.review_count}}</dd>
-                                                    <dt>Yelping since:</dt>
-                                                    <dd>{{value.yelping_since}}</dd>
-                                                    <dt>Fans</dt>
-                                                    <dd>{{value.fans}}</dd>
-                                                    <dt>Useful</dt>
-                                                    <dd>{{value.useful}}</dd>
-                                                </dl>
-                                            </div>
-                                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
-                                                <strong>{{value.name}}</strong><br>
-                                                <table class="table table-user-information">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Review count</td>
-                                                        <td>{{value.review_count}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Yelping since:</td>
-                                                        <td>{{value.yelping_since}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Fans</td>
-                                                        <td>{{value.fans}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Useful</td>
-                                                        <td>{{value.useful}}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <button class="btn btn-sm btn-primary" type="button"
-                                                data-toggle="tooltip"
-                                                data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
-                                        <span class="pull-right">
-                                            <button class="btn btn-sm btn-warning" type="button"
-                                                    data-toggle="tooltip"
-                                                    data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger" type="remove_button"
-                                                    data-toggle="tooltip" value="{{field}}"
-                                                    data-original-title="Remove this user"
-                                                    onclick="removeFriend(this.value)">
-                                                <i class="glyphicon glyphicon-remove"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <script>
-                            function removeFriend(val){
-                                var url = window.location.href.split('/')
-                                var id = url[url.length-1]
-                                $.get("/friend/remove/"+val+ '/' + id)
-                                history.go(0)
-                            }
-                        </script>
-
-                    {% endfor %}
-
-           </div>
-        </div>
-    </div>
-
-
-            <div id="push"></div>
-        </div>
-        <!--<footer id="footer">-->
-            <!--<div class="row-fluid">-->
-                <!--<div class="span3">-->
-                    <!--<p>-->
-                        <!--<a href="http://twitter.com/Bootply" rel="nofollow" title="Bootply on Twitter" target="ext">Twitter</a><br>-->
-                        <!--<a href="https://plus.google.com/+Bootply" rel="publisher">Google+</a><br>-->
-                        <!--<a href="http://facebook.com/Bootply" rel="nofollow" title="Bootply on Facebook" target="ext">Facebook</a><br>-->
-                        <!--<a href="https://github.com/iatek/bootply" title="Bootply on GitHub" target="ext">GitHub</a><br>-->
-                    <!--</p>-->
-                <!--</div>-->
-                <!--<div class="span3">-->
-                    <!--<p>-->
-                        <!--<a data-toggle="modal" role="button" href="#contactModal">Contact Us</a><br>-->
-                        <!--<a href="/tags">Tags</a><br>-->
-                        <!--<a href="/bootstrap-community">Community</a><br>-->
-                        <!--<a href="/upgrade">Upgrade</a><br>-->
-                    <!--</p>-->
-                <!--</div>-->
-                <!--<div class="span3">-->
-                    <!--<p>-->
-                        <!--<a href="http://www.bootbundle.com" target="ext" rel="nofollow">BootBundle</a><br>-->
-                        <!--<a href="https://bootstrapbay.com/?ref=skelly" target="_ext" rel="nofollow" title="Premium Bootstrap themes">Bootstrap Themes</a><br>-->
-                        <!--<a href="http://www.bootstrapzero.com" target="_ext" rel="nofollow" title="Free Bootstrap templates">BootstrapZero</a><br>-->
-                        <!--<a href="http://upgrade-bootstrap.bootply.com/">2.x Upgrade Tool</a><br>-->
-                    <!--</p>-->
-                <!--</div>-->
-                <!--<div class="span3">-->
-                    <!--<span class="pull-right">©Copyright 2013-2014 <a href="/" title="The Bootstrap Playground">Bootply</a> | <a href="/about#privacy">Privacy</a></span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</footer>-->
-
-        <script src="https://www.codeply.com/plugins/bootstrap-select.min¶.js"></script>
+<script src="https://www.codeply.com/plugins/bootstrap-select.min¶.js"></script>
         <script src="static/vendor/jquery/jquery.min.js"></script>
         <script src="https://www.codeply.com/codemirror/jquery.codemirror.js"></script>
         <script src="https://www.codeply.com/beautifier.js"></script>
@@ -525,6 +313,219 @@
 
 
 	<script src="https://www.codeply.com/plugins/bootstrap-pager.js"></script>
+
+<hr class="">
+<div class="container target">
+    <div class="row">
+        <div class="col-sm-10">
+             <h1 class="" value="{{user.id}}" id="editable">{{ user.name }}</h1>
+
+          <button type="button" class="btn btn-success">Follow</button>  <button type="button" class="btn btn-info">Send me a message</button>
+<br>
+        </div>
+      <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.rlsandbox.com/img/profile.jpg"></a>
+
+        </div>
+    </div>
+  <br>
+    <div class="row">
+        <div class="col-sm-4">
+            <!--left col-->
+            <ul class="list-group">
+                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                <li class="list-group-item text-left">
+                    <span class="pull-left"><strong class="">Joined</strong>&nbsp;&nbsp;
+                    </span> {{user.yelping_since}}
+                </li>
+                <li class="list-group-item text-left"><span class="pull-left"><strong class="">Last seen  </strong>&nbsp;&nbsp;</span> Yesterday</li>
+                    <li class="list-group-item text-left"><span class="pull-left"><strong class="">id  </strong>&nbsp;&nbsp;</span> {{user.id}}</li>
+              <li class="list-group-item text-left"><span class="pull-left"><strong class="">Average Stars </strong>&nbsp;&nbsp;</span> {{user.average_stars}}
+
+                      </li>
+            </ul>
+            <p>
+            <ul class="list-group">
+                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
+
+                </li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Reveiw Count</strong></span> {{user.review_count}}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Useful</strong></span> {{user.useful}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Fans</strong></span> {{user.fans}}</li>
+                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Funny</strong></span> {{user.funny}}</li>
+            </ul>
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">Social Media</div>-->
+                <!--<div class="panel-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i>-->
+                    <!--<i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <!--/col-3-->
+        <div class="col-sm-8" style="" contenteditable="false">
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ user.name }}'s Bio</div>
+                <div class="panel-body"> Hi! This is {{ user.name}}.
+
+                </div>
+            </div>
+
+
+           <div class="panel panel-default">
+                <div class="panel-heading">{{ user.name }}'s Friends</div>
+                   <div class="input-group col-md-12">
+                        <input id="friend_id" type="text" class="form-control input-lg"
+                               placeholder="Enter your friend's ID"/>
+                        <span class="input-group-btn">
+                            <button id="add_friend" class="btn btn-info btn-lg" type="button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </span>
+                    </div>
+               <p></p>
+                    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap3.min.css') }}"/>
+                    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
+                     {% for field,value in friend.items() %}
+
+                        <div class="row user-row col-xs-offset-0 col-sm-offset-0 col-md-offset-0.5">
+                            <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                                <img class="img-circle"
+                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
+                                     alt="User Pic">
+                            </div>
+                            <div class="col-md-10">
+                                <strong>{{value.name}}</strong><br>
+                                <span class="text-muted">User ID: {{field}}</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".{{field}}">
+                                <i class="glyphicon glyphicon-chevron-down text-muted"></i>
+                            </div>
+                        </div>
+                        <div class="row user-infos {{field}}">
+                            <div class="col-md-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">User information</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                                <img class="img-circle"
+                                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
+                                                     alt="User Pic">
+                                            </div>
+                                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+                                                <img class="img-circle"
+                                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
+                                                     alt="User Pic">
+                                            </div>
+                                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+                                                <strong>{{value.name}}</strong><br>
+                                                <dl>
+                                                    <dt>Review count</dt>
+                                                    <dd>{{value.review_count}}</dd>
+                                                    <dt>Yelping since:</dt>
+                                                    <dd>{{value.yelping_since}}</dd>
+                                                    <dt>Fans</dt>
+                                                    <dd>{{value.fans}}</dd>
+                                                    <dt>Useful</dt>
+                                                    <dd>{{value.useful}}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                                                <strong>{{value.name}}</strong><br>
+                                                <table class="table table-user-information">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>Review count</td>
+                                                        <td>{{value.review_count}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Yelping since:</td>
+                                                        <td>{{value.yelping_since}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fans</td>
+                                                        <td>{{value.fans}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Useful</td>
+                                                        <td>{{value.useful}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <button class="btn btn-sm btn-primary" type="button"
+                                                data-toggle="tooltip"
+                                                data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
+                                        <span class="pull-right">
+                                            <button class="btn btn-sm btn-warning" type="button"
+                                                    data-toggle="tooltip"
+                                                    data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger" type="remove_button"
+                                                    data-toggle="tooltip" value="{{field}}"
+                                                    data-original-title="Remove this user"
+                                                    onclick="removeFriend(this.value)">
+                                                <i class="glyphicon glyphicon-remove"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function removeFriend(val){
+                                var url = window.location.href.split('/')
+                                var id = url[url.length-1]
+                                $.get("/friend/remove/"+val+ '/' + id)
+                                history.go(0)
+                            }
+                        </script>
+
+                    {% endfor %}
+
+           </div>
+        </div>
+    </div>
+
+
+            <div id="push"></div>
+        </div>
+        <!--<footer id="footer">-->
+            <!--<div class="row-fluid">-->
+                <!--<div class="span3">-->
+                    <!--<p>-->
+                        <!--<a href="http://twitter.com/Bootply" rel="nofollow" title="Bootply on Twitter" target="ext">Twitter</a><br>-->
+                        <!--<a href="https://plus.google.com/+Bootply" rel="publisher">Google+</a><br>-->
+                        <!--<a href="http://facebook.com/Bootply" rel="nofollow" title="Bootply on Facebook" target="ext">Facebook</a><br>-->
+                        <!--<a href="https://github.com/iatek/bootply" title="Bootply on GitHub" target="ext">GitHub</a><br>-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<div class="span3">-->
+                    <!--<p>-->
+                        <!--<a data-toggle="modal" role="button" href="#contactModal">Contact Us</a><br>-->
+                        <!--<a href="/tags">Tags</a><br>-->
+                        <!--<a href="/bootstrap-community">Community</a><br>-->
+                        <!--<a href="/upgrade">Upgrade</a><br>-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<div class="span3">-->
+                    <!--<p>-->
+                        <!--<a href="http://www.bootbundle.com" target="ext" rel="nofollow">BootBundle</a><br>-->
+                        <!--<a href="https://bootstrapbay.com/?ref=skelly" target="_ext" rel="nofollow" title="Premium Bootstrap themes">Bootstrap Themes</a><br>-->
+                        <!--<a href="http://www.bootstrapzero.com" target="_ext" rel="nofollow" title="Free Bootstrap templates">BootstrapZero</a><br>-->
+                        <!--<a href="http://upgrade-bootstrap.bootply.com/">2.x Upgrade Tool</a><br>-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<div class="span3">-->
+                    <!--<span class="pull-right">©Copyright 2013-2014 <a href="/" title="The Bootstrap Playground">Bootply</a> | <a href="/about#privacy">Privacy</a></span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</footer>-->
+
+
 </div>
 
 </body>
