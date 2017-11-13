@@ -2,186 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e83e12b-9732-4882-9d80-248e7e3147e2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ddd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/09c52dac94376abe2b0368bb74188226" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/2e66b403673f4caf70b3935b2c7dbadd" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/3b2e5ba08d22a0131036188301af1279" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/6d3baed6f5c8bd04b995df18bb1c0cc5" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/93b698710dd2c82f5e50a9816d6e4eef" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/96e8099e9c718a0d41880ef12e85c532" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/9892dc83961fcaaef6547c3af06b8c77" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/ad64a496b166aa375213e2da573dbad3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/af4056d074d68e03e6a7008b9a19865f" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/b9fcd0b7dafc922f945286c05b451407" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/da637096dfe8eec079b401472bf16eb6" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/.webassets-cache/f7449acb4ae9d65d092f3037c800aa3e" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/fonts/font-awesome/FontAwesome.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/fonts/font-awesome/fontawesome-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/fonts/font-awesome/fontawesome-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/img/logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/img/logo1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/fonts/FontAwesome.otf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/fonts/fontawesome-webfont.eot" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/fonts/fontawesome-webfont.woff" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/fonts/fontawesome-webfont.woff2" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/.merchant.html.swp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/friend" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/ShopMe.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/webServers.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/__init__ 2.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hello_world.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/bootstrap3-theme.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/bootstrap3-theme.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/bootstrap3.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/bootstrap3.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/index.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/merchant.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/sb-admin.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/sb-admin.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/user.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/fonts/font-awesome/font-awesome.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/fonts/font-awesome/fontawesome-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/fonts/font-awesome/fontawesome-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/gen/bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/gen/home.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/gen/home.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/gen/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/gen/user.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/gen/user.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/sb-admin-charts.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/sb-admin-charts.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/sb-admin-datatables.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/sb-admin-datatables.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/sb-admin.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/sb-admin.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/user.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/blank.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/cards.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/charts.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/forgot-password.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/css/core.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/css/custom.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/footer.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/js/core.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/js/custom.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/modals/logout.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/navbar.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/includes/scroll-to-top.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/index.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/login.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/navbar.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/register.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/pug/tables.pug" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_cards.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_footer.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_global.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_login.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_mixins.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_utilities.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_variables.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/navbar/_navbar_colors.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/navbar/_navbar_fixed.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/navbar/_navbar_global.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/navbar/_navbar_static.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/navbar/_navbar_toggle.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/sb-admin.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-grid.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap-reboot.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/css/bootstrap.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.bundle.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.bundle.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/bootstrap/js/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/chart.js/Chart.bundle.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/chart.js/Chart.bundle.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/chart.js/Chart.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/chart.js/Chart.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/datatables/dataTables.bootstrap4.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/datatables/dataTables.bootstrap4.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/datatables/jquery.dataTables.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/css/font-awesome.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/css/font-awesome.min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/fonts/fontawesome-webfont.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/fonts/fontawesome-webfont.ttf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/animated.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/bordered-pulled.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/core.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/fixed-width.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/font-awesome.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/icons.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/larger.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/list.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/mixins.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/path.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/rotated-flipped.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/screen-reader.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/stacked.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/less/variables.less" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_animated.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_bordered-pulled.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_core.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_fixed-width.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_icons.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_larger.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_list.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_mixins.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_path.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_rotated-flipped.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_screen-reader.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_stacked.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/_variables.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/font-awesome/scss/font-awesome.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/jquery-easing/jquery.easing.compatibility.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/jquery-easing/jquery.easing.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/jquery-easing/jquery.easing.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/vendor/jquery/jquery.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/friend.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/index.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/merchant.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/profile.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/_macros.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/_menu.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/_messages.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/change_password.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/change_notice.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/change_notice.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/confirmation_instructions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/confirmation_instructions.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/login_instructions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/login_instructions.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/reset_instructions.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/reset_instructions.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/reset_notice.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/reset_notice.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/welcome.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/email/welcome.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/forgot_password.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/login_user.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/register_user.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/reset_password.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/send_confirmation.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/security/send_login.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/user.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/assets.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/__init__.py" afterPath="$PROJECT_DIR$/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/dmbusiness.py" afterPath="$PROJECT_DIR$/database/dmbusiness.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/__init__.py" afterPath="$PROJECT_DIR$/datamodel/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datamodel/attribute.py" afterPath="$PROJECT_DIR$/datamodel/attribute.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shopme.py" afterPath="$PROJECT_DIR$/shopme.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/url.py" afterPath="$PROJECT_DIR$/www/url.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -190,14 +14,64 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/ShopMe2$ShopMe.coverage" NAME="ShopMe Coverage Results" MODIFIED="1510530516716" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="shopme.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shopme.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="96" column="14" lean-forward="false" selection-start-line="96" selection-start-column="14" selection-end-line="96" selection-end-column="14" />
+            <state relative-caret-position="-52">
+              <caret line="20" column="43" lean-forward="true" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+              <folding>
+                <element signature="e#43#52#0" expanded="true" />
+                <marker date="1510530483000" expanded="true" signature="574:637" ph="SELECT name user" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__ 2.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__init__ 2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding>
+                <element signature="e#43#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="url.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/url.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+              <folding>
+                <element signature="e#43#52#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -211,6 +85,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/__init__.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/shopme.py" />
+        <option value="$PROJECT_DIR$/www/url.py" />
       </list>
     </option>
   </component>
@@ -263,6 +141,11 @@
               <item name="ShopMe2" type="b2602c69:ProjectViewProjectNode" />
               <item name="ShopMe2" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ShopMe2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ShopMe2" type="462c0819:PsiDirectoryNode" />
+              <item name="www" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -272,8 +155,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="add_unversioned_files" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -294,7 +182,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.ShopMe">
+    <configuration name="ShopMe" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="ssh://yulu3@fa17-cs411-12.cs.illinois.edu:22/usr/local/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="ShopMe" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shopme.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -311,20 +217,32 @@
       <option name="_new_target" value="&quot;&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
+    <configuration default="true" type="PyRemoteDebugConfigurationType" factoryName="Python Remote Debug">
+      <module name="" />
+      <option name="PORT" value="0" />
+      <option name="HOST" value="localhost" />
+      <PathMappingSettings>
+        <option name="pathMappings">
+          <list />
+        </option>
+      </PathMappingSettings>
+      <option name="REDIRECT_OUTPUT" value="true" />
+      <option name="SUSPEND_AFTER_CONNECT" value="true" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="SDK_HOME" value="ssh://yulu3@fa17-cs411-12.cs.illinois.edu:22/usr/local/bin/python3.6" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="ShopMe2" />
+      <module name="ShopMe" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/shopme.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -372,48 +290,162 @@
       <option name="presentableId" value="Default" />
       <updated>1510527074676</updated>
     </task>
+    <task id="LOCAL-00001" summary="Merge remote-tracking branch 'remotes/origin/yulu'&#10;&#10;# Conflicts:&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/modules.xml&#10;#&#9;database/dmattribute.py&#10;#&#9;datamodel/attribute.py&#10;#&#9;datamodel/business.py&#10;#&#9;datamodel/category.py&#10;#&#9;datamodel/checkin.py&#10;#&#9;datamodel/elite_years.py&#10;#&#9;datamodel/friend.py&#10;#&#9;datamodel/hours.py&#10;#&#9;datamodel/photo.py&#10;#&#9;datamodel/review.py&#10;#&#9;datamodel/tip.py&#10;#&#9;datamodel/user.py&#10;#&#9;shopme.py&#10;#&#9;static/fonts/glyphicons-halflings-regular.eot&#10;#&#9;static/fonts/glyphicons-halflings-regular.svg&#10;#&#9;static/fonts/glyphicons-halflings-regular.ttf&#10;#&#9;static/fonts/glyphicons-halflings-regular.woff&#10;#&#9;www/url.py">
+      <created>1510527882144</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1510527882144</updated>
+    </task>
+    <task id="LOCAL-00002" summary="FINAL">
+      <created>1510530941693</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1510530941693</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.50238097" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.49761903" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.272" sideWeight="0.50238097" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32958034" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.272" sideWeight="0.49761903" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13186814" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12576313" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge remote-tracking branch 'remotes/origin/yulu'&#10;&#10;# Conflicts:&#10;#&#9;.idea/misc.xml&#10;#&#9;.idea/modules.xml&#10;#&#9;database/dmattribute.py&#10;#&#9;datamodel/attribute.py&#10;#&#9;datamodel/business.py&#10;#&#9;datamodel/category.py&#10;#&#9;datamodel/checkin.py&#10;#&#9;datamodel/elite_years.py&#10;#&#9;datamodel/friend.py&#10;#&#9;datamodel/hours.py&#10;#&#9;datamodel/photo.py&#10;#&#9;datamodel/review.py&#10;#&#9;datamodel/tip.py&#10;#&#9;datamodel/user.py&#10;#&#9;shopme.py&#10;#&#9;static/fonts/glyphicons-halflings-regular.eot&#10;#&#9;static/fonts/glyphicons-halflings-regular.svg&#10;#&#9;static/fonts/glyphicons-halflings-regular.ttf&#10;#&#9;static/fonts/glyphicons-halflings-regular.woff&#10;#&#9;www/url.py" />
+    <MESSAGE value="FINAL" />
+    <option name="LAST_COMMIT_MESSAGE" value="FINAL" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/shopme.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+          <folding>
+            <element signature="e#43#52#0" expanded="true" />
+            <marker date="1510530483000" expanded="true" signature="574:637" ph="SELECT name user" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="96" column="14" lean-forward="false" selection-start-line="96" selection-start-column="14" selection-end-line="96" selection-end-column="14" />
+        <state relative-caret-position="327">
+          <caret line="93" column="4" lean-forward="true" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__ 2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="24" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shopme.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-52">
+          <caret line="20" column="43" lean-forward="true" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
+          <folding>
+            <element signature="e#43#52#0" expanded="true" />
+            <marker date="1510530483000" expanded="true" signature="574:637" ph="SELECT name user" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/url.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="109" column="0" lean-forward="true" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding>
+            <element signature="e#43#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#43#52#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

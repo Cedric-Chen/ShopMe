@@ -15,7 +15,7 @@ from datetime import datetime
 app.logger.info(u'Restarting @ {}'.format(datetime.utcnow()))
 from www import assets
 # create database
-# from config import config_db
-# from database.mysql.engine import create_database
-# create_database(config_db)
-# sql_attr = [u'Field', u'Type', u'Null', u'Key', u'Default', u'Extra']
+from config import config_db
+from database.mysql.engine import create_database
+create_database(config_db)
+sql_attr = [u'Field', u'Type', u'Null', u'Key', u'Default', u'Extra']
