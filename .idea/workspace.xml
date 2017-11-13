@@ -93,12 +93,11 @@
       <file leaf-file-name="user.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/user.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="91" column="21" lean-forward="false" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
+            <state relative-caret-position="113">
+              <caret line="96" column="112" lean-forward="false" selection-start-line="96" selection-start-column="112" selection-end-line="96" selection-end-column="112" />
               <folding>
                 <element signature="n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1510548211000" expanded="true" signature="20805:20840" ph="..." />
+                <marker date="1510548261000" expanded="true" signature="20869:20904" ph="..." />
               </folding>
             </state>
           </provider>
@@ -497,7 +496,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510548065234</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="adjust">
+      <created>1510548216423</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1510548216423</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -763,12 +769,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/user.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="91" column="21" lean-forward="false" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
+        <state relative-caret-position="113">
+          <caret line="96" column="112" lean-forward="false" selection-start-line="96" selection-start-column="112" selection-end-line="96" selection-end-column="112" />
           <folding>
             <element signature="n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1510548211000" expanded="true" signature="20805:20840" ph="..." />
+            <marker date="1510548261000" expanded="true" signature="20869:20904" ph="..." />
           </folding>
         </state>
       </provider>
