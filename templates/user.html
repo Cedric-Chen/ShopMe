@@ -109,7 +109,7 @@
                     <div class="container panel-default">
                         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap3.min.css') }}"/>
                             <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
-                        <div class="well col-md-8">
+                        <div class="well col-md-7">
                         {% for field,value in friend.items() %}
 
                             <div class="row user-row">
@@ -118,7 +118,7 @@
                                          src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
                                          alt="User Pic">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-9">
                                     <strong>{{value}}</strong><br>
                                     <span class="text-muted">User ID: {{field}}</span>
                                 </div>
