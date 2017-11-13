@@ -1,31 +1,32 @@
-from flask import render_template, redirect, url_for, request
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from flask import redirect, render_template, request
 #from flask_sqlalchemy import SQLAlchemy
 #from flask.ext.security import Security, SQLAlchemyUserDatastore,\
 #    UserMixin, RoleMixin, login_required
+
 from config import app
+from datamodel.attribute import attribute
+from datamodel.business import business
+from datamodel.category import category
+from datamodel.checkin import checkin
+from datamodel.elite_years import elite_years
+from datamodel.friend import friend
+from datamodel.hours import hours
+from datamodel.photo import photo
+from datamodel.review import review
+from datamodel.tip import tip
+from datamodel.user import user
 
-# back-end function
-from datamodel_test.business import model as Business
-from datamodel_test.attribute import model as Attribute
-from datamodel_test.category import model as Category
-from datamodel_test.hours    import model as Hours
-from datamodel_test.photo    import model as Photo
+@app.route('/merchant/<business_id>/')
+def view_merchant():
 
-@app.route('/merchant')
-def merchant():
-#    businessname = 'Cedric'
-#    business = get_business(businessname)
-#    attribute = get_attribute(businessname)
-#    category = get_category(businessname)
-#    hours = get_hour(businessname)
-#    photo = get_photo(businessname)
-
-    # for debug
-    merchant.business    = Business.get_business()
-    merchant.attribute   = Attribute.get_attribute()
-    merchant.category    = Category.get_category()
-    merchant.hours       = Hours.get_hours()
-    merchant.photo       = Photo.get_photo()
+    merchant.business    = business.select(business_id)
+    merchant.attribute   = attribute.slect(business_id)
+    merchant.category    = category.select(business_id)
+    merchant.hours       = hours.select(business_id)
+    merchant.photo       = photo.select(business_id)
 
     return render_template(
         'merchant.html',
@@ -36,7 +37,7 @@ def merchant():
         photo    = merchant.photo
     )
 
-@app.route('/merchant/update_info', methods=['POST'])
+@app.route('/merchant/update_info/', methods=['POST'])
 def update_merchant_info():
     business = {}
 
@@ -76,9 +77,9 @@ def update_merchant_info():
 
     return redirect(request.referrer)
 
-@app.route('/merchant/update_attr', methods=['POST'])
+@app.route('/merchant/update_attr/', methods=['POST'])
 def update_merchant_attr():
-    attribute = {}
+    attr = {}
 
     for field1, value1 in merchant.attribute.items():
         if type(value1) == dict:
@@ -89,9 +90,9 @@ def update_merchant_attr():
                 else:
                     newvalue = False
                 if newvalue != value2:
-                    if field1 not in attribute:
-                        attribute[field1] = {}
-                    attribute[field1][field2] = newvalue
+                    if field1 not in attr:
+                        attr[field1] = {}
+                    attr[field1][field2] = newvalue
         else:
             newvalue = request.form.get(field1)
             if newvalue:
@@ -99,18 +100,18 @@ def update_merchant_attr():
             else:
                 newvalue = False
             if newvalue != value1:
-                attribute[field1] = newvalue
+                attr[field1] = newvalue
 
     return redirect(request.referrer)
 
-@app.route('/merchant/update_hours', methods=['POST'])
+@app.route('/merchant/update_hours/', methods=['POST'])
 def update_merchant_hours():
-    hours = {}
+    _hours = {}
     for date in ['Monday', 'Tuesday', 'Wednesday', 'Thursday',
         'Friday', 'Saturday', 'Sunday']:
         newvalue = request.form[date+'_start_at'] + '-' + \
             request.form[date+'_end_at']
         if newvalue != '-' and newvalue != merchant.hours[date]:
-            hours[date] = newvalue
+            _hours[date] = newvalue
 
     return redirect(request.referrer)
