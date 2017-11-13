@@ -8,7 +8,7 @@ from flask import render_template
 from config import app, log_dir
 from www.url import *
 from www import assets, \
-    views_index, views_merchant, views_merchant
+    views_index, views_merchant, views_utility
 
 @app.route(u'/hello_world/')
 @app.route(u'/hello_world/<name>/')
@@ -41,4 +41,5 @@ def hello_log():
 app.logger.debug(u'ShopMe launched successfully')
 
 if __name__ == '__main__':
-    app.run(debug=app_debug)
+#    app.run(debug=app_debug)
+    app.run(debug=True)
