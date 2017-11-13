@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request
 #from flask_sqlalchemy import SQLAlchemy
 #from flask.ext.security import Security, SQLAlchemyUserDatastore,\
 #    UserMixin, RoleMixin, login_required
-import app
+from config import app
 
 # back-end function
 from datamodel_test.business import model as Business

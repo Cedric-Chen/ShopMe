@@ -4,9 +4,10 @@
 import os
 from config import app, log_dir
 from flask import render_template, redirect, url_for, request
-from flask_sqlalchemy import SQLAlchemy
-from flask.ext.security import Security, SQLAlchemyUserDatastore, \
-    UserMixin, RoleMixin, login_required
+# from flask_sqlalchemy import SQLAlchemy
+# from flask.ext.security import Security, SQLAlchemyUserDatastore, \
+#     UserMixin, RoleMixin, login_required
+
 # back-end function
 from datamodel.business import model as Business
 from datamodel.attribute import model as Attribute
@@ -74,39 +75,8 @@ def information(business_id=None):
     return render_template(u'information.html', business=business, category=category, hours=hours)
 
 
-@app.route('/index')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/merchant')
-def merchant():
-    #    businessname = 'Cedric'
-    #    business = get_business(businessname)
-    #    attribute = get_attribute(businessname)
-    #    category = get_category(businessname)
-    #    hours = get_hour(businessname)
-    #    photo = get_photo(businessname)
-
-    # for debug
-    business = Business.get_business()
-    attribute = Attribute.get_attribute()
-    category = Category.get_category()
-    hours = Hours.get_hours()
-    photo = Photo.get_photo()
-
-    return render_template(
-        'merchant.html',
-        business=business,
-        attribute=attribute,
-        category=category,
-        hours=hours,
-        photo=photo
-    )
-
-
-# friends = Friend.select()
-# Me = User.select()
+# friends = Friend.get_friend()
+# Me = User.get_user()
 
 
 @app.route('/user/<user_id>')

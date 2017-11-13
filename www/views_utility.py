@@ -1,4 +1,5 @@
 # python built-in function
+from config import app
 import re
 
 @app.context_processor
