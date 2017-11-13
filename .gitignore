@@ -100,3 +100,4 @@ ENV/
 package_list.txt
 
 .idea
+*swp*
