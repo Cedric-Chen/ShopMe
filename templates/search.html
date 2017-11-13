@@ -148,7 +148,8 @@
                   <div class="panel panel-default">
                       <div class="panel-body">
                           <h6 class="nomargin">
-                              {{result_list|length}} results <small class="text-success">(0.07 seconds) </small>
+                              {{result_list|length}} results
+                              <!-- <small class="text-success">(0.07 seconds) </small> -->
                           </h6>
                           <hr style="margin-bottom:0px">
                           <!-- SEARCH RESULTS -->
@@ -179,14 +180,13 @@
                                       </table>
                                     </div>
                                     <div class="row">
-                                      <p class="categories">Category: business category goes here</p>
+                                      <p class="categories">
+                                        Category: {{result['category']}}
+                                      </p>
                                     </div>
                                     <div class="row">
                                       <p>{{result['num_checkin']}} check-ins in the past week</p>
                                     </div>
-                                    <!-- <div class="row">
-                                      <p class="review-number">{{result['business']['review_count']}} reviews</p>
-                                    </div> -->
                                   </div>
                                 </div>
                                 <div class="secondary-attributes col-lg-4">
@@ -196,9 +196,7 @@
                               </div>
                               <div class="review-block">
                                 <p><a href="#">{{result['user']['name']+": "}}</a>
-                                    {% for key, value in result['review'].items() %}
-                                    {{value['text']}}
-                                    {% endfor %}
+                                    {{result['review']['text']}}
                                 </p>
                                 <p><a href="#"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
                               </div>
@@ -224,8 +222,8 @@
                             <ul class="pagination">
                               <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                               <li class="page-item"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li> -->
                               <li class="page-item"><a class="page-link" href="#">Next</a></li>
                             </ul>
                         </div>

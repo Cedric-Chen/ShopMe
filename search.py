@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
 
 #from config import app, app_debug, log_dir
@@ -10,35 +10,49 @@ from flask import render_template
 from datamodel_test.business import model as Business
 from datamodel_test.review import model as Review
 from datamodel_test.user import model as User
-from datamodel_test.hours import model as Hours
 from datamodel_test.checkin import model as Checkin
+from datamodel_test.category import model as Category
 
 # from datamodel.business import business
 # from datamodel.review import review
 # from datamodel.user import user
-# from datamodel.hours import hours
+# from datamodel.checkin import checkin
+# from datamodel.category import category
 
 app = Flask(__name__)
 
-@app.route(u'/search')
+@app.route(u'/search/')
 def search():
-    business = Business.get_business()
-    review = Review.get_review()
-    user = User.get_user()
-    checkin = Checkin.get_checkin()
+    business_id = request.args.get('business_id')
+    # for datamodel_test
+    d = {Business.get_business()['id']:Business.get_business()}
+    business_item = d[business_id]
+    review_items = Review.get_review()
+    review_item = list(review_items.values())[0]
+    user_item = User.get_user()
+    checkin_item = Checkin.get_checkin()
+    category_items = list(Category.get_category().values())
+    category_string = ', '.join(category_items)
 
-    # business = business.select()
-    # review = review.select()
-    # user = user.select()
-    num_item = 10
+    # for datamodel
+    # business_item = business.select(business_id)
+    # review_items = list(review.select(business_id,'*').values())[0]
+    # review_item = list(review_items.values())[0]
+    # user_id = review_item['user_id']
+    # user_item = user.select(user_id)
+    # checkin_item = checkin.select(business_id)
+    # category_item = category.select(business_id)
 
-    business_list = [business for i in range(num_item)]
-    review_list = [review for i in range(num_item)]
-    user_list = [user for i in range(num_item)]
-    checkin_list = [checkin for i in range(num_item)]
+    num_item = 1
+
+    business_list = [business_item for i in range(num_item)]
+    review_list = [review_item for i in range(num_item)]
+    user_list = [user_item for i in range(num_item)]
+    checkin_list = [checkin_item for i in range(num_item)]
     num_checkin_list = []
     for c in checkin_list:
         num_checkin_list.append(sum(list(c.values())))
+    category_list = [category_string for i in range(num_item)]
 
     result_list = list()
     for idx in range(num_item):
@@ -47,6 +61,7 @@ def search():
         result['review'] = review_list[idx]
         result['user'] = user_list[idx]
         result['num_checkin'] = num_checkin_list[idx]
+        result['category'] = category_list[idx]
         result_list.append(result)
 
     return render_template(u'search.html',
