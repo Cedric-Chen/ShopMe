@@ -83,8 +83,9 @@ def information(business_id=None):
 def user(user_id):
     friends = {}
     for id in Friend.select(user_id):
-        if 'name' in friends[id]:
-            friends[id] = User.select(id)
+        friend = User.select(id)
+        if 'name' in friend:
+            friends[id] = friend
     return render_template('user.html',
                            user=User.select(user_id),
                            friend=friends
