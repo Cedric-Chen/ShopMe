@@ -5,7 +5,7 @@
       <paths name="CS411">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/ShopMe" local="$PROJECT_DIR$" web="hello_world" />
+            <mapping deploy="/home/yulu3/ShopMe" local="$PROJECT_DIR$" web="hello_world" />
           </mappings>
         </serverdata>
       </paths>
