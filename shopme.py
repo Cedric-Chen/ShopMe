@@ -5,7 +5,7 @@ import os
 import __init__
 
 from flask import render_template
-from config import app, log_dir
+from config import app, app_debug, log_dir
 from www.url import *
 from www import assets
 
