@@ -7,7 +7,8 @@ import __init__
 from flask import render_template
 from config import app, log_dir
 from www.url import *
-from www import assets
+from www import assets, \
+    views_index, views_merchant, views_merchant
 
 import views
 

@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, request
-import app
+from config import app
 
 # other views
 import views_merchant
