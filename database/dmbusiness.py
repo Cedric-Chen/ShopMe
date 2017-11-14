@@ -11,6 +11,36 @@ class DMBusiness(DataModel):
                         u'state', u'postal_code', u'latitude', u'longitude', \
                         u'stars', u'review_count', u'is_open']
 
+    def sort_ret(self):
+        return [{self.dm_attr[index]: value \
+                for index, value in enumerate(entry)
+            } for entry in super().select()
+        ]
+
+    def sort_by(self, business, field_list, op_list, key, order):
+        if len(field_list) != len(op_list):
+            return []
+        cond = []
+        for x in range(0, len(field_list)):
+            field = field_list[x]
+            if field in self.dm_attr and field in business:
+                cond.append(u'%s %s %s' \
+                    % (field, op_list[x], self.quote_sql(business[field])))
+        self.query_sql = u'SELECT %s FROM business WHERE %s ' \
+            % (u', '.join(self.dm_attr), u', '.join(cond))
+        self.query_sql += self.select_order(key, order)
+        return self.sort_ret()
+
+    def sort_close(self, business, distance, key, order):
+        longi = business.get(u'longitude', None)
+        latit = business.get(u'latitude', None)
+        self.query_sql = u'SELECT %s FROM business WHERE ' \
+            % (u', '.join(self.dm_attr)) \
+            + u' ST_Distance(Point(%s, %s), Point(longitude,latitude)) <= %s ' \
+            % (longi, latit, distance)
+        self.query_sql += self.select_order(key, order)
+        return self.sort_ret()
+
     def select(self, business_id):
         self.query_sql = u'SELECT %s FROM business WHERE id = "%s"' \
                          % (u', '.join(self.dm_attr), business_id)

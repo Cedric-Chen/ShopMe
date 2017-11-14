@@ -6,6 +6,9 @@ from database.datamodel import DataModel
 class DMHours(DataModel):
     def __init__(self, cls):
         super().__init__(cls)
+        self.dm_attr = [u'Monday', u'Tuesday', u'Wednesday', u'Thursday', \
+            u'Friday', u'Saturday', u'Sunday',
+        ]
 
     def select(self, business_id):
         self.query_sql = u'SELECT hours FROM hours WHERE business_id = "%s"' \

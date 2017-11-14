@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from collections import OrderedDict
+
 from database.datamodel import DataModel
 
 class DMReview(DataModel):
@@ -10,17 +12,30 @@ class DMReview(DataModel):
             u'funny', u'cool', u'user_id', u'business_id'
         ]
 
-    def select(self, business_id, user_id):
+    def select_query(self, business_id, user_id):
+        query_sql = u''
         if business_id == u'*':
-            self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
+            query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
                 + u'FROM review WHERE user_id = "%s"' % (user_id)
         elif user_id == u'*':
-            self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
+            query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
                 + u'FROM review WHERE business_id = "%s"' % (business_id)
         else:
-            self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
+            query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
                 + u'FROM review WHERE business_id = "%s" AND user_id = "%s"' \
                 % (business_id, user_id)
+        return query_sql
+
+    def sort(self, business_id, user_id, key, order):
+        self.query_sql = self.select_query(business_id, user_id)
+        self.query_sql += self.select_order(key, order)
+        return [{self.dm_attr[index]: value \
+                    for index, value in enumerate(entry)
+                } for entry in super().select()
+            ]
+
+    def select(self, business_id, user_id):
+        self.query_sql = self.select_query(business_id, user_id)
         ret = super().select()
         result = dict()
         for entry in ret:
