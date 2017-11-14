@@ -40,5 +40,4 @@ def hello_log():
 app.logger.debug(u'ShopMe launched successfully')
 
 if __name__ == '__main__':
-#    app.run(debug=app_debug)
-    app.run(debug=True)
+    app.run(debug=app_debug)
