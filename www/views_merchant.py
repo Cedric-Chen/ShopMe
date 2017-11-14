@@ -100,6 +100,13 @@ def update_merchant_attr():
     attribute.update(business_current[u'id'], attr, {})
     return redirect(request.referrer)
 
+@app.route('/merchant/delete_attr/', methods=['POST'])
+def delete_merchant_attr():
+    # need to add more delete functions
+    business_current = ast.literal_eval(request.args[u'business_key'])
+    attribute.delete(business_current[u'id'], {})
+    return redirect(request.referrer)
+
 @app.route('/merchant/update_hours/', methods=['POST'])
 def update_merchant_hours():
     business_current = ast.literal_eval(request.args[u'business_key'])
