@@ -97,7 +97,21 @@ def update_merchant_attr():
                 newvalue = False
             if newvalue != value1:
                 attr[field1] = newvalue
+
     attribute.update(business_current[u'id'], attr, {})
+
+    # insert new attribute
+    newattr = {}
+    newattr_name = request.form['newattr_name']
+    newattr_value = request.form.get('newattr_value')
+    if newattr_value:
+        newattr_value = True
+    else:
+        newattr_vlaue = False
+    if newattr_name != '':
+        newattr[newattr_name] = newattr_value
+        attribute.insert(business_current[u'id'], newattr)
+
     return redirect(request.referrer)
 
 @app.route('/merchant/delete_attr/', methods=['POST'])
