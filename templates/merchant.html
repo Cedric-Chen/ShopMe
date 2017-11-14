@@ -142,7 +142,7 @@
 
       <div class="tab-pane fade" id="update_info">
         <form class="" 
-            method="post" action="{{ url_for("update_merchant_info") }}">
+            method="post" action="{{ url_for('update_merchant_info', business_key=business) }}">
              <div class="form-group">
                 <label for="newname" class="col-4 control-label">
                     New Name</label>
@@ -316,7 +316,7 @@
 
       <div class="tab-pane fade" id="update_attr">
         <div class=" col-md-4 col-lg-4 "> 
-        <form class="" method="post" action="{{ url_for("update_merchant_attr") }}">
+        <form class="" method="post" action="{{ url_for('update_merchant_attr', attr_key=attribute, business_key=business) }}">
         <table class="table">
             <tbody>
               {% for field1, value1 in attribute.items() %}
@@ -401,7 +401,7 @@
       <div class="tab-pane fade" id="update_hours">
         <div class=" col-md-4 col-lg-3 "> 
 
-        <form class="" method="post" action="{{ url_for("update_merchant_hours") }}">
+        <form class="" method="post" action="{{ url_for('update_merchant_hours', business_key=business, hours_key=hours) }}">
               {% for date in ['Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday', 'Saturday', 'Sunday'] %}
                  <div class="form-group">
                     <label for="newname" class="col-4 control-label">
