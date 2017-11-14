@@ -68,7 +68,7 @@
     <div class="container-fluid tab-content">
 
       <div class="tab-pane active in" id="info">
-        <div class=" col-md-6 col-lg-6 "> 
+        <div class="col-12">
 
           <h5> Basic Information </h5>
           <table class="table">
@@ -144,9 +144,9 @@
         <form class="" 
             method="post" action="{{ url_for('update_merchant_info', business_key=business) }}">
              <div class="form-group">
-                <label for="newname" class="col-4 control-label">
+                <label for="newname" class="col-12 control-label">
                     New Name</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -157,9 +157,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newopenornot" class="col-4 control-label">
+                <label for="newopenornot" class="col-12 control-label">
                     OpenOrNot</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <label class="custom-control custom-checkbox">
                             <input type="checkbox" 
@@ -175,9 +175,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newstreet" class="col-4 control-label">
+                <label for="newstreet" class="col-12 control-label">
                     New Street</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -188,9 +188,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newcity" class="col-4 control-label">
+                <label for="newcity" class="col-12 control-label">
                     New city</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -201,9 +201,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newname" class="col-4 control-label">
+                <label for="newname" class="col-12 control-label">
                     New State</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -214,9 +214,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newneighborhood" class="col-4 control-label">
+                <label for="newneighborhood" class="col-12 control-label">
                     New Neighborhood</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -227,9 +227,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newpostal_code" class="col-4 control-label">
+                <label for="newpostal_code" class="col-12 control-label">
                     New Postal Code</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -240,9 +240,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newlatitude" class="col-4 control-label">
+                <label for="newlatitude" class="col-12 control-label">
                     New Latitude</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -253,9 +253,9 @@
                 </div>
             </div>
              <div class="form-group">
-                <label for="newlongitude" class="col-4 control-label">
+                <label for="newlongitude" class="col-12 control-label">
                     New Longitude</label>
-                <div class="col-4">
+                <div class="col-12">
                     <div class="input-group">
                         <span class="input-group-addon">
                         <i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -285,13 +285,13 @@
 
     <div class="container-fluid tab-content">
       <div class="tab-pane active" id="attr_info">
-        <div class=" col-md-4 col-lg-4 "> 
+        <div class="col-12">
 
           <table class="table">
             <tbody>
               {% for field1, value1 in attribute.items() %}
                 <tr><td></td><td></td></tr>
-                {% if is_dict(value1) %}                
+                {% if is_dict(value1) %}
                     <tr><td><b>{{ field1 }} </b> </td> <td></td></tr>
                     {% for field2, value2 in value1.items() %}
                       <tr>
@@ -301,7 +301,7 @@
                     {% endfor %}
                 {% else %}
                      <tr>
-                        <td><b>{{ field1 }} </b> </td> 
+                        <td><b>{{ field1 }} </b> </td>
                         <td>{{ true_or_false(value1) }}</td>
                      </tr>
                 {% endif %}
@@ -315,70 +315,73 @@
         </div> <!-- <div class="tab-pane active in fade" id="attr_info"> -->
 
       <div class="tab-pane fade" id="update_attr">
-        <div class=" col-md-4 col-lg-4 "> 
+        <div class="col-12">
+        <div style="margin: 20px;">
+            <form method="post" action="{{ url_for('delete_merchant_attr', business_key=business) }}">
+                <button type="submit" class="btn btn-danger">Delete All Features</button>
+            </form>
+        </div>
         <form class="" method="post" action="{{ url_for('update_merchant_attr', attr_key=attribute, business_key=business) }}">
-        <table class="table">
-            <tbody>
-              {% for field1, value1 in attribute.items() %}
-                <tr><td></td><td></td></tr>
-                {% if is_dict(value1) %}                
-                    <tr><td><b>{{ field1 }} </b> </td> <td></td></tr>
-                    {% for field2, value2 in value1.items() %}
-                      <tr>
-                        <td>{{ field2 }} </td>
-                        <td>
-                          <label class="custom-control custom-checkbox">
-                            <input type="checkbox" 
-                            class="custom-control-input"
-                            name="{{ field1 + '_' + field2 }}"
-                            {% if true_or_false(value2) %}
-                                checked
-                            {% endif %}>
-                            <span class="custom-control-indicator"></span>
-                          </label>
-                        </td>
-                      </tr>
-                    {% endfor %}
-                {% else %}
-                     <tr>
-                        <td><b>{{ field1 }} </b> </td> 
-                        <td>
-                        <label class="custom-control custom-checkbox">
-                            <input type="checkbox" 
-                            class="custom-control-input"
-                            name="{{ field1 }}"
-                            {% if true_or_false(value1) %}
-                                checked
-                            {% endif %}>
-                            <span class="custom-control-indicator"></span>
-                        </label>
-                        </td>
-                     </tr>
-                {% endif %}
-              {% endfor %}
-             <tr><td><b> Add New Feature </b> </td> <td></td></tr>
-             <tr><td>
-                <input type="text" class="form-control" 
-                name="newattr_name"
-                placeholder={{ Name of New Feature}}>
-                </td>
-                <td>
-                <label class="custom-control custom-checkbox">
-                    <input type="checkbox" 
-                    class="custom-control-input"
-                    name="newattr_value">
-                    <span class="custom-control-indicator"></span>
-                </label>
-                </td>
-             </tr>
-             <tr><td></td><td></td></tr>
+            <table class="table">
+                <tbody>
+                  {% for field1, value1 in attribute.items() %}
+                    <tr><td></td><td></td></tr>
+                    {% if is_dict(value1) %}
+                        <tr><td><b>{{ field1 }} </b> </td> <td></td></tr>
+                        {% for field2, value2 in value1.items() %}
+                          <tr>
+                            <td>{{ field2 }} </td>
+                            <td>
+                              <label class="custom-control custom-checkbox">
+                                <input type="checkbox" 
+                                class="custom-control-input"
+                                name="{{ field1 + '_' + field2 }}"
+                                {% if true_or_false(value2) %}
+                                    checked
+                                {% endif %}>
+                                <span class="custom-control-indicator"></span>
+                              </label>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                    {% else %}
+                         <tr>
+                            <td><b>{{ field1 }} </b> </td>
+                            <td>
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" 
+                                class="custom-control-input"
+                                name="{{ field1 }}"
+                                {% if true_or_false(value1) %}
+                                    checked
+                                {% endif %}>
+                                <span class="custom-control-indicator"></span>
+                            </label>
+                            </td>
+                         </tr>
+                    {% endif %}
+                  {% endfor %}
+                 <br>
+                 <tr><td><b> Add New Feature </b> </td> <td></td></tr>
+                 <tr><td>
+                    <input type="text" class="form-control" 
+                    name="newattr_name"
+                    placeholder="Name of New Feature">
+                    </td>
+                    <td>
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" 
+                        class="custom-control-input"
+                        name="newattr_value">
+                        <span class="custom-control-indicator"></span>
+                    </label>
+                    </td>
+                 </tr>
+                 <tr><td></td><td></td></tr>
 
-            </tbody>
-        </table>
-            <button type="button" class="btn btn-danger" href="{{ url_for("delete_merchant_attr") }}">
-                Delete All Features</button>
-            <button type="submit" class="btn btn-default">
-                Update</button>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-default">Update</button>
         </form>
         <br><br>
       </div>
@@ -399,7 +402,7 @@
     <div class="container-fluid tab-content">
 
       <div class="tab-pane active in" id="hours_info">
-        <div class=" col-md-4 col-lg-4 "> 
+        <div class="col-12">
           <table class="table">
             <tbody>
               {% for date in ['Monday', 'Tuesday', 'Wednesday',
@@ -416,12 +419,12 @@
         </div> <!-- <div class="tab-pane active in fade" id="hours_info"> -->
 
       <div class="tab-pane fade" id="update_hours">
-        <div class=" col-md-4 col-lg-3 "> 
+        <div class="col-12">
 
         <form class="" method="post" action="{{ url_for('update_merchant_hours', business_key=business, hours_key=hours) }}">
               {% for date in ['Monday', 'Tuesday', 'Wednesday','Thursday', 'Friday', 'Saturday', 'Sunday'] %}
                  <div class="form-group">
-                    <label for="newname" class="col-4 control-label">
+                    <label for="newname" class="col-12 control-label">
                         {{ date }}</label>
                     <div class="input-group date" class='timepicker3'>
                         <span class="input-group-addon">
