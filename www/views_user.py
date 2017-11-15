@@ -16,7 +16,7 @@ from datamodel.review import review
 from datamodel.tip import tip
 from datamodel.user import user
 
-@app.route('/user/<user_id>/')
+@app.route('/user/<user_id>')
 def view_user(user_id):
     friends = {}
     for one_id in friend.select(user_id):
@@ -28,21 +28,21 @@ def view_user(user_id):
         friend=friends
     )
 
-@app.route('/friend/')
+@app.route('/friend')
 def view_friend():
     url_for('static', filename='css/user.css')
     return render_template('friend.html',
         user=user.select("user_id not defined"),
     )
 
-@app.route('/friend/remove/<friend_id>/<user_id>/')
+@app.route('/friend/remove/<friend_id>/<user_id>')
 def remove_friend(friend_id, user_id):
     friend.delete(user_id, {friend_id:user_id})
 
-@app.route('/friend/add/<friend_id>/<user_id>/')
+@app.route('/friend/add/<friend_id>/<user_id>')
 def add_friend(friend_id, user_id):
     friend.insert(user_id, {friend_id:user_id})
 
-@app.route('/update/name/<name>/<user_id>/')
+@app.route('/update/name/<name>/<user_id>')
 def update_name(name, user_id):
     user.update(user_id,{"name":name})
