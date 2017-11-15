@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-    <link href="static/css/index.css" rel="stylesheet"> 
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
  
      Font Awesome
@@ -18,7 +18,7 @@
 
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container bg-dark">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -41,25 +41,26 @@
       </div>
 
     </div>
-  </nav>
+</nav> -->
+  {% include "navbar.html" %}
 
   <div class="container">
     <div class="row">
       <div class="span4"></div>
-      <div class="span4"><img class="center-block" src="static/img/logo1.png" id="logo" alt="logo"></div>
+      <div class="span4"><img class="center-block" src="{{ url_for('static', filename='img/logo1.png') }}" id="logo" alt="logo"></div>
       <div class="span4"></div>
     </div>
 
     <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-          <input type="text" class="form-control">
+        <div class="col-xs-6 col-xs-offset-3">
+          <input id="search box" type="text" class="form-control">
         </div>
       </div>
     </div>
 
     <div class="btn-group-wrap">
       <div class="btn-group">
-        <button type="button" class="btn btn-info" id="search">Search</button>
+        <button type="button" class="btn btn-info" id="search" onclick="search()">Search</button>
       </div>
       <div class="btn-group">
         <button type="button" class="btn btn-info" id="feeling-lucky">I'm Feeling Lucky</button>
@@ -149,3 +150,10 @@
         </div>
     </div>
 </body>
+<script>
+function search() {
+    var val = document.getElementById("search box").value.split(":");
+    if(val[0].length > 0)
+        window.location = "/search/" + val[0] + ":" + val[1];
+};
+</script>

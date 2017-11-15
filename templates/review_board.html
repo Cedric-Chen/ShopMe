@@ -37,28 +37,28 @@
     <div class="col-md-1 column" style="padding: 15px">
         <div class="btn-group btn-group-sm btn-group-vertical" data-toggle="buttons">
             {% if "stars" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'stars')">
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'stars')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-star"></em>
                     <span name="review-{{key}}-stars" value=true>{{ review[key]["stars"] }}</span>
                 </button>
             {% endif %}
             {% if "useful" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'useful')">
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'useful')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-thumbs-up"></em>
                     <span name="review-{{key}}-useful" value=true>{{ review[key]["useful"] }}</span>
                 </button>
             {% endif %}
             {% if "funny" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'funny')">
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'funny')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-heart"></em>
                     <span name="review-{{key}}-funny" value=true> {{ review[key]["funny"] }}</span>
                 </button>
             {% endif %}
             {% if "cool" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{key}}', 'cool')">
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'cool')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-sunglasses"></em>
                     <span name="review-{{key}}-cool" value=true> {{ review[key]["cool"] }}</span>
@@ -91,15 +91,15 @@
     {% endif %}
 </div>
 <script>
-    function toggleReviewCount(key, btnName) {
+    function toggleReviewCount(business_id, review_id, key, btnName) {
         var name = "review-" + key + "-" + btnName;
         if(document.getElementsByName(name)[1].getAttribute("value") == "true") {
-            updateReviewCount(name, btnName, 1, false);
+            updateReviewCount(business_id, review_id, name, btnName, 1, false);
         } else {
-            updateReviewCount(name, btnName, -1, true);
+            updateReviewCount(business_id, review_id, name, btnName, -1, true);
         }
     };
-    function updateReviewCount(name, btnName, value, state) {
+    function updateReviewCount(business_id, review_id, name, btnName, value, state) {
         var cuurent = document.getElementsByName(name)[0].innerHTML;
             document.getElementsByName(name)[0].innerHTML = parseInt(cuurent, 10) + value;
             document.getElementsByName(name)[1].innerHTML = parseInt(cuurent, 10) + value;
@@ -110,7 +110,7 @@
                 alert("Update " + btnName + "Failed!");
             }
         };
-        xhttp.open("GET", "{{ url_for('review_update') }}" + "{{ business['id'] }}"+ ":" + btnName + ":" + value, true);
+        xhttp.open("GET", "{{ url_for('review_update') }}" + business_id + ":" + review_id + ":" + btnName + ":" + value, true);
         xhttp.send();
     };
     function hideReview(elem_id) {
