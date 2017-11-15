@@ -44,7 +44,7 @@
             <p>
                 <strong>Neighborhood: </strong>
                 {% if business["neighborhood"] %}
-                <span class="label label-warning">business["neighborhood"]</span>
+                <span class="label label-warning">{{ business["neighborhood"] }}</span>
                 {% endif %}
             </p>
             <p>
@@ -114,6 +114,7 @@
                     var sortby = document.getElementById("review_board").getAttribute("value");
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
+                        document.getElementById("review_board").innerHTML = this.responseText;
                         if (this.readyState == 4 && this.status == 200) {
                             document.getElementById("review_board").innerHTML = this.responseText;
                         }

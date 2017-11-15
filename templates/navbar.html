@@ -2,16 +2,19 @@
   <div class="container-fluid" >
     <a class="navbar-header, navbar-brand" href="{{ url_for('index') }}" >
       <img class="img-responsive" src="{{ url_for('static', filename='img/logo1.png') }}" style="height:1.8rem; display:inline; margin:0; padding=0px">
-        {% if business is defined %}
-            {{ business.name }}
-        {% elif user is defined %}
-            {{ user.name }}
-        {% endif %}
     </a>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Page 1</a></li>
-      <li><a href="#">Page 2</a></li>
+      <li class="active"><a href="/">Home</a></li>
+      {% if business is defined %}
+          <li><a href="/merchant/{{business['id']}}">{{ business.name }}</a></li>
+      {% else %}
+          <li><a href="/merchant/">Merchant</a></li>
+      {% endif %}
+      {% if user is defined %}
+          <li><a href="/user/{{user['id']}}">{{ user.name }}</a></li>
+      {% else %}
+          <li><a href="/user/">User</a></li>
+      {% endif %}
     </ul>
     <form class="navbar-form navbar-left">
       <div class="input-group">

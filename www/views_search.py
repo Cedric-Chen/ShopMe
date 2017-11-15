@@ -46,5 +46,6 @@ def search(key, value):
         result_list.append(result)
 
     return render_template(u'search.html',
-                            result_list=result_list,
-                            laglng_list=laglng_list)
+        business = business_list[0] if len(business_list) > 0 else None,
+        result_list=result_list,
+        laglng_list=laglng_list)
