@@ -22,12 +22,13 @@ def search(key, value):
         category_list.append(category.select(business_id))
         checkin_list.append(checkin.select(business_id))
         review_items = review.select(business_id,u'*')
-        review_list.append(review_items)
         keys = list(review_items.keys())
         if len(keys) > 0:
             user_list.append(user.select(review_items[keys[0]][u'user_id']))
+            review_list.append(review_items[keys[0]])
         else:
             user_list.append({})
+            review_list.append(review_items)
 
     num_checkin_list = []
     for c in checkin_list:
