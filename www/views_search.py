@@ -38,7 +38,7 @@ def search(key, value):
     result_list = list()
     for idx in range(0, len(business_list)):
         result = dict()
-        result['category'] = category_list[idx]
+        result['category'] = list(category_list[idx].values())
         result['business'] = business_list[idx]
         result['num_checkin'] = num_checkin_list[idx]
         result['review'] = review_list[idx]

@@ -211,10 +211,10 @@
                                 </div>
                               </div>
                               <div class="review-block">
-                                <p><a href="#">{{result['user']['name']+": "}}</a>
+                                <p><a href="{{ url_for('user') + result['user']['id'] }}">{{result['user']['name']+": "}}</a>
                                     {{result['review']['text']}}
                                 </p>
-                                <p><a href="#"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
+                                <p><a href="{{ url_for('information') + result['business']['id'] }}"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
                               </div>
 
                           </div>
