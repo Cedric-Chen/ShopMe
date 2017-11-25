@@ -23,7 +23,7 @@ def login():
         cur.execute("SELECT COUNT(1) FROM account_user WHERE username = %s;", 
             [username_form]) # CHECKS IF USERNAME EXSIST
         if cur.fetchone()[0]:
-            cur.execute("SELECT password FROM account_user 
+            cur.execute("SELECT password FROM account_user \
                 WHERE username = %s;", 
                 [username_form]) # FETCH THE HASHED PASSWORD
             for row in cur.fetchall():
