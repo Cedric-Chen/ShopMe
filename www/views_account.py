@@ -20,10 +20,11 @@ def login():
     if request.method == 'POST':
         username_form  = request.form['username']
         password_form  = request.form['password']
-        cur.execute("SELECT COUNT(1) FROM account_user WHERE name = %s;", 
+        cur.execute("SELECT COUNT(1) FROM account_user WHERE username = %s;", 
             [username_form]) # CHECKS IF USERNAME EXSIST
         if cur.fetchone()[0]:
-            cur.execute("SELECT pass FROM account_user WHERE name = %s;", 
+            cur.execute("SELECT password FROM account_user 
+                WHERE username = %s;", 
                 [username_form]) # FETCH THE HASHED PASSWORD
             for row in cur.fetchall():
                 if md5(password_form).hexdigest() == row[0]:
