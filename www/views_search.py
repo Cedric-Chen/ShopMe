@@ -25,7 +25,9 @@ def search(key, value):
         keys = list(review_items.keys())
         if len(keys) > 0:
             user_list.append(user.select(review_items[keys[0]][u'user_id']))
-            review_list.append(review_items[keys[0]])
+            s = review_items[keys[0]]['text']
+            s2 = ' '.join(s.split(' ')[0:80]) + "..."
+            review_list.append(s2)
         else:
             user_list.append({})
             review_list.append(review_items)
