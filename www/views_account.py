@@ -25,11 +25,13 @@ def check_user():
     password_form  = request.form['password']
     
     status, info = account_user.check(username_form, password_form)
+    return str(status), str(info)
     if status:
         session['username'] = request.form['username']
         return redirect(url_for('index'))
 
     flash(info)
+    return 'haha'
     return redirect(url_for('login'))
    
 #    from databse.datamodel import DataModel
