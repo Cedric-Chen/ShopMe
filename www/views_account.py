@@ -3,7 +3,7 @@
 
 import ast
 
-from flask import redirect, render_template, request, session, url_for
+from flask import redirect, render_template, request, session, url_for, flash
 from datamodel.account_user import account_user
 
 #from flask_sqlalchemy import SQLAlchemy
@@ -29,7 +29,7 @@ def check_user():
         session['username'] = request.form['username']
         return redirect(url_for('index'))
 
-    flask.flash(info)
+    flash(info)
     return redirect(url_for('login'))
    
 #    from databse.datamodel import DataModel
