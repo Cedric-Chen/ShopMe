@@ -20,7 +20,7 @@ from config import app
 #    return render_template('login.html', error=error)
 
 
-@app.route('/login/check_user', method=['POST'])
+@app.route('/login/check_user', methods=['POST'])
 def check_user():
     username_form  = request.form['username']
     password_form  = request.form['password']
