@@ -66,9 +66,9 @@
         width: 300px;
         height: 400px;
         background-color: grey;
+        position:fixed;
       }
       .pagination-page-info {
-          padding: .6em;
           padding-left: 0;
           width: 40em;
           margin: .5em;
@@ -90,7 +90,6 @@
       }
       .pagination a {
       	display:block;
-          color: blue;
           text-align: center;
           padding: 16px;
           text-decoration: none;
@@ -167,7 +166,7 @@
           </p>
           <div class="top-shelf top-shelf-grey row">
             <div class="top-column">
-              <div class="search-header">
+              <div class="search-header" style="margin-left:15px">
                 <h3>Search results</h3>
               </div>
               <!-- FILTER START -->
@@ -194,7 +193,7 @@
               <div id="content" class="container col-xs-12 col-sm-12 col-lg-12">
                   <div class="panel panel-default">
                       <div class="panel-body">
-                          <h6 class="nomargin">
+                          <h6 class="nomargin" style="margin-top:0;margin-bottom:0;">
                               <!-- {{result_list|length}} results -->
                               {{ pagination.info }}
                               <!-- <small class="text-success">(0.07 seconds) </small> -->
