@@ -3,6 +3,7 @@
 
 from flask import render_template, request
 from flask_paginate import Pagination, get_page_args
+from geopy.distance import vincenty
 
 from config import app
 from datamodel.business import business
@@ -11,9 +12,23 @@ from datamodel.checkin import checkin
 from datamodel.review import review
 from datamodel.user import user
 
+class recommender(object):
+    def __init__(self, business_list, user_loc):
+        self.business_list = business_list
+        self.user_loc = user_loc
+    def score(self,business):
+        distance = vincenty(self.user_loc,(business['latitude'],business['longitude'])).miles
+        return business['stars'] + 1/distance
+    def recommend(self):
+        return sorted(self.business_list, key = self.score, reverse = True)
+
+
 @app.route(u'/search/<key>:<value>/')
 def search(key, value):
     business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
+    my_loc = (40.12889642298632,-88.22373041280238)
+    RS = recommender(business_list,my_loc)
+    business_list = RS.recommend()
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
     per_page = 10
