@@ -53,6 +53,9 @@ def search(key, value):
         result['user'] = user_list[idx]
         result_list.append(result)
 
+    result_for_page = result_list[(page - 1) * per_page: page * per_page]
+    laglng_for_page = laglng_list[(page - 1) * per_page: page * per_page]
+
     return render_template(u'search.html',
         business = business_list[0] if len(business_list) > 0 else None,
         result_list=result_list,
