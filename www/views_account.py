@@ -3,14 +3,29 @@
 
 import ast
 
-from flask import Flask, redirect, render_template, request, session, url_for, flash
-from datamodel.account_user import account_user
-
-#from flask_sqlalchemy import SQLAlchemy
-#from flask.ext.security import Security, \
-#    UserMixin, RoleMixin, login_required
+from flask import Flask, redirect, render_template, request, \
+     session, url_for, flash, abort, Response
+from flask.ext.login import LoginManager, UserMixin, login_required, \
+    login_user, logout_user
 
 from config import app
+from datamodel.account_user import account_user
+
+# flask-login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+# user model
+class User(UserMixin):
+
+    def __init__(self, id):
+        self.id = id
+        self.name = "user" + str(id)
+        self.password = self.name + "_secret"
+        
+    def __repr__(self):
+        return "%d/%s/%s" % (self.id, self.name, self.password)
 
 @app.route('/login/')
 def login():
@@ -19,19 +34,20 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', error=error)
 
-@app.route('/login/check_user/', methods=['POST'])
+@app.route('/login/check_user/', methods=['GET','POST'])
 def check_user():
-    username_form  = request.form['username']
-    password_form  = request.form['password']
-    
-    status, info = account_user.check(username_form, password_form)
-    return str(status), str(info)
+    username = request.form['username']
+    password = request.form['password']
+   
+    status, info = account_user.check(username, password)
     if status:
-        session['username'] = request.form['username']
+#        session['username'] = request.form['username']
+        user = User(username)
+        login_user(user)
+#        return redirect(request.args.get("next"))
         return redirect(url_for('index'))
 
     flash(info)
-    return 'haha'
     return redirect(url_for('login'))
    
 #    from databse.datamodel import DataModel
@@ -53,6 +69,20 @@ def check_user():
 #    return render_template('login.html', error=error)
 
 @app.route('/logout/')
+@login_required
 def logout():
-    session.pop('username', None)
+    logout_user()
+#    return Response('<p> Logged out </p>')
+#    session.pop('username', None)
     return redirect(url_for('index'))
+
+# handle login failed
+@app.errorhandler(401)
+def page_not_found(e):
+    return Response('<p>Login failed</p>')
+    
+    
+# callback to reload the user object        
+@login_manager.user_loader
+def load_user(username):
+    return User(username)
