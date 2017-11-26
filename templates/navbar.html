@@ -7,15 +7,20 @@
       <li class="active"><a href="/">Home</a></li>
       {% if business is defined %}
           <li><a href="/merchant/{{business['id']}}">{{ business.name }}</a></li>
+<!--
       {% else %}
           <li><a href="/merchant/">Merchant</a></li>
+-->
       {% endif %}
       {% if user is defined %}
           <li><a href="/user/{{user['id']}}">{{ user.name }}</a></li>
+<!--
       {% else %}
           <li><a href="/user/">User</a></li>
+-->
       {% endif %}
     </ul>
+    {% if request.path != '/' or request.path != '/index/' %}
     <form class="navbar-form navbar-left">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search">
@@ -26,9 +31,14 @@
         </div>
       </div>
     </form>
+    {% endif %}
     <ul class="nav navbar-nav navbar-right">
+    {% if current_user.is_authenticated %}
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+    {% else %}
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    {% endif %}
     </ul>
   </div>
 </nav>
