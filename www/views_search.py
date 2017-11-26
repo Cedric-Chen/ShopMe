@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import render_template
+from flask import render_template, request
+from flask_paginate import Pagination, get_page_parameter
 
 from config import app
 from datamodel.business import business
@@ -13,6 +14,9 @@ from datamodel.user import user
 @app.route(u'/search/<key>:<value>/')
 def search(key, value):
     business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    pagination = Pagination(page=page, total=len(business_list), search=True, record_name='users')
+
     category_list = []
     checkin_list = []
     review_list = []
@@ -41,7 +45,7 @@ def search(key, value):
     result_list = list()
     for idx in range(0, len(business_list)):
         result = dict()
-        result['category'] = list(category_list[idx].values())
+        result['category'] = ', '.join(list(category_list[idx].values()))
         result['business'] = business_list[idx]
         result['num_checkin'] = num_checkin_list[idx]
         result['review'] = review_list[idx]
@@ -51,4 +55,5 @@ def search(key, value):
     return render_template(u'search.html',
         business = business_list[0] if len(business_list) > 0 else None,
         result_list=result_list,
-        laglng_list=laglng_list)
+        laglng_list=laglng_list
+        pagination=pagination)
