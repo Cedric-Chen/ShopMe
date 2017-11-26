@@ -12,12 +12,12 @@ from datamodel.account_user import account_user
 
 from config import app
 
-@app.route('/login')
-def login():
-    error = None
-    if 'username' in session:
-        return redirect(url_for('index'))
-    return render_template('login.html', error=error)
+#@app.route('/login')
+#def login():
+#    error = None
+#    if 'username' in session:
+#        return redirect(url_for('index'))
+#    return render_template('login.html', error=error)
 
 
 @app.route('/login/check_user', method=['POST'])
