@@ -16,7 +16,7 @@ def search(key, value):
     business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
-    pagination = Pagination(page=page, per_page=per_page,total=len(business_list), search=False, record_name='results')
+    pagination = Pagination(page=page, per_page=20,total=len(business_list), search=False, record_name='results')
 
     category_list = []
     checkin_list = []
@@ -57,4 +57,6 @@ def search(key, value):
         business = business_list[0] if len(business_list) > 0 else None,
         result_list=result_list,
         laglng_list=laglng_list,
+        page=page,
+        per_page=per_page,
         pagination=pagination)
