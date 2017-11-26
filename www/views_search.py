@@ -58,8 +58,8 @@ def search(key, value):
 
     return render_template(u'search.html',
         business = business_list[0] if len(business_list) > 0 else None,
-        result_list=result_for_page,
-        laglng_list=laglng_for_page,
+        result_list=result_list,
+        laglng_list=laglng_list,
         page=page,
         per_page=per_page,
         pagination=pagination)
