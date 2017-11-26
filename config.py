@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from config_override import app_debug, override_db
+from config_override import app_debug, app_secret_key, override_db
 
 config_db = { 
     u'user': u'user',
@@ -24,6 +24,7 @@ for k, v in config_db.items():
 from flask import Flask
 app = Flask(__name__)
 app.debug = app_debug
+app.config['SECRET_KEY'] = app_secret_key
 
 # directory
 app_dir = os.path.dirname(__file__)

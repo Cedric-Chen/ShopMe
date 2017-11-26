@@ -3,7 +3,7 @@
 
 import ast
 
-from flask import redirect, render_template, request, session, url_for, flash
+from flask import Flask, redirect, render_template, request, session, url_for, flash
 from datamodel.account_user import account_user
 
 #from flask_sqlalchemy import SQLAlchemy
