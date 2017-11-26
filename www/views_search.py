@@ -15,7 +15,7 @@ from datamodel.user import user
 def search(key, value):
     business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    pagination = Pagination(page=page, total=len(business_list), search=True, record_name='users')
+    pagination = Pagination(page=page, total=len(business_list), search=True, record_name='result_list')
 
     category_list = []
     checkin_list = []
