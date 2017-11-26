@@ -12,7 +12,7 @@ from datamodel.account_user import account_user
 
 from config import app
 
-@app.route('/logina')
+@app.route('/login')
 def login():
     error = None
     if 'username' in session:
