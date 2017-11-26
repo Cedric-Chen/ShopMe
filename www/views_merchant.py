@@ -4,9 +4,6 @@
 import ast
 
 from flask import redirect, render_template, request
-#from flask_sqlalchemy import SQLAlchemy
-#from flask.ext.security import Security, SQLAlchemyUserDatastore,\
-#    UserMixin, RoleMixin, login_required
 
 from config import app
 from datamodel.attribute import attribute
