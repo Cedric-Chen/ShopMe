@@ -12,26 +12,25 @@ from datamodel.account_user import account_user
 
 from config import app
 
-@app.route('/login')
+@app.route('/login/')
 def login():
     error = None
     if 'username' in session:
         return redirect(url_for('index'))
     return render_template('login.html', error=error)
 
-@app.route('/login/check_user', methods=['POST'])
+@app.route('/login/check_user/', methods=['POST'])
 def check_user():
     username_form  = request.form['username']
     password_form  = request.form['password']
     
     status, info = account_user.check(username_form, password_form)
-    
     if status:
         session['username'] = request.form['username']
         return redirect(url_for('index'))
-    else:
-        flask.flash(info)
-        return redirect(url_for('login'))
+
+    flask.flash(info)
+    return redirect(url_for('login'))
    
 #    from databse.datamodel import DataModel
 #    cur.execute("SELECT COUNT(1) FROM account_user WHERE username = %s;", \
@@ -51,7 +50,7 @@ def check_user():
 #    flask.flash(error)
 #    return render_template('login.html', error=error)
 
-@app.route('/logout')
+@app.route('/logout/')
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
