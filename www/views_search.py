@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import render_template, request
-from flask_paginate import Pagination, get_page_parameter
+from flask_paginate import Pagination, get_page_args
 
 from config import app
 from datamodel.business import business
@@ -14,8 +14,9 @@ from datamodel.user import user
 @app.route(u'/search/<key>:<value>/')
 def search(key, value):
     business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-    pagination = Pagination(page=page, total=len(business_list), search=True, record_name='result_list')
+    page, per_page, offset = get_page_args(page_parameter='page',
+                                           per_page_parameter='per_page')
+    pagination = Pagination(page=page, per_page=per_page,total=len(business_list), search=False, record_name='results')
 
     category_list = []
     checkin_list = []
