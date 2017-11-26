@@ -24,7 +24,7 @@ class DMAccount_User(DataModel):
 
         if not len(ret):
             return False, u"User doesn't exist!"
-        if not password == ret[0]:
+        if not password == ret[0][0]:
             return False, u"User and password don't match!"
 
         return True, None
