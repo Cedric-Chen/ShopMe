@@ -14,6 +14,7 @@ from config import app
 
 @app.route('/logina')
 def login():
+    error = None
     if 'username' in session:
         return redirect(url_for('index'))
     return render_template('login.html', error=error)
