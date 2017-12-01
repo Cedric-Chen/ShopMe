@@ -6,7 +6,7 @@ import ast
 from flask import Flask, redirect, render_template, request, \
      session, url_for, flash, abort, Response
 from flask.ext.login import LoginManager, UserMixin, login_required, \
-    login_user, logout_user
+    login_user, logout_user, current_user
 
 from config import app
 from datamodel.account_user import account_user
@@ -30,7 +30,7 @@ class User(UserMixin):
 @app.route('/login/')
 def login():
     error = None
-    if 'username' in session:
+    if current_user.is_authenticated:
         return redirect(url_for('index'))
     return render_template('login.html', error=error)
 
@@ -41,14 +41,16 @@ def check_user():
    
     status, info = account_user.check(username, password)
     if status:
-#        session['username'] = request.form['username']
         user = User(username)
         login_user(user)
-#        return redirect(request.args.get("next"))
-        return redirect(url_for('index'))
+    return redirect(request.args.get('next') or \
+	request.referrer or \
+	url_for('index'))
 
     flash(info)
-    return redirect(url_for('login'))
+    return redirect(request.args.get('next') or \
+	request.referrer or \
+	url_for('index'))
    
 #    from databse.datamodel import DataModel
 #    cur.execute("SELECT COUNT(1) FROM account_user WHERE username = %s;", \
