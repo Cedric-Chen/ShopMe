@@ -23,11 +23,12 @@ class recommender(object):
         return sorted(self.business_list, key = self.score, reverse = True)
 
 
-@app.route(u'/search/<key>:<value>/')
-def search(key, value):
+@app.route(u'/search/<key>:<value>&<lag>&<lng>/')
+def search(key, value, lag, lng):
     business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
-    my_loc = (40.12889642298632,-88.22373041280238)
-    RS = recommender(business_list,my_loc)
+    # user_loc = (40.12889642298632,-88.22373041280238)
+    user_loc = (float(lag),float(lng))
+    RS = recommender(business_list,user_loc)
     business_list = RS.recommend()
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
@@ -72,7 +73,7 @@ def search(key, value):
 
 
     return render_template(u'search.html',
-        business = business_list[0] if len(business_list) > 0 else None,
+        # business = business_list[0] if len(business_list) > 0 else None,
         result_list=result_list,
         laglng_list=laglng_list,
         page=page,

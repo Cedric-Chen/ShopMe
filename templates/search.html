@@ -66,9 +66,9 @@
         width: 300px;
         height: 400px;
         background-color: grey;
+        position:fixed;
       }
       .pagination-page-info {
-          padding: .6em;
           padding-left: 0;
           width: 40em;
           margin: .5em;
@@ -77,11 +77,26 @@
       }
       .pagination-page-info b {
           color: black;
-          background: #6aa6ed;
+          /*background: #6aa6ed;*/
           padding-left: 2px;
           padding: .1em .25em;
-          font-size: 150%;
+          /*font-size: 100%;*/
       }
+      .pagination ul{
+      	list-style-type: none;
+      }
+      .pagination li {
+      	float:left;
+      }
+      .pagination a {
+      	display:block;
+          text-align: center;
+          padding: 16px;
+          text-decoration: none;
+      }
+      .pagination a:hover {
+    background-color: #f0f0f0;
+}
     </style>
 
     <!-- Bootstrap core JavaScript
@@ -151,7 +166,7 @@
           </p>
           <div class="top-shelf top-shelf-grey row">
             <div class="top-column">
-              <div class="search-header">
+              <div class="search-header" style="margin-left:15px">
                 <h3>Search results</h3>
               </div>
               <!-- FILTER START -->
@@ -178,7 +193,7 @@
               <div id="content" class="container col-xs-12 col-sm-12 col-lg-12">
                   <div class="panel panel-default">
                       <div class="panel-body">
-                          <h6 class="nomargin">
+                          <h6 class="nomargin" style="margin-top:0;margin-bottom:0;">
                               <!-- {{result_list|length}} results -->
                               {{ pagination.info }}
                               <!-- <small class="text-success">(0.07 seconds) </small> -->
@@ -249,14 +264,15 @@
 
 
                           <!-- PAGINATION -->
-                          <!-- <div class = "text-center margin-top-20">
-                            <ul class="pagination">
+                          <div class = "text-center margin-top-20">
+                            <!-- <ul class="pagination">
                               <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                               <li class="page-item"><a class="page-link" href="#">1</a></li>
                               <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
-                        </div> -->
-                        {{ pagination.links }}
+                            </ul> -->
+                            {{ pagination.links }}
+                        </div>
+
                           <!-- /PAGINATION -->
                       </div>  <!-- panel body -->
                   </div>  <!-- panel -->
