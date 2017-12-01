@@ -58,4 +58,6 @@ class DMAttribute(DataModel):
                 u'UPDATE `attribute` SET value=%s WHERE ' \
                 % (self.val2sql(val)) + 'business_id="%s" AND name=%s' \
                 % (business_id, self.quote_sql(key))
+#            assert False, self.query_sql
+            
             super().execute()
