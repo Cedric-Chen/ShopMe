@@ -5,6 +5,7 @@ import ast
 
 from flask import redirect, render_template, request, session, url_for
 from flask.ext.login import login_required, current_user
+from www.tools import is_account_a_business
 
 from config import app
 from datamodel.attribute import attribute
@@ -19,16 +20,9 @@ from datamodel.review import review
 from datamodel.tip import tip
 from datamodel.user import user
 
-def is_account_a_business():
-    if 'account_type' in session and \
-        session['account_type'] == 'business':
-        return True
-    else:
-        return False
-
 @login_required
 @app.route('/merchant/profile/')
-def view_merchant():
+def view_merchant_profile():
     if is_account_a_business():
         business_id = session['id']
         return render_template(
