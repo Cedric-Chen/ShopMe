@@ -1,0 +1,111 @@
+// for pop up menu
+#lean_overlay {
+		position: fixed;
+		z-index: 100;
+		top: 0px;
+		left: 0px;
+		height: 100%;
+		width: 100%;
+		background: #000;
+		display: none;
+} 
+.popupContainer-register {
+		position: absolute;
+		width: 330px;
+		height: 450px;
+		left: 45%;
+		top: 60px;
+		background: #FFF;
+}
+.popupContainer-login {
+		position: absolute;
+		width: 330px;
+		height: 350px;
+		left: 45%;
+		top: 60px;
+		background: #FFF;
+}
+
+/* Popup Styles*/
+
+.popupHeader {
+		font-size: 16px;
+		text-transform: uppercase;
+}
+
+.popupHeader {
+		background: #F4F4F2;
+		position: relative;
+		padding: 10px 20px;
+		border-bottom: 1px solid #DDD;
+		font-weight: bold;
+}
+
+.popupHeader .modal_close {
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding: 10px 15px;
+		background: #E4E4E2;
+		cursor: pointer;
+		color: #aaa;
+		font-size: 16px;
+}
+
+.popupBody {
+		padding: 20px;
+}
+
+
+.user_register {
+}
+
+.user_register label {
+		display: block;
+		margin-bottom: 5px;
+}
+
+.user_register input[type="text"],
+.user_register input[type="email"],
+.user_register input[type="password"] {
+		display: block;
+		width: 90%;
+		padding: 10px;
+		border: 1px solid #DDD;
+		color: #666;
+}
+
+//.user_register input[type="checkbox"] {
+//		float: left;
+//		margin-right: 5px;
+//}
+//
+//.user_register input[type="checkbox"]+label {
+//		float: left;
+//}
+
+.user_register .checkbox {
+		margin-bottom: 10px;
+		margin-left: 20px;
+//		clear: both;
+//		overflow: hidden;
+}
+
+//.btn {
+//		padding: 10px 20px;
+//		background: #F4F4F2;
+//}
+
+.btn_red {
+		padding: 10px 20px;
+		background: #ED6347;
+		color: #FFF;
+}
+
+//.btn:hover {
+//		background: #E4E4E2;
+//}
+
+.btn_red:hover {
+		background: #C12B05;
+}

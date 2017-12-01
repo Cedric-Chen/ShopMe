@@ -36,48 +36,14 @@
 
 </nav>
 
+<div id="popup_register" class="modal popupContainer-register fade in">
+	<header class="popupHeader">
+		<span class="header_title">Register</span>
+		<span class="modal_close" onclick="$('#popup_register').modal('hide');"><i class="fa fa-times"></i></span>
+	</header>
 
-<div id="popup_login" class="modal popupmenu fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div calss = "modal-dialog modal-sm">
-	<div class="modal-header">
-		<span class="header_title">Login</span>
-		<span class="modal_close"><i class="fa fa-times"></i></span>
-	</div>
-
-	<div class="modal-body">
-	<form>
-		<label>Email / Username</label>
-			<input type="text" />
-			<br />
-
-			<label>Password</label>
-			<input type="password" />
-			<br />
-
-			<div class="checkbox">
-			<input id="remember" type="checkbox" />
-				<label for="remember">Remember me on this computer</label>
-			</div>
-
-			<div class="action_btns">
-			<div class=""><a href="#" class="btn btn_red">Login</a></div>
-			</div>
-		</form>
-
-		<a href="#" class="forgot_password">Forgot password?</a>
-	</div>
-    </div>
-</div>
-
-<div id="popup_register" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div calss = "modal-dialog modal-sm">
-	<div class="modal-header">
-		<span class="header_title">Login</span>
-		<span class="modal_close"><i class="fa fa-times"></i></span>
-	</div>
-
-
-	    <div class="modal-body">
+	<section class="popupBody">
+	    <div class='user_register'>
 		<form>
 		    <label>Full Name</label>
 		    <input type="text" />
@@ -92,14 +58,50 @@
 		    <br />
 
 		    <div class="checkbox">
-			    <input id="send_updates" type="checkbox" />
+			    <input id="send_updates" type="checkbox" class="form-check-input">
 			    <label for="send_updates">Send me occasional email updates</label>
 		    </div>
 
 		    <div class="action_btns">
-			    <div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>
+			    <div class=""><a href="#" class="btn btn_red">Register</a></div>
 		    </div>
 		    </form>
-	    </div>
-    </div>
+		</div>
+	</section>
 </div>
+
+<div id="popup_login" class="modal popupmenu popupContainer-login fade" onclick="$('#popup_register').modal('hide');" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="popupHeader">
+		<span class="header_title">Login</span>
+		<span class="modal_close" onclick="$('#popup_login').modal('hide');"><i class="fa fa-times"></i></span>
+	</div>
+
+	<section class="popupBody">
+	<div class="user_register">
+	<form>
+		<label>Username</label>
+			<input type="text" name='username'/>
+			<br />
+
+			<label>Password</label>
+			<input type="password" name='password'/>
+			<br />
+
+			<!--
+			<div class="checkbox">
+			<input id="remember" type="checkbox" class="form-check-input">
+				<label for="remember">Remember me on this computer</label>
+			</div>
+			-->
+
+			<div class="action_btns">
+			<div class=""><a href="#" class="btn btn_red">Login</a></div>
+			</div>
+		</form>
+
+		<a href="#" class="forgot_password">Forgot password?</a>
+	</div>
+	</section>
+</div>
+
+<link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">
