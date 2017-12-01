@@ -23,10 +23,10 @@ class recommender(object):
         return sorted(self.business_list, key = self.score, reverse = True)
 
 
-@app.route(u'/search/<key>:<value>&<lag>&<lng>/')
+@app.route(u'/search/<key>:<value>&lag=<lag>&lng=<lng>/')
 def search(key, value, lag, lng):
     business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
-    # user_loc = (40.12889642298632,-88.22373041280238)
+    # user_loc = (40.1125182374668,-88.22688654773798)
     user_loc = (float(lag),float(lng))
     RS = recommender(business_list,user_loc)
     business_list = RS.recommend()
