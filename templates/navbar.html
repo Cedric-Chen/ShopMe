@@ -5,6 +5,7 @@
     </a>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
+
       {% if business is defined %}
           <li><a href="/merchant/{{business['id']}}">{{ business.name }}</a></li>
       {% endif %}
@@ -12,6 +13,7 @@
           <li><a href="/user/{{user['id']}}">{{ user.name }}</a></li>
       {% endif %}
     </ul>
+
     {% if request.path != '/' and request.path != '/index/' %}
     <form class="navbar-form navbar-left">
       <div class="input-group">
@@ -24,13 +26,15 @@
       </div>
     </form>
     {% endif %}
+
     <ul class="nav navbar-nav navbar-right">
     {% if current_user.is_authenticated %}
+      <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-user"></span> My Page</a></li>
+      <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
       <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
     {% else %}
       <li><a data-toggle="modal" data-target="#popup_register" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a data-toggle="modal" data-target="#popup_merchant_login" href="#"><span class="glyphicon glyphicon-log-in"></span> Merchant Login</a></li>
-      <li><a data-toggle="modal" data-target="#popup_user_login" href="#"><span class="glyphicon glyphicon-log-in"></span> User Login</a></li>
+      <li><a data-toggle="modal" data-target="#popup_user_login" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
     {% endif %}
     </ul>
@@ -60,13 +64,16 @@
 	</header>
 
 	<section class="popupBody">
-  <select name="Account Type">
-    <option value="volvo">user</option>
-    <option value="saab">business</option>
-  </select>
 
 	    <div class='user_register'>
 		<form>
+			<label>Choose account type:</label>
+			<label class="radio-inline">
+			&nbsp;&nbsp;&nbsp;<input type="radio" name="account_type" value="user">user</label>
+			<label class="radio-inline">
+			<input type="radio" name="account_type" value="business">business</label>
+			<br>
+
 		    <label>Full Name</label>
 		    <input type="text" />
 		    <br />
@@ -95,13 +102,20 @@
 	aria-hidden="true" >
 
 	<div class="popupHeader">
-		<span class="header_title">User Login</span>
+		<span class="header_title"> Login</span>
 		<span class="modal_close" onclick="$('#popup_user_login').modal('hide');"><i class="fa fa-times"></i></span>
 	</div>
 
 	<section class="popupBody">
 	<div class="user_register">
 	<form method="POST" action='{{ url_for("check_user") }}'>
+
+		<label>Choose account type:</label>
+		<label class="radio-inline">
+		&nbsp;&nbsp;&nbsp;<input type="radio" name="account_type" value="user">user</label>
+		<label class="radio-inline">
+		<input type="radio" name="account_type" value="business">business</label>
+		<br>
 
 		<label>Username</label>
 			<input type="text" name='username'/>
@@ -128,37 +142,5 @@
 	</section>
 </div>
 <!-- user login end -->
-
-<!-- merchant login -->
-<div id="popup_merchant_login" class="modal popupmenu popupContainer-login fade" 
-	tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
-	aria-hidden="true" >
-
-	<div class="popupHeader">
-		<span class="header_title">Merchant Login</span>
-		<span class="modal_close" onclick="$('#popup_merchant_login').modal('hide');"><i class="fa fa-times"></i></span>
-	</div>
-
-	<section class="popupBody">
-	<div class="user_register">
-	<form method="POST" action='{{ url_for("check_user") }}'>
-		<label>Username</label>
-			<input type="text" name='username'/>
-			<br />
-
-			<label>Password</label>
-			<input type="password" name='password'/>
-			<br />
-
-			<div class="action_btns">
-			<button type='submit' class="btn btn_red">Login</button>
-			</div>
-		</form>
-
-		<a href="#" class="forgot_password">Forgot password?</a>
-	</div>
-	</section>
-</div>
-<!-- Merchant Login End -->
 
 <link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">

@@ -3,10 +3,10 @@
 
 from database.datamodel import DataModel
 
-class DMAccount_User(DataModel):
+class DMAccount_Business(DataModel):
     def __init__(self, cls):
         super().__init__(cls)
-        self.dm_attr = [u'username', u'userid', u'password']
+        self.dm_attr = [u'username', u'merchantid', u'password']
 
 #    def check_existence(self, username):
 #        self.query_sql = u'SELECT count(*) FROM account_user \
@@ -18,19 +18,19 @@ class DMAccount_User(DataModel):
 #            return False
 
     def check(self, username, password):
-        self.query_sql = u'SELECT password FROM account_user \
+        self.query_sql = u'SELECT password FROM account_business \
             WHERE username = "%s"' % (username)
         ret = super().select()
 
         if not len(ret):
-            return False, u"User doesn't exist!"
+            return False, u"Business username doesn't exist!"
         if not password == ret[0][0]:
-            return False, u"User and password don't match!"
+            return False, u"Business username and password don't match!"
 
         return True, None
 
     def get_id(self, username):
-        self.query_sql = u'SELECT userid FROM account_user \
+        self.query_sql = u'SELECT merchantid FROM account_business \
             WHERE username = "%s"' % (username)
         ret = super().select()
 
@@ -38,6 +38,7 @@ class DMAccount_User(DataModel):
             return ''
         else:
             return ret[0][0]
+
 
 #    def select(self, username):
 #        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \

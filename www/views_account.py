@@ -10,6 +10,7 @@ from flask.ext.login import LoginManager, UserMixin, login_required, \
 
 from config import app
 from datamodel.account_user import account_user
+from datamodel.account_business import account_business
 
 # flask-login
 login_manager = LoginManager()
@@ -38,44 +39,43 @@ def login():
 def check_user():
     username = request.form['username']
     password = request.form['password']
-   
-    status, info = account_user.check(username, password)
+    try:
+        account_type = request.form['account_type']
+    except:
+        flash('Please choose an account type.')
+        return redirect(request.args.get('next') or \
+	request.referrer or \
+	url_for('index'))
+
+    if account_type == 'user':   
+        status, info = account_user.check(username, password)
+    else:
+        status, info = account_business.check(username, password)
+
     if status:
         user = User(username)
         login_user(user)
-    return redirect(request.args.get('next') or \
-	request.referrer or \
-	url_for('index'))
+        session['account_type'] = account_type
+        if account_type == 'user':
+            session['id'] = account_user.get_id(username)
+        else:
+            session['id'] = account_business.get_id(username)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
 
     flash(info)
     return redirect(request.args.get('next') or \
 	request.referrer or \
 	url_for('index'))
-   
-#    from databse.datamodel import DataModel
-#    cur.execute("SELECT COUNT(1) FROM account_user WHERE username = %s;", \
-#        [username_form]) # CHECKS IF USERNAME EXSIST
-#    if cur.fetchone()[0]:
-#        cur.execute("SELECT password FROM account_user \
-#            WHERE username = %s;", 
-#            [username_form]) # FETCH THE HASHED PASSWORD
-#        for row in cur.fetchall():
-#            if md5(password_form).hexdigest() == row[0]:
-#                session['username'] = request.form['username']
-#                return redirect(url_for('index'))
-#            else:
-#                error = "Invalid Credential"
-#    else:
-#        error = "Invalid Credential"
-#    flask.flash(error)
-#    return render_template('login.html', error=error)
 
 @app.route('/logout/')
 @login_required
 def logout():
     logout_user()
 #    return Response('<p> Logged out </p>')
-#    session.pop('username', None)
+    session.pop('account_type', None)
+    session.pop('id', None)
     return redirect(url_for('index'))
 
 # handle login failed

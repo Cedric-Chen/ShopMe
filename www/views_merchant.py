@@ -3,7 +3,8 @@
 
 import ast
 
-from flask import redirect, render_template, request
+from flask import redirect, render_template, request, session, url_for
+from flask.ext.login import login_required, current_user
 
 from config import app
 from datamodel.attribute import attribute
@@ -18,17 +19,32 @@ from datamodel.review import review
 from datamodel.tip import tip
 from datamodel.user import user
 
-@app.route('/merchant/<business_id>/')
-def view_merchant(business_id):
-    return render_template(
-        u'merchant.html',
-        attribute= attribute.select(business_id),
-        business = business.select(business_id),
-        category = category.select(business_id),
-        hours    = hours.select(business_id),
-        photo    = photo.select(business_id),
-    )
+def is_account_a_business():
+    if 'account_type' in session and \
+        session['account_type'] == 'business':
+        return True
+    else:
+        return False
 
+@login_required
+@app.route('/merchant/profile/')
+def view_merchant():
+    if is_account_a_business():
+        business_id = session['id']
+        return render_template(
+            u'merchant.html',
+            attribute= attribute.select(business_id),
+            business = business.select(business_id),
+            category = category.select(business_id),
+            hours    = hours.select(business_id),
+            photo    = photo.select(business_id),
+        )
+    else:
+        return redirect(request.args.get('next') or \
+            request.referrer or \
+            url_for('index'))
+
+@login_required
 @app.route('/merchant/update_info/', methods=['POST'])
 def update_merchant_info():
     new_business = {}
@@ -69,6 +85,7 @@ def update_merchant_info():
     business.update(business_current[u'id'], new_business, {})
     return redirect(request.referrer)
 
+@login_required
 @app.route('/merchant/update_attr/', methods=['POST'])
 def update_merchant_attr():
     attribute_current = ast.literal_eval(request.args[u'attr_key'])
@@ -95,6 +112,7 @@ def update_merchant_attr():
             if newvalue != value1:
                 attr[field1] = newvalue
 
+#    return str(attribute_current) + '\n' + str(attr)
     attribute.update(business_current[u'id'], attr, {})
 
     # insert new attribute
