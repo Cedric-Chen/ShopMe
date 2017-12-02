@@ -9,8 +9,11 @@ from config import app
 @app.route('/')
 @app.route('/index/')
 def index():
-    user_ip = request.remote_addr
-    user_loc = json.loads(requests.get('https://ipinfo.io/%s/geo' % (user_ip)).content)['loc']
+    user_ip = request.access_route[-1]
+    print(request.access_route)
+    user_loc = json.loads(requests.get('https://ipinfo.io/%s/geo' % (user_ip)).content)
+    print(user_loc)
+    user_loc = user_loc['loc']
     return render_template('index.html', userloc = user_loc)
 
 # only for modifying front-end page
