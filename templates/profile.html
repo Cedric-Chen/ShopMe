@@ -31,14 +31,12 @@
 <body class="fixed-nav sticky-footer" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
     <a class="navbar-brand" href="{{ url_for('index') }}">
       <img class="img-responsive" src="{{ url_for('static', filename='img/logo1.png') }}" style="height:1.8rem; display:inline; margin:0; padding=0px">
-    {% if business is defined %}
-        {{ business.name }}
-    {% elif user is defined %}
-        {{ user.name }}
-    {% endif %}
+	 Home
     </a>
+
     <form class="form-inline ml-0 my-2 my-lg-0 mr-lg-2 col-lg-6">
         <div class="input-group col-xs-6 col-lg-12">
             <input class="form-control col-lg-10" type="text" placeholder="Search for...">
@@ -55,6 +53,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
 
       <ul class="navbar-nav ml-auto">
+<!--
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-fw fa-envelope"></i>
@@ -132,6 +131,19 @@
             <a class="dropdown-item small" href="#">View all alerts</a>
           </div>
         </li>
+-->
+
+      {% if session['account_type'] == 'business' %}
+      <li class="nav-item">
+      <a class="nav-link" href="{{ url_for("view_merchant_info") + session['id'] }}"><i class="fa fa-fw fa-sign-out"></i> My Page</a>
+	</li>
+      <li class="nav-item">
+	<a class="nav-link" href="{{ url_for("view_merchant_profile") }}"><i class="fa fa-fw fa-sign-out"></i> My Profile</a>
+	</li>
+      {% else %}
+      <li><a href="{{ url_for("index") }}"><i class="fa fa-fw fa-sign-out"></i> My Page</a></li>
+      <li><a href="{{ url_for("index") }}"><i class="fa fa-fw fa-sign-out"></i> My Profile</a></li>
+      {% endif %}
 
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
@@ -213,7 +225,7 @@
       <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="{{ url_for("index") }}">Logout</a>
+        <a class="btn btn-primary" href="{{ url_for("logout") }}">Logout</a>
       </div>
     </div>
   </div>

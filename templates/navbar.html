@@ -34,8 +34,7 @@
       <li><a href="{{ url_for("view_merchant_info") + session['id'] }}"><span class="glyphicon glyphicon-user"></span> My Page</a></li>
       <li><a href="{{ url_for("view_merchant_profile") }}"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
       {% else %}
-      <li><a href="{{ url_for("index") }}"><span class="glyphicon glyphicon-user"></span> My Page</a></li>
-      <li><a href="{{ url_for("index") }}"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+      <li><a href="{{ url_for("view_user") }}"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
       {% endif %}
       <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
     {% else %}
@@ -72,7 +71,7 @@
 	<section class="popupBody">
 
 	    <div class='user_register'>
-		<form>
+		<form method="POST" action='{{ url_for("register_user") }}'>
 			<label>Choose account type:</label>
 			<label class="radio-inline">
 			&nbsp;&nbsp;&nbsp;<input type="radio" name="account_type" value="user">user</label>
@@ -80,12 +79,8 @@
 			<input type="radio" name="account_type" value="business">business</label>
 			<br>
 
-		    <label>Full Name</label>
+		    <label>Username</label>
 		    <input type="text" />
-		    <br />
-
-		    <label>Email Address</label>
-		    <input type="email" />
 		    <br />
 
 		    <label>Password</label>

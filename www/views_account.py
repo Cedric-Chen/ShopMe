@@ -19,7 +19,6 @@ login_manager.login_view = "login"
 
 # user model
 class User(UserMixin):
-
     def __init__(self, id):
         self.id = id
         self.name = "user" + str(id)
@@ -36,6 +35,40 @@ def login():
     return render_template('login.html', error=error)
 
 @app.route('/login/check_user/', methods=['GET','POST'])
+def check_user():
+    username = request.form['username']
+    password = request.form['password']
+    try:
+        account_type = request.form['account_type']
+    except:
+        flash('Please choose an account type.')
+        return redirect(request.args.get('next') or \
+	request.referrer or \
+	url_for('index'))
+
+    if account_type == 'user':   
+        status, info = account_user.check(username, password)
+    else:
+        status, info = account_business.check(username, password)
+
+    if status:
+        user = User(username)
+        login_user(user)
+        session['account_type'] = account_type
+        if account_type == 'user':
+            session['id'] = account_user.get_id(username)
+        else:
+            session['id'] = account_business.get_id(username)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
+
+    flash(info)
+    return redirect(request.args.get('next') or \
+	request.referrer or \
+	url_for('index'))
+
+@app.route('/login/register_user/', methods=['GET','POST'])
 def check_user():
     username = request.form['username']
     password = request.form['password']
