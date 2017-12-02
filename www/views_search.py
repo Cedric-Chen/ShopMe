@@ -13,11 +13,11 @@ from datamodel.review import review
 from datamodel.user import user
 
 class recommender(object):
-    def __init__(self, business_list, user_loc):
+    def __init__(self, business_list, user_laglng):
         self.business_list = business_list
-        self.user_loc = user_loc
+        self.user_laglng = user_laglng
     def score(self,business):
-        distance = vincenty(self.user_loc,(business['latitude'],business['longitude'])).miles
+        distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
         return business['stars'] + 1/distance
     def recommend(self):
         return sorted(self.business_list, key = self.score, reverse = True)
@@ -53,13 +53,14 @@ def search(kw, loc):
     cond_loc = parse_loc(loc)
     cond = {**cond_kw, **cond_loc}
     keys = list(cond.keys())
-    keys.remove('__type__')
+    # keys.remove('__type__')
     # query
     business_list = business.sort_by(cond, keys, [u'=']*len(keys), u'*', u'*')
-    business_list = business.sort_by(cond, [keys[1]], [u'='], u'*', u'*')
     # recommendation
-    # RS = recommender(business_list,user_loc)
-    # business_list = RS.recommend()
+    if(cond['__type__'] = "laglng"):
+        user_laglng = (cond['lag'], cond['lng'])
+        RS = recommender(business_list,user_laglng)
+        business_list = RS.recommend()
     # pagination
     page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')
     per_page = 10
