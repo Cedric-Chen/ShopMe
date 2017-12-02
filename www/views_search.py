@@ -57,7 +57,7 @@ def search(kw, loc):
     # query
     business_list = business.sort_by(cond, keys, [u'=']*len(keys), u'*', u'*')
     # recommendation
-    if(cond['__type__'] = "laglng"):
+    if(cond['__type__'] == "laglng"):
         user_laglng = (cond['lag'], cond['lng'])
         RS = recommender(business_list,user_laglng)
         business_list = RS.recommend()
