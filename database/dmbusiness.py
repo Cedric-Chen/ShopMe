@@ -27,7 +27,7 @@ class DMBusiness(DataModel):
                 cond.append(u'%s %s %s' \
                     % (field, op_list[x], self.quote_sql(business[field])))
         self.query_sql = u'SELECT %s FROM business WHERE %s ' \
-            % (u', '.join(self.dm_attr), u', '.join(cond))
+            % (u', '.join(self.dm_attr), u' AND '.join(cond))
         self.query_sql += self.select_order(key, order)
         return self.sort_ret()
 
