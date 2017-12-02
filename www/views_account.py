@@ -69,7 +69,7 @@ def check_user():
 	url_for('index'))
 
 @app.route('/login/register_user/', methods=['GET','POST'])
-def check_user():
+def register_user():
     username = request.form['username']
     password = request.form['password']
     try:

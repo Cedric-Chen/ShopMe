@@ -18,14 +18,13 @@ class DMAccount_Business(DataModel):
 #            return False
 
     def check(self, username, password):
-        self.query_sql = u'SELECT password FROM account_business \
-            WHERE username = "%s"' % (username)
+        self.query_sql = u'SELECT username FROM account_business \
+            WHERE username = "%s" and password=password("%s")'\
+            % (username,password)
         ret = super().select()
 
         if not len(ret):
-            return False, u"Business username doesn't exist!"
-        if not password == ret[0][0]:
-            return False, u"Business username and password don't match!"
+            return False, u"Business login failed!"
 
         return True, None
 
