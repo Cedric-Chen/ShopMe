@@ -1,21 +1,21 @@
-<nav class="navbar navbar-fixed-top" style="background-color: #343a40!important;">
+<nav class="navbar navbar-fixed-top" style="background-color: #344a40!important;">
   <div class="container-fluid" >
     <a class="navbar-header, navbar-brand" href="{{ url_for('index') }}" >
       <img class="img-responsive" src="{{ url_for('static', filename='img/logo1.png') }}" style="height:1.8rem; display:inline; margin:0; padding=0px">
     </a>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Home</a></li>
-      {% if business is defined %}
-          <li><a href="/merchant/{{business['id']}}">{{ business.name }}</a></li>
+
+    {% if current_user.is_authenticated %}
+      {% if session['account_type'] == 'business' %}
+          <li><a href="{{ url_for("view_merchant_info") + session['id'] }}">{{ current_user.name[4:] }}</a></li>
       {% else %}
-          <li><a href="/merchant/">Merchant</a></li>
+          <li><a href="/user/info}">{{ current_user.name[4:] }}</a></li>
       {% endif %}
-      {% if user is defined %}
-          <li><a href="/user/{{user['id']}}">{{ user.name }}</a></li>
-      {% else %}
-          <li><a href="/user/">User</a></li>
-      {% endif %}
+    {% endif %}
     </ul>
+
+    {% if request.path != '/' and request.path != '/index/' %}
     <form class="navbar-form navbar-left">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search">
@@ -26,9 +26,122 @@
         </div>
       </div>
     </form>
+    {% endif %}
+
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    {% if current_user.is_authenticated %}
+      {% if session['account_type'] == 'business' %}
+      <li><a href="{{ url_for("view_merchant_info") + session['id'] }}"><span class="glyphicon glyphicon-user"></span> My Page</a></li>
+      <li><a href="{{ url_for("view_merchant_profile") }}"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+      {% else %}
+      <li><a href="{{ url_for("view_user") }}"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+      {% endif %}
+      <li><a href="{{ url_for("logout") }}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+    {% else %}
+      <li><a data-toggle="modal" data-target="#popup_register" href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a data-toggle="modal" data-target="#popup_user_login" href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+    {% endif %}
     </ul>
   </div>
+
 </nav>
+
+<div style='margin-top:50px; margin-right:40px'>
+	{% with messages = get_flashed_messages() %}
+	    {% if messages %}
+		<ul class = "flashes">
+		{% for message in messages %}
+		<div class="message_flash alert alert-danger" role='alert'>
+		{{ message }}
+		</div>
+		{% endfor %}
+		</ul>
+	    {% endif %}
+	{% endwith %} 
+</div>
+
+
+<div id="popup_register" class="modal popupContainer-register fade in">
+	<header class="popupHeader">
+		<span class="header_title">Register</span>
+		<span class="modal_close" onclick="$('#popup_register').modal('hide');"><i class="fa fa-times"></i></span>
+	</header>
+
+	<section class="popupBody">
+
+	    <div class='user_register'>
+		<form method="POST" action='{{ url_for("register_user") }}'>
+			<label>Choose account type:</label>
+			<label class="radio-inline">
+			&nbsp;&nbsp;&nbsp;<input type="radio" name="account_type" value="user">user</label>
+			<label class="radio-inline">
+			<input type="radio" name="account_type" value="business">business</label>
+			<br>
+
+		    <label>Username</label>
+		    <input type="text" />
+		    <br />
+
+		    <label>Password</label>
+		    <input type="password" />
+		    <br />
+
+		    <div class="action_btns">
+			    <div class=""><a href="#" class="btn btn_red">Register</a></div>
+		    </div>
+		    </form>
+		</div>
+
+
+	</section>
+</div>
+
+<!-- user login -->
+<div id="popup_user_login" class="modal popupmenu popupContainer-login fade" 
+	tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+	aria-hidden="true" >
+
+	<div class="popupHeader">
+		<span class="header_title"> Login</span>
+		<span class="modal_close" onclick="$('#popup_user_login').modal('hide');"><i class="fa fa-times"></i></span>
+	</div>
+
+	<section class="popupBody">
+	<div class="user_register">
+	<form method="POST" action='{{ url_for("check_user") }}'>
+
+		<label>Choose account type:</label>
+		<label class="radio-inline">
+		&nbsp;&nbsp;&nbsp;<input type="radio" name="account_type" value="user">user</label>
+		<label class="radio-inline">
+		<input type="radio" name="account_type" value="business">business</label>
+		<br>
+
+		<label>Username</label>
+			<input type="text" name='username'/>
+			<br />
+
+			<label>Password</label>
+			<input type="password" name='password'/>
+			<br />
+
+			<!--
+			<div class="checkbox">
+			<input id="remember" type="checkbox" class="form-check-input">
+				<label for="remember">Remember me on this computer</label>
+			</div>
+			-->
+
+			<div class="action_btns">
+			<button type='submit' class="btn btn_red">Login</button>
+			</div>
+		</form>
+
+		<a href="#" class="forgot_password">Forgot password?</a>
+	</div>
+	</section>
+</div>
+<!-- user login end -->
+
+<link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">

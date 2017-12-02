@@ -10,9 +10,33 @@
 
     <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
- 
+
      Font Awesome
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<style>
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+</style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 
@@ -52,10 +76,16 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-6 col-xs-offset-3">
-          <input id="search box" type="text" class="form-control">
+        <div class="col-xs-4 col-xs-offset-3" style="padding-right:0">
+          <input id="searchbox-kw" type="text" class="form-control">
         </div>
-      </div>
+        <div class="col-xs-2" style="padding:0">
+          <input id="searchbox-loc" onclick="dropdown()" type="text" class="form-control dropbtn">
+          <div id="myDropdown" class="dropdown-content">
+            <button class="col-xs-12 btn btn-default" onclick="getLocation()">Current Location</button>
+          </div>
+        </div>
+    </div>
     </div>
 
     <div class="btn-group-wrap">
@@ -152,8 +182,41 @@
 </body>
 <script>
 function search() {
-    var val = document.getElementById("search box").value.split(":");
-    if(val[0].length > 0)
-        window.location = "/search/" + val[0] + ":" + val[1];
+    var kw = document.getElementById("searchbox-kw").value.toLowerCase();
+    var loc = document.getElementById("searchbox-loc").value.toLowerCase()
+    if(loc == "")
+        loc = "urbana,IL"
+    if(kw)
+        window.location = "/search/" + "kw=" + kw + "&loc=" + loc;
 };
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function dropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fillPosition);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+function fillPosition(position) {
+    document.getElementById("searchbox-loc").value
+    = position.coords.latitude + "," + position.coords.longitude;
+}
 </script>
