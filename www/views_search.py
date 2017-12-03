@@ -23,26 +23,35 @@ class recommender(object):
         return sorted(self.business_list, key = self.score, reverse = True)
 
 def parse_kw(kw):
-    l = kw.replace(' ', '').split(',')
+    l = kw.split(',')
     d = dict()
+    kws = []
+    op_list = ['=','==','>','>=','<','<=']
     for x in l:
-        if(len(x.split(':')) == 2):
-            k = x.split(':')[0]
-            v = x.split(':')[1]
-            d[k] = v
+        for op in op_list:
+            if(len(x.split(op)) == 2):
+                k = x.split(op)[0].strip()
+                v = op + "'" + x.split(op)[1].strip() + "'"
+                d[k] = v
+                break
+            elif(op == op_list[-1]):
+                kws.append(x.strip())
+    d['kws'] = kws
     return d
 
 def parse_loc(loc):
     d = dict()
     if(len(loc.split(',')) == 2):
-        d['__type__'] = "city-state"
-        d['city'] = loc.split(',')[0].replace(' ', '')
-        d['state'] = loc.split(',')[1].replace(' ', '')
-        return d
-    elif(len(loc.split(':')) == 2):
-        d['__type__'] = "laglng"
-        d['lag'] = loc.split(':')[0].replace(' ', '')
-        d['lng'] = loc.split(':')[1].replace(' ', '')
+        try:
+            float(loc.split(',')[0].strip())
+            float(loc.split(',')[1].strip())
+            d['__type__'] = "laglng"
+            d['lag'] = loc.split(',')[0].strip()
+            d['lng'] = loc.split(',')[1].strip()
+        except ValueError:
+            d['__type__'] = "city-state"
+            d['city'] = loc.split(',')[0].strip()
+            d['state'] = loc.split(',')[1].strip()
         return d
     else:
         return {'__type__':"city-state", 'city':'urbana', 'state':'IL'}
