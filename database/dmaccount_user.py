@@ -18,15 +18,13 @@ class DMAccount_User(DataModel):
 #            return False
 
     def check(self, username, password):
-        self.query_sql = u'SELECT password FROM account_user \
-            WHERE username = "%s"' % (username)
+        self.query_sql = u'SELECT username FROM account_user \
+            WHERE username = "%s" and password=password("%s")' \
+            % (username,password)
         ret = super().select()
 
         if not len(ret):
-            return False, u"User doesn't exist!"
-        if not password == ret[0][0]:
-            return False, u"User and password don't match!"
-
+            return False, u"Login Failed!"
         return True, None
 
     def get_id(self, username):
@@ -39,6 +37,12 @@ class DMAccount_User(DataModel):
         else:
             return ret[0][0]
 
+    def insert(self, username, password):
+        self.query_sql = \
+            u'INSERT INTO account_user(username, userid, password) \
+            values("%s", "", "%s") ' % (username,password)
+        super().execute()
+  
 #    def select(self, username):
 #        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
 #            + u'FROM photo WHERE business_id = "%s"' % (business_id)

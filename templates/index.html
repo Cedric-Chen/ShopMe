@@ -182,12 +182,10 @@
 </body>
 <script>
 function search() {
-    var kw = document.getElementById("searchbox-kw").value.toLowerCase();
-    var loc = document.getElementById("searchbox-loc").value.toLowerCase()
-    if(loc == "")
-        loc = "urbana,IL"
-    if(kw)
-        window.location = "/search/" + "kw=" + kw + "&loc=" + loc;
+    var kw = document.getElementById("searchbox-kw").value.toLowerCase().split(":");
+    var loc = document.getElementById("searchbox-loc").value.toLowerCase().split(":");
+    if(kw[0].length > 0)
+        window.location = "/search/" + kw[0] + ":" + kw[1] + "&lag=" + loc[0] + "&lng=" + loc[1];
 };
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
@@ -210,13 +208,13 @@ window.onclick = function(event) {
 }
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(fillPosition);
+        navigator.geolocation.getCurrentPosition(showPosition);
     } else {
-        alert("Geolocation is not supported by this browser.");
+        x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
-function fillPosition(position) {
+function showPosition(position) {
     document.getElementById("searchbox-loc").value
-    = position.coords.latitude + "," + position.coords.longitude;
+    = position.coords.latitude + ":" + position.coords.longitude;
 }
 </script>
