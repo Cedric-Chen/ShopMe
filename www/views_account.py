@@ -81,23 +81,11 @@ def register_user():
 	url_for('index'))
 
     if account_type == 'user':   
-        status, info = account_user.check(username, password)
+        account_user.insert(username, password)
     else:
-        status, info = account_business.check(username, password)
+        account_business.insert(username, password)
 
-    if status:
-        user = User(username)
-        login_user(user)
-        session['account_type'] = account_type
-        if account_type == 'user':
-            session['id'] = account_user.get_id(username)
-        else:
-            session['id'] = account_business.get_id(username)
-        return redirect(request.args.get('next') or \
-	    request.referrer or \
-	    url_for('index'))
-
-    flash(info)
+    flash('Congratulations, you register successfully! Please Login.')
     return redirect(request.args.get('next') or \
 	request.referrer or \
 	url_for('index'))

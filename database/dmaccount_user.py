@@ -37,6 +37,12 @@ class DMAccount_User(DataModel):
         else:
             return ret[0][0]
 
+    def insert(self, username, password):
+        self.query_sql = \
+            u'INSERT INTO account_user(username, userid, password) \
+            values("%s", "", "%s") ' % (username,password)
+        super().execute()
+  
 #    def select(self, username):
 #        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
 #            + u'FROM photo WHERE business_id = "%s"' % (business_id)

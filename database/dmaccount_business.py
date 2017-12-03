@@ -38,6 +38,11 @@ class DMAccount_Business(DataModel):
         else:
             return ret[0][0]
 
+    def insert(self, username, password):
+        self.query_sql = \
+            u'INSERT INTO account_business(username, merchantid, password) \
+            values("%s", "", "%s") ' % (username,password)
+        super().execute()
 
 #    def select(self, username):
 #        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \

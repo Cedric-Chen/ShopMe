@@ -69,7 +69,6 @@
 	</header>
 
 	<section class="popupBody">
-
 	    <div class='user_register'>
 		<form method="POST" action='{{ url_for("register_user") }}'>
 			<label>Choose account type:</label>
@@ -80,15 +79,15 @@
 			<br>
 
 		    <label>Username</label>
-		    <input type="text" />
+		    <input type="text" name='username'/>
 		    <br />
 
 		    <label>Password</label>
-		    <input type="password" />
+		    <input type="password" name='password'/>
 		    <br />
 
 		    <div class="action_btns">
-			    <div class=""><a href="#" class="btn btn_red">Register</a></div>
+		<button type='submit' class="btn btn_red">Register</button>
 		    </div>
 		    </form>
 		</div>
