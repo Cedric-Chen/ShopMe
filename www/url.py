@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from flask import request, url_for
 from config import app, log_dir
 
 @app.route(u'/log/')
