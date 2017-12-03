@@ -78,7 +78,7 @@
           <input id="searchbox-kw" type="text" class="form-control">
         </div>
         <div class="col-xs-2" style="padding:0">
-          <input id="searchbox-loc" onclick="dropdown()" type="text" class="form-control dropbtn" value = {{user_loc}}>
+          <input id="searchbox-loc" onclick="dropdown()" type="text" class="form-control dropbtn" >
           <div id="myDropdown" class="dropdown-content">
             <button class="col-xs-12 btn btn-default" onclick="currentLocation()">Current Location</button>
           </div>
@@ -207,7 +207,17 @@ window.onclick = function(event) {
   }
 }
 function currentLocation() {
-  document.getElementById("searchbox-loc").value = {{user_loc}};
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            alert("Get location Failed!");
+    }
+  xmlHttp.open("GET", "https://ipinfo.io/geo", true); // true for asynchronous
+  xmlHttp.send(null);
+  var obj = JSON.parse(xmlHttp.respense)
+  console.log(obj)
+  console.log(obj.loc)
+  document.getElementById("searchbox-loc").value = obj.loc;
 }
 
 </script>
