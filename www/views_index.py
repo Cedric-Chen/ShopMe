@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import render_template,request
+from flask import render_template,request, session
+from flask_login import login_required
 import requests, json
 from config import app
 
@@ -9,12 +10,13 @@ from config import app
 @app.route('/')
 @app.route('/index/')
 def index():
-    user_ip = request.access_route[-1]
-    print(request.access_route)
-    user_loc = json.loads(requests.get('https://ipinfo.io/%s/geo' % (user_ip)).content)
-    print(user_loc)
-    user_loc = user_loc['loc']
-    return render_template('index.html', userloc = user_loc)
+    # user_ip = request.remote_addr
+    # user_loc = json.loads(requests.get('https://ipinfo.io/%s/geo' % (user_ip)).content)['loc']
+    from datamodel.review import review
+    return render_template(
+        'index.html', 
+        reviews = review.select_top_review()
+    )
 
 # only for modifying front-end page
 @app.route('/profile')

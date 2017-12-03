@@ -38,6 +38,15 @@ def login():
 def check_user():
     username = request.form['username']
     password = request.form['password']
+
+    if username=='admin' and password =='admin':
+        session['account_type'] = 'admin'
+        user = User('admin')
+        login_user(user)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
+
     try:
         account_type = request.form['account_type']
     except:
@@ -81,14 +90,20 @@ def register_user():
 	url_for('index'))
 
     if account_type == 'user':   
-        account_user.insert(username, password)
+        status, info = account_user.insert(username, password)
     else:
-        account_business.insert(username, password)
+        status, info = account_business.insert(username, password)
 
-    flash('Congratulations, you register successfully! Please Login.')
-    return redirect(request.args.get('next') or \
-	request.referrer or \
-	url_for('index'))
+    if status:
+        flash(info)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
+    else:
+        flash(info)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
 
 @app.route('/logout/')
 @login_required

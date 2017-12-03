@@ -38,10 +38,19 @@ class DMAccount_User(DataModel):
             return ret[0][0]
 
     def insert(self, username, password):
+        self.query_sql = u'SELECT userid FROM account_user \
+            WHERE username = "%s"' % (username)
+        ret = super().select()
+        if len(ret):
+            return False, 'Username has been used'
+
+
         self.query_sql = \
             u'INSERT INTO account_user(username, userid, password) \
             values("%s", "", "%s") ' % (username,password)
         super().execute()
+        return True, \
+            'Congratulations, you register successfully! Please Login.'
   
 #    def select(self, username):
 #        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
