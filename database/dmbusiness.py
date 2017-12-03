@@ -32,12 +32,12 @@ class DMBusiness(DataModel):
         return self.sort_ret()
 
     def keyword_search(self, query_dict):
-        condition = []
+        condition = ['category.business_id = business.id']
         if "keyword" in query_dict:
             keywords = query_dict["keyword"]
             for key in keywords:
                 condition.append(
-                    u"(category = " + "'" + key + "'" + u" OR " + u"name like '%" + key + "%')")
+                    u"category like '%" + key + "%'" + u" OR " + u"name like '%" + key + "%')")
             self.query_sql = u'SELECT * FROM category, business WHERE '
         else:
             self.query_sql = u'SELECT * FROM business WHERE '
