@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <title> ShopMe Homepage </title>
 
     <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -101,19 +102,21 @@
         <div class="container-fluid">
             <hr class="mt-2">
             <div class="row">
+    {% for review in reviews %}
             <!-- Example Social Card-->
                 <div class="col-md-3">
                 <div class="card">
                   <a href="#">
-                    <img class="card-img-top img-fluid mw-100 mh-100" src="https://unsplash.it/700/450?image=610" alt="" style="width:100%">
+                    <img class="card-img-top img-fluid mw-100 mh-100" src="{{ review['img'] }}" alt="" style="width:100%">
                   </a>
                   <div class="card-block">
-                    <h6 class="card-title mb-1"><a href="#">David Miller</a></h6>
-                    <p class="card-text small">These waves are looking pretty good today!
-                      <a href="#">#surfsup</a>
+                    <h6 class="card-title mb-1">{{ review['user_name'] }}</h6>
+                    <p class="card-text small">{{ review['text'] }}
+                      <a href="{{ url_for('view_merchant_info') + review['business_id'] }}">#{{ review['business_name'] }}</a>
                     </p>
                   </div>
                   <hr class="my-0">
+<!--
                   <div class="card-body py-2 small">
                     <a class="mr-3 d-inline-block" href="#">
                       <i class="fa fa-fw fa-thumbs-up"></i>Like</a>
@@ -123,57 +126,10 @@
                       <i class="fa fa-fw fa-share"></i>Share</a>
                   </div>
                   <hr class="my-0">
+-->
                 </div>
                 </div>
-            <!-- Example Social Card-->
-                <div class="col-md-3">
-                <div class="card">
-                  <a href="#">
-                    <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="" style="width:100%">
-                  </a>
-                  <div class="card-block">
-                    <h6 class="card-title mb-1"><a href="#">David Miller</a></h6>
-                    <p class="card-text small">These waves are looking pretty good today!
-                      <a href="#">#surfsup</a>
-                    </p>
-                  </div>
-                  <hr class="my-0">
-                  <div class="card-body py-2 small">
-                    <a class="mr-3 d-inline-block" href="#">
-                      <i class="fa fa-fw fa-thumbs-up"></i>Like</a>
-                    <a class="mr-3 d-inline-block" href="#">
-                      <i class="fa fa-fw fa-comment"></i>Comment</a>
-                    <a class="d-inline-block" href="#">
-                      <i class="fa fa-fw fa-share"></i>Share</a>
-                  </div>
-                  <hr class="my-0">
-                </div>
-                </div>
-            <!-- Example Social Card-->
-                <div class="col-md-3">
-                <div class="card">
-                  <a href="#">
-                    <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=610" alt="" style="width:100%">
-                  </a>
-                  <div class="card-block">
-                    <h6 class="card-title mb-1"><a href="#">David Miller</a></h6>
-                    <p class="card-text small">These waves are looking pretty good today!
-                      <a href="#">#surfsup</a>
-                    </p>
-                  </div>
-                  <hr class="my-0">
-                  <div class="card-body py-2 small">
-                    <a class="mr-3 d-inline-block" href="#">
-                      <i class="fa fa-fw fa-thumbs-up"></i>Like</a>
-                    <a class="mr-3 d-inline-block" href="#">
-                      <i class="fa fa-fw fa-comment"></i>Comment</a>
-                    <a class="d-inline-block" href="#">
-                      <i class="fa fa-fw fa-share"></i>Share</a>
-                  </div>
-                  <hr class="my-0">
-                </div>
-                </div>
-
+     {% endfor %}
 
             </div>
             </div>

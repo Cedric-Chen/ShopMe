@@ -11,7 +11,11 @@ from config import app
 def index():
     # user_ip = request.remote_addr
     # user_loc = json.loads(requests.get('https://ipinfo.io/%s/geo' % (user_ip)).content)['loc']
-    return render_template('index.html')
+    from datamodel.review import review
+    return render_template(
+        'index.html', 
+        reviews = review.select_top_review()
+    )
 
 # only for modifying front-end page
 @app.route('/profile')
