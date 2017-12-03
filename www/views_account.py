@@ -90,14 +90,20 @@ def register_user():
 	url_for('index'))
 
     if account_type == 'user':   
-        account_user.insert(username, password)
+        status, info = account_user.insert(username, password)
     else:
-        account_business.insert(username, password)
+        status, info = account_business.insert(username, password)
 
-    flash('Congratulations, you register successfully! Please Login.')
-    return redirect(request.args.get('next') or \
-	request.referrer or \
-	url_for('index'))
+    if status:
+        flash(info)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
+    else:
+        flash(info)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
 
 @app.route('/logout/')
 @login_required

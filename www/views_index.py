@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import render_template,request
+from flask import render_template,request, session
+from flask_login import login_required
 import requests, json
 from config import app
 
@@ -17,8 +18,6 @@ def index():
         reviews = review.select_top_review()
     )
 
-
-
 # only for modifying front-end page
 @app.route('/profile')
 def profile():
@@ -27,13 +26,3 @@ def profile():
         title='Cedric is awesome!',
         user=user
     )
-
-@login_required
-@app.route('/admin')
-def admin():
-    if session['account_type'] = 'admin':
-        
-    return render_template(
-        'admin.html'
-    )
-
