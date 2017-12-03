@@ -71,7 +71,7 @@ def search(kw, loc):
     keys = list(cond.keys())
     # keys.remove('__type__')
     # query
-    business_list = business.sort_by(cond, keys, [u'=']*len(keys), u'*', u'*')
+    business_list = business.sort_by(cond, keys, [u'']*len(keys), u'*', u'*')
     # recommendation
     if(cond['__type__'] == "laglng"):
         user_laglng = (cond['lag'], cond['lng'])
