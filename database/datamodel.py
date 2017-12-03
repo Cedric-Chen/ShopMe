@@ -26,7 +26,7 @@ class DataModel(Table):
         return type(value) in [bool, float, int]
 
     def quote_sql(self, value):
-        return u'%s' % value if self.basetype_sql(value) else u'"%s"' % value
+        return u'%s' % value if self.basetype_sql(value) else u"'%s'" % value
 
     def select_order(self, key, order):
         query_sql = ''

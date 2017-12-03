@@ -211,7 +211,7 @@
                                   </a>
                                 </div> -->
                                 <div class="col-lg-6">
-                                    <h4><a href="{{ url_for('information') + result['business']['id'] }}" class="search-result-title">{{loop.index+ (page - 1) * per_page}}. {{result['business']['name']}}</a></h4>
+                                    <h4><a href="{{ url_for('view_merchant_info') + result['business']['id'] }}" class="search-result-title">{{loop.index+ (page - 1) * per_page}}. {{result['business']['name']}}</a></h4>
                                   <div class="primary-attributes">
                                     <div class="row">
                                       <!-- <p>Stars: {{result['business']['stars']}}</p> -->
@@ -244,7 +244,7 @@
                               <div class="review-block">
                                 <p><a href="{{ url_for('view_user',user_id = result['user']['id']) }}">{{result['user']['name']+": "}}</a>
                                     {{result['review']}}
-                                <a href="{{ url_for('information') + result['business']['id'] }}"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
+                                <a href="{{ url_for('view_merchant_info') + result['business']['id'] }}"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
                               </div>
 
                           </div>

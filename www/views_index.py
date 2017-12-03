@@ -13,6 +13,7 @@ def index():
     # user_loc = json.loads(requests.get('https://ipinfo.io/%s/geo' % (user_ip)).content)['loc']
     return render_template('index.html')
 
+
 # only for modifying front-end page
 @app.route('/profile')
 def profile():

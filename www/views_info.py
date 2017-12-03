@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import render_template
+from flask import render_template, session
 
 from config import app
 from datamodel.attribute import attribute
@@ -20,7 +20,7 @@ from viewmodel.pagination import Pagination
 
 @app.route(u'/information/')
 @app.route(u'/information/<business_id>/')
-def information(business_id):
+def view_merchant_info(business_id):
     _attribute_ = attribute.select(business_id)
     _business = business.select(business_id)
     _category = category.select(business_id)
