@@ -112,6 +112,7 @@
                 };
                 function sortReview(orderby) {
                     var sortby = document.getElementById("review_board").getAttribute("value");
+                    document.getElementById("review_board_order").value = orderby;
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
                         document.getElementById("review_board").innerHTML = this.responseText;
@@ -119,7 +120,7 @@
                             document.getElementById("review_board").innerHTML = this.responseText;
                         }
                     };
-                    xhttp.open("GET", "{{ url_for('review_sort') }}" + "{{ business['id'] }}"+ ":" + sortby + ":" + orderby, true);
+                    xhttp.open("GET", "{{ url_for('review_board') }}" + "{{ business['id'] }}" + ":1:" + sortby + ":" + orderby, true);
                     xhttp.send();
                 };
                 function showReview() {
@@ -142,7 +143,7 @@
                     </li>
                 </ul>
             </div>
-            
+            <input type="hidden" id="review_board_order" value="-1">
             <div id="review_board" value="date">
                 {% include "review_board.html" %}
             </div>

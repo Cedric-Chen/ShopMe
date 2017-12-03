@@ -6,7 +6,6 @@ import __init__
 
 from flask import render_template
 from config import app, app_debug, log_dir
-from viewregion import review
 from www import assets, views_index, views_merchant, views_info, \
     views_search, views_user, views_utility, views_account, url
 
