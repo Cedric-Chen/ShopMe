@@ -17,6 +17,7 @@ def index():
         reviews = review.select_top_review()
     )
 
+
 # only for modifying front-end page
 @app.route('/profile')
 def profile():
@@ -29,6 +30,8 @@ def profile():
 @login_required
 @app.route('/admin')
 def admin():
+    if session['account_type'] = 'admin':
+        
     return render_template(
         'admin.html'
     )
