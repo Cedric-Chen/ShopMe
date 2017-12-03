@@ -99,7 +99,8 @@
 <table id="myTable">
   <tr class="header">
     <th><input type='checkbox' id='globalCheckbox'>
-        &nbsp;&nbsp;<a onclick='globalDelete'><i class="fa fa-trash"></i></a>
+        &nbsp;&nbsp;<a onclick="globalDelete('{{kw}}')">
+	<i class="fa fa-trash"></i></a>
     </th>
     <th style="width:auto;">Name</th>
     <th style="width:auto;">Location</th>
@@ -168,23 +169,29 @@
             }
         });
 
-    function globalDelete() {
+    function globalDelete(kw) {
+	console.log('hello world');
           var xhttp;
           xhttp =new XMLHttpRequest();
-          xhttp.tag = 0
           xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200 && this.tag == 1) {
-                document.documentElement.innerHTML = xhttp.responseText;
+            if (this.readyState == 4 && this.status == 200 ){
+		document.write(xhttp.responseText);
             }
           };
 
-        var boxs = document.getElementByClassName('checkBox');
+
+        var boxs = document.getElementsByClassName('checkBox');
+	var del_ids = [];
         for(i=0; i<boxs.length; i++) {
             if(boxs[i].checked) {
                 var del_url = boxs[i].nextElementSibling.href;
                 xhttp.open("GET", del_url, true);
-                xhttp.send()
+                xhttp.send();
+		console.log(del_url);
             }
         }
-
+	xhttp.open("GET", '{{url_for("admin_search")}}'+'/'+kw, true);
+	console.log('{{url_for("admin_search")}}'+'/'+kw)
+	xhttp.send();
+	}
 </script>

@@ -5,7 +5,6 @@ from flask import render_template,request, session, url_for, redirect, flash
 from flask_login import login_required
 import requests, json
 from config import app
-from www.views_search import parse_kw
 
 @login_required
 @app.route('/admin')
@@ -29,7 +28,7 @@ def admin_search(kw=None):
             kw = request.form['kw']
         if kw == '':
             return render_template('admin.html')
-        cond_kw = parse_kw(kw)
+        cond_kw = parse_keyword(kw)
         keys = list(cond_kw.keys())
 
         business_list = business.sort_by( \
@@ -72,3 +71,13 @@ def admin_update(kw, business_id):
         return redirect(request.args.get('next') or \
             request.referrer or \
             url_for('index'))
+
+def parse_keyword(kw):
+    l = kw.replace(' ', '').split(',')
+    d = dict()
+    for x in l:
+        if(len(x.split(':')) == 2):
+            k = x.split(':')[0]
+            v = x.split(':')[1]
+            d[k] = v
+    return d
