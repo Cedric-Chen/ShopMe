@@ -90,7 +90,7 @@
 
     <div class="btn-group-wrap">
       <div class="btn-group">
-        <button type="button" class="btn btn-info" id="search" onclick="search()">Search</button>
+        <button type="button" class="btn btn-info" id="search" onclick="search_box()">Search</button>
       </div>
       <div class="btn-group">
         <button type="button" class="btn btn-info" id="feeling-lucky">I'm Feeling Lucky</button>
@@ -180,15 +180,9 @@
         </div>
     </div>
 </body>
+
+{% include "searchbox.html" %}
 <script>
-function search() {
-    var kw = document.getElementById("searchbox-kw").value.toLowerCase();
-    var loc = document.getElementById("searchbox-loc").value.toLowerCase()
-    if(loc == "")
-        loc = "urbana,IL"
-    if(kw)
-        window.location = "/search/" + "kw=" + kw + "&loc=" + loc;
-};
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function dropdown() {
