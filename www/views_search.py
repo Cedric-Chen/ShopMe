@@ -13,25 +13,56 @@ from datamodel.review import review
 from datamodel.user import user
 
 class recommender(object):
-    def __init__(self, business_list, user_loc):
+    def __init__(self, business_list, user_laglng):
         self.business_list = business_list
-        self.user_loc = user_loc
+        self.user_laglng = user_laglng
     def score(self,business):
-        distance = vincenty(self.user_loc,(business['latitude'],business['longitude'])).miles
+        distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
         return business['stars'] + 1/distance
     def recommend(self):
         return sorted(self.business_list, key = self.score, reverse = True)
 
+def parse_kw(kw):
+    l = kw.replace(' ', '').split(',')
+    d = dict()
+    for x in l:
+        if(len(x.split(':')) == 2):
+            k = x.split(':')[0]
+            v = x.split(':')[1]
+            d[k] = v
+    return d
 
-@app.route(u'/search/<key>:<value>&lag=<lag>&lng=<lng>/')
-def search(key, value, lag, lng):
-    business_list = business.sort_by({key: value}, [key], [u'='], u'*', u'*')
-    # user_loc = (40.1125182374668,-88.22688654773798)
-    user_loc = (float(lag),float(lng))
-    RS = recommender(business_list,user_loc)
-    business_list = RS.recommend()
-    page, per_page, offset = get_page_args(page_parameter='page',
-                                           per_page_parameter='per_page')
+def parse_loc(loc):
+    d = dict()
+    if(len(loc.split(',')) == 2):
+        d['__type__'] = "city-state"
+        d['city'] = loc.split(',')[0].replace(' ', '')
+        d['state'] = loc.split(',')[1].replace(' ', '')
+        return d
+    elif(len(loc.split(':')) == 2):
+        d['__type__'] = "laglng"
+        d['lag'] = loc.split(':')[0].replace(' ', '')
+        d['lng'] = loc.split(':')[1].replace(' ', '')
+        return d
+    else:
+        return {'__type__':"city-state", 'city':'urbana', 'state':'IL'}
+
+@app.route(u'/search/kw=<kw>&loc=<loc>/')
+def search(kw, loc):
+    cond_kw = parse_kw(kw)
+    cond_loc = parse_loc(loc)
+    cond = {**cond_kw, **cond_loc}
+    keys = list(cond.keys())
+    # keys.remove('__type__')
+    # query
+    business_list = business.sort_by(cond, keys, [u'=']*len(keys), u'*', u'*')
+    # recommendation
+    if(cond['__type__'] == "laglng"):
+        user_laglng = (cond['lag'], cond['lng'])
+        RS = recommender(business_list,user_laglng)
+        business_list = RS.recommend()
+    # pagination
+    page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')
     per_page = 10
     pagination = Pagination(page=page, per_page=per_page,total=len(business_list), search=False, record_name='results')
     business_list = business_list[(page - 1) * per_page: page * per_page]
