@@ -80,8 +80,9 @@ class DMBusiness(DataModel):
 
     def update(self, business_id, business, old_business):
         pair = []
-        for key, value in business.items():
-            pair.append(u'%s=%s' % (key, self.quote_sql(value)))
+        for key in self.dm_attr:
+            if key in business:
+                pair.append(u'%s=%s' % (key, self.quote_sql(business[key])))
         self.query_sql = u'UPDATE `business` SET %s WHERE id="%s"' \
             % (u','.join(pair), business_id)
         super().execute()
