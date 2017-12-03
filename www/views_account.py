@@ -49,6 +49,7 @@ def check_user():
     if account_type == 'user':   
         status, info = account_user.check(username, password)
     else:
+        if username = 'admin':
         status, info = account_business.check(username, password)
 
     if status:

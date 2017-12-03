@@ -25,3 +25,11 @@ def profile():
         title='Cedric is awesome!',
         user=user
     )
+
+@login_required
+@app.route('/admin')
+def admin():
+    return render_template(
+        'admin.html'
+    )
+
