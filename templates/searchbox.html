@@ -1,0 +1,10 @@
+<script>
+function search() {
+    var kw = document.getElementById("searchbox-kw").value.toLowerCase();
+    var loc = document.getElementById("searchbox-loc").value.toLowerCase()
+    if(loc == "")
+        loc = "urbana,IL"
+    if(kw)
+        window.location = "/search/" + "kw=" + kw + "&loc=" + loc;
+};
+</script>

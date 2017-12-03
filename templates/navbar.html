@@ -19,13 +19,13 @@
     <form class="navbar-form navbar-left">
       <ul class="input-group" style="padding-left:0;margin:auto">
     	   <li style="float:left;">
-    	      <input id="navsearchbox-kw" type="text" class="form-control" placeholder="Search" style="width:300px">
+    	      <input id="searchbox-kw" type="text" class="form-control" placeholder="Search" style="width:300px">
          </li>
          <li style="float:left;">
-    	      <input id="navsearchbox-loc" type="text" class="form-control" placeholder="Location" style="width:180px">
+    	      <input id="searchbox-loc" type="text" class="form-control" placeholder="Location" style="width:180px">
          </li>
         <li class="input-group-btn" style="float:left;">
-          <button class="btn btn-default" type="submit" id="navsearch" onclick="navsearch()">
+          <button class="btn btn-default" type="submit" id="search" onclick="search()">
           <i class="glyphicon glyphicon-search"></i>
           </button>
         </li>
@@ -52,18 +52,9 @@
 
 </nav>
 
-<<<<<<< HEAD
-<script>
-function navsearch() {
-    var kw = document.getElementById("navsearchbox-kw").value.toLowerCase();
-    var loc = document.getElementById("navsearchbox-loc").value.toLowerCase()
-    if(loc == "")
-        loc = "urbana,IL"
-    if(kw)
-        window.location = "/search/" + "kw=" + kw + "&loc=" + loc;
-};
-</script>
-=======
+
+
+
 <div style='margin-top:50px; margin-right:40px'>
 	{% with messages = get_flashed_messages() %}
 	    {% if messages %}
@@ -75,7 +66,7 @@ function navsearch() {
 		{% endfor %}
 		</ul>
 	    {% endif %}
-	{% endwith %} 
+	{% endwith %}
 </div>
 
 
@@ -114,8 +105,8 @@ function navsearch() {
 </div>
 
 <!-- user login -->
-<div id="popup_user_login" class="modal popupmenu popupContainer-login fade" 
-	tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+<div id="popup_user_login" class="modal popupmenu popupContainer-login fade"
+	tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	aria-hidden="true" >
 
 	<div class="popupHeader">
@@ -161,4 +152,5 @@ function navsearch() {
 <!-- user login end -->
 
 <link href="{{ url_for('static', filename='css/navbar.css') }}" rel="stylesheet">
->>>>>>> refs/remotes/origin/master
+
+{% include "searchbox.html" %}
