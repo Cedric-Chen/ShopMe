@@ -93,8 +93,8 @@ def search(kw, loc):
     cond_kw = parse_kw(kw)
     cond_loc = parse_loc(loc)
     if(cond_loc['__type__'] == "city-state"):
-        cond_kw['attribute']['city'] = cond_loc['city']
-        cond_kw['attribute']['state'] = cond_loc['state']
+        cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
+        cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
     # keys = list(cond.keys())
     # keys.remove('__type__')
     # query

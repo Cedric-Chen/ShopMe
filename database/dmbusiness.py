@@ -38,7 +38,7 @@ class DMBusiness(DataModel):
             for key in keywords:
                 condition.append(
                     u"(category like '%" + key + "%'" + u" OR " + u"name like '%" + key + "%')")
-            self.query_sql = u'SELECT * FROM category, business WHERE '
+            self.query_sql = u'SELECT %s FROM category, business WHERE ' %(','.join([self.quote_sql(x) for x in self.dm_attr]))
         else:
             self.query_sql = u'SELECT * FROM business WHERE '
 
@@ -49,10 +49,7 @@ class DMBusiness(DataModel):
                     condition.append(attr + attributes[attr])
         self.query_sql += u' AND '.join(condition)
         self.query_sql += self.select_order([u"name"], 1)
-        return [{self.dm_attr[index]: value \
-                 for index, value in enumerate(entry)
-                 } for entry in super().select()
-                ]
+        return self.sort_ret()
 
 
 
