@@ -99,7 +99,7 @@
 <table id="myTable">
   <tr class="header">
     <th><input type='checkbox' id='globalCheckbox'>
-        &nbsp;&nbsp;<i class="fa fa-trash"></i>
+        &nbsp;&nbsp;<a onclick='globalDelete'><i class="fa fa-trash"></i></a>
     </th>
     <th style="width:auto;">Name</th>
     <th style="width:auto;">Location</th>
@@ -167,4 +167,24 @@
                 $("#globalCheckbox").prop("checked", false);            
             }
         });
+
+    function globalDelete() {
+          var xhttp;
+          xhttp =new XMLHttpRequest();
+          xhttp.tag = 0
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200 && this.tag == 1) {
+                document.documentElement.innerHTML = xhttp.responseText;
+            }
+          };
+
+        var boxs = document.getElementByClassName('checkBox');
+        for(i=0; i<boxs.length; i++) {
+            if(boxs[i].checked) {
+                var del_url = boxs[i].nextElementSibling.href;
+                xhttp.open("GET", del_url, true);
+                xhttp.send()
+            }
+        }
+
 </script>
