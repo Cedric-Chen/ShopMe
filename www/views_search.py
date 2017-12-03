@@ -31,12 +31,19 @@ def parse_kw(kw):
         for op in op_list:
             if(len(x.split(op)) == 2):
                 k = x.split(op)[0].strip()
-                v = op + "'" + x.split(op)[1].strip() + "'"
-                d[k] = v
+                v = x.split(op)[1].strip()
+                try:
+                    float(v)
+                    v = op + v
+                except ValueError:
+                    v = op + "'" + v + "'"
+                if not "attribute" in d:
+                    d['attribute'] = dict()
+                d['attribute'][k] = v
                 break
             elif(op == op_list[-1]):
                 kws.append(x.strip())
-    d['kws'] = kws
+    d['keyword'] = kws
     return d
 
 def parse_loc(loc):
