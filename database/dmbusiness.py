@@ -37,7 +37,7 @@ class DMBusiness(DataModel):
             keywords = query_dict["keyword"]
             for key in keywords:
                 condition.append(
-                    u"category like '%" + key + "%'" + u" OR " + u"name like '%" + key + "%')")
+                    u"(category like '%" + key + "%'" + u" OR " + u"name like '%" + key + "%')")
             self.query_sql = u'SELECT * FROM category, business WHERE '
         else:
             self.query_sql = u'SELECT * FROM business WHERE '
@@ -45,7 +45,8 @@ class DMBusiness(DataModel):
         if "attribute" in query_dict:
             attributes = query_dict["attribute"]
             for attr in query_dict["attribute"]:
-                condition.append(attr + attributes[attr])
+                if attr in self.dm_attr:
+                    condition.append(attr + attributes[attr])
         self.query_sql += u' AND '.join(condition)
         self.query_sql += self.select_order([u"name"], 1)
         return [{self.dm_attr[index]: value \
