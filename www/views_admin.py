@@ -23,7 +23,14 @@ def admin_account():
 def admin_stastics():
     if session['account_type'] == 'admin':
         return render_template(
-            'admin_stastics.html'
+            'admin_stastics.html',
+            data = [
+         ['Element', 'Density'],
+         ['Copper', 8.94],        
+         ['Silver', 10.49],         
+         ['Gold', 19.30],
+         ['Platinum', 21.45 ]
+      ]
         )
     else:
         return redirect(request.args.get('next') or \
