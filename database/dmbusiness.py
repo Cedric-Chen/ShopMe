@@ -32,8 +32,9 @@ class DMBusiness(DataModel):
         return self.sort_ret()
 
     def keyword_search(self, query_dict):
-        condition = ['category.business_id = business.id']
+        condition = []
         if "keyword" in query_dict and query_dict["keyword"] != []:
+            condition.append('category.business_id = business.id')
             keywords = query_dict["keyword"]
             for key in keywords:
                 condition.append(
