@@ -27,6 +27,7 @@ class recommender(object):
     'Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virginia': 'VA','Washington': 'WA',
     'West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY',
     }
+
     def __init__(self, business_list, cond_loc):
         self.business_list = business_list
         if(cond_loc['__type__'] == "laglng"):
@@ -39,13 +40,15 @@ class recommender(object):
             self.city = cond_loc['city']
             self.state = cond_loc['state']
             self.laglng = None
+
     def score(self,business):
         if self.laglng:
             distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
             score = business['stars'] + 1/distance
         else:
             score = business['stars']
-        return
+        return score
+
     def recommend(self):
         return sorted(self.business_list, key = self.score, reverse = True)
 

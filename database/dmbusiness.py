@@ -38,7 +38,7 @@ class DMBusiness(DataModel):
             for key in keywords:
                 condition.append(
                     u"(category like '%" + key + "%'" + u" OR " + u"name like '%" + key + "%')")
-            self.query_sql = u'SELECT %s FROM category, business WHERE ' %(','.join([self.quote_sql(x) for x in self.dm_attr]))
+            self.query_sql = u'SELECT %s FROM category, business WHERE ' %(','.join(self.dm_attr))
         else:
             self.query_sql = u'SELECT * FROM business WHERE '
 
