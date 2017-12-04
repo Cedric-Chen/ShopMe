@@ -10,196 +10,75 @@
   <title> Admin Page</title>
 
     <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-     Font Awesome
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<!--
-<style>
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 180px;
-  overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.dropdown a:hover {background-color: #f1f1f1}
-
-.show {display:block;}
-</style>
--->
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
-#searchbox-kw {
-  width: 80%;
-  font-size: 16px;
-  padding: 12px 20px 12px 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-  display:inline-block
-}
-#mybutton {
-  width: 19%;
-  font-size: 16px;
-  padding: 12px 2px 12px 4px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
+  body {
+    padding-top: 60px;
+  }
+  @media (max-width: 980px) {
+    body {
+      padding-top: 0;
+    }
+  }
 </style>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 
 <body>
   {% include "navbar.html" %}
 
-<div class='container col-md-10 col-md-offset-1'>
+<div class='container col-md-4 col-md-offset-1'>
+<form method='post' action="{{ url_for("admin_database_do") }}">
 
-<form method='post' action="{{ url_for("admin_account_search") }}">
-<input type="text" id="searchbox-kw" name="kw" placeholder="Please enter your search condition"  style=''>
-<button id='mybutton' type="submit">Search</button>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="radio" name="rb_all" 
+		id="inlineRadio1" value="all"> Rollback All 
+	  </label>
+	</div>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="radio" name="rb_all" 
+		id="inlineRadio2" value="same"> 
+		Rollback Only Same Transcation
+	  </label>
+	</div>
+
+  <div class="form-group">
+    <label for="querys">
+	Please enter your SQL query here.</label>
+    <button class='btn btn-primary' type="submit"
+	style="display: inline-block;margin-left:30px;">
+	Execute</button>
+
+    <textarea class="form-control"
+	 id="querys" name="querys"
+	rows="25"  style="margin-top:10px;"></textarea>
+  </div>
+
 </form>
-
-<table id="myTable">
-  <tr class="header">
-    <th><input type='checkbox' id='globalCheckbox'>
-        &nbsp;&nbsp;<a onclick="globalDelete('{{kw}}')">
-	<i class="fa fa-trash"></i></a>
-    </th>
-    <th style="width:auto;">Name</th>
-    <th style="width:auto;">Location</th>
-    <th style="width:auto;">Stars</th>
-  </tr>
-  {% if business_list is defined %}
-  {% for business in business_list %}
-  <tr>
-    <td><input class='checkBox' type='checkbox'>
-        &nbsp;&nbsp;
-	<a href="{{ url_for("admin_account_delete") + kw +'/'+ business['id'] }}">
-		<i class="fa fa-trash"></i>
-	</a>
-	&nbsp;&nbsp;
-	<a id="refresh_button_{{business['id'] }}" 
-		onclick='$("#update_{{business["id"]}}").toggle(500)'>
-	<i class="fa fa-refresh"></i>
-	</a>
-    </td>
-    <td>{{ business['name'] }}</td>
-    <td>{{ business['city'] + ' ' + business['state'] }}</td>
-    <td>{{ business['stars'] }}</td>
-  </tr>
-
-  <tr id='update_{{business["id"]}}' style='display:none;'>
-    <td></td>
-    <td>
-	<form method='post' action='{{ url_for("admin_account_update") + kw + '/' + business['id'] }}'>
-	<table cellspacing="0" cellpadding="0" style='border:none;'>
-	<tr><td><h6>Set new username</h6></td>
-		<td><input class='text' name='new_username'></td>
-	<tr><td><h6>Set new password</h6></td>
-		<td><input class='text' name='new_password'></td>
-	<tr><td></td>
-		<td><button type='submit'> Submit </button></td>
-	</table>
-	</form>
-    </td>
-    <td></td>
-    <td></td>
-  </tr>
-
-  {% endfor %}
-  {% endif %}
-</table>
-
 </div>
+
+
+<div class='container col-md-4 col-md-offset-2'>
+    <label>
+	Log</label>
+    <textarea class="form-control"
+	rows="12"  style="margin-top:10px;" readonly></textarea>
+	<br><br><br>
+    <label>
+	Result</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" 
+	rows="12"  style="margin-top:10px;" readonly></textarea>
+</div>
+
 </body>
-
-
-<script>
-        $('#globalCheckbox').click(function(){
-            if($(this).prop("checked")) {
-                $(".checkBox").prop("checked", true);
-            } else {
-                $(".checkBox").prop("checked", false);
-            }                
-        });
-
-
-        $('.checkBox').click(function(){
-            if($(".checkBox").length == $(".checkBox:checked").length) {
-                $("#globalCheckbox").prop("checked", true);
-            }else {
-                $("#globalCheckbox").prop("checked", false);            
-            }
-        });
-
-    function globalDelete(kw) {
-        var boxs = document.getElementsByClassName('checkBox');
-        var del_ids = [];
-        for(i=0; i<boxs.length; i++) {
-            if(boxs[i].checked) {
-                var del_url = boxs[i].nextElementSibling.href;
-                var value = del_url.split('/');
-                id = value[value.length-1];
-                del_ids.push(id);
-            }
-        }
-
-        console.log('hello world');
-        console.log(del_ids.length)
-        var xhttp = new XMLHttpRequest();
-        xhttp.tag = 0;
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200 && this.tag == del_ids.length){
-                document.write(xhttp.responseText);
-            }
-            else{
-                this.tag++;
-                console.log(this.tag);
-            }
-        };
-
-        for(i=0; i<del_ids.length; i++){
-            xhttp.open("GET", '{{url_for("admin_account_delete")}}'+'/'+kw+'/'+del_ids[i], true);
-            xhttp.send();
-
-        xhttp.open("GET", '{{url_for("admin_account_search")}}'+'/'+kw, true);
-        xhttp.send();
-	}
-</script>

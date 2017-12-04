@@ -19,17 +19,49 @@ def admin_account():
             url_for('/'))
 
 @login_required
-@app.route('/admin/database')
-def admin_database():
+@app.route('/admin/database/')
+def admin_database(commands={}, results={}):
     if session['account_type'] == 'admin':
         return render_template(
-            'admin_database.html'
+            'admin_database.html',
+            commands = commands,
+            results = results
         )
     else:
         return redirect(request.args.get('next') or \
             request.referrer or \
             url_for('/'))
 
+@login_required
+@app.route('/admin/database/do/', methods=['POST'])
+def admin_database_do():
+    if session['account_type'] == 'admin':
+        from viewmodel.sqltransact import SQLTransaction
+        querys = request.form['querys']
+#        rb_all = request.form.....
+        return querys
+        transcation, query = admin_database_parse(querys)
+        sqltransaction = SQLTransaction(transaction,sql,rb_all)
+        commands, results = sqltransaction.run()
+
+        return render_template(
+            'admin_database.html',
+            commands = commands,
+            results = results
+        )
+    else:
+        return redirect(request.args.get('next') or \
+            request.referrer or \
+            url_for('/'))
+
+def admin_database_parse(querys):
+    values = querys.split(';')
+    values.pop()
+    transcation = []
+    querys = []
+    for value in values:
+
+    return [], []
 
 @login_required
 @app.route('/admin/account/search', methods=['POST'])
