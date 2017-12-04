@@ -42,11 +42,13 @@
   <div class="form-group">
 
   <label class="form-check-label">
-    <input class="form-check-input" type="radio" name="rb_all" checked
+    <input class="form-check-input" type="radio" name="rb_all"
+	{% if rb_all is not defined or rb_all %} checked {%endif%}
 	id="inlineRadio1" value="all"> Rollback All 
   </label> &nbsp;&nbsp;&nbsp;&nbsp;
   <label class="form-check-label">
     <input class="form-check-input" type="radio" name="rb_all" 
+	{% if rb_all is defined and not rb_all %} checked {%endif%}
 	id="inlineRadio2" value="same"> 
 	Rollback Only Same Transcation
   </label>
@@ -73,8 +75,7 @@
     <label>
 	Log</label>
     <textarea class="form-control"
-	rows="12"  style="margin-top:10px;" readonly>
-    {% for command in commands %}{{ (command[0]-1) * "+ " + command[2] + " ------ " +  command[1]}} 
+	rows="12"  style="margin-top:10px;" readonly>{% for command in commands %}{{ (command[0]-1) * "+ " + command[2] + " ------ " +  command[1]}} 
     {% endfor %}
     
     </textarea>
@@ -82,8 +83,7 @@
     <label>
 	Result</label>
     <textarea class="form-control" 
-	rows="12"  style="margin-top:10px;" readonly>
-{% for result in results %}{{ join(result,', ') }}
+	rows="12"  style="margin-top:10px;" readonly>{% for result in results %}{{ join(result,', ') }}
 
 {%  endfor %}
     

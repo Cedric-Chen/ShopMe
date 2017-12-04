@@ -19,6 +19,18 @@ def admin_account():
             url_for('/'))
 
 @login_required
+@app.route('/admin/stastics/')
+def admin_stastics():
+    if session['account_type'] == 'admin':
+        return render_template(
+            'admin_stastics.html'
+        )
+    else:
+        return redirect(request.args.get('next') or \
+            request.referrer or \
+            url_for('/'))
+
+@login_required
 @app.route('/admin/database/')
 def admin_database(commands={}, results={}):
     if session['account_type'] == 'admin':
@@ -50,7 +62,8 @@ def admin_database_do():
             'admin_database.html',
             commands = ret.commands,
             results = ret.results,
-            querys = querys
+            querys = querys,
+            rb_all = rb_all
         )
     else:
         return redirect(request.args.get('next') or \
