@@ -176,12 +176,12 @@
         console.log('hello world');
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
-//            if (this.readyState == 4 && this.status == 200){
-//                document.write(xhttp.responseText);
-//            }
-	      if (false){
-		  document.write(xhttp.responseText);
-		}
+            if (this.readyState == 4 && this.status == 200){
+                document.write(xhttp.responseText);
+            }
+//	      if (false){
+//		  document.write(xhttp.responseText);
+//		}
         };
 
         var boxs = document.getElementsByClassName('checkBox');
@@ -189,17 +189,19 @@
         for(i=0; i<boxs.length; i++) {
             if(boxs[i].checked) {
                 var del_url = boxs[i].nextElementSibling.href;
-		xhttp.open("GET", del_url, true);
-	    	xhttp.send();
-console.log(del_url);
-
-//                var value = del_url.split('/');
-//                id = value[value.length-1];
-//                del_ids.push(id);
+//		xhttp.open("GET", del_url, true);
+//	    	xhttp.send();
+//console.log(del_url);
+                var value = del_url.split('/');
+                id = value[value.length-1];
+                del_ids.push(id);
             }
         }
-
-
+        id_str = del_ids.join('-')
+        console.log(id_str)
+        xhttp.open("GET", '{{url_for("admin_account_delete_group")}}'+kw+'/'+id_str, true);
+        xhttp.send();
+         
 //        for(i=0; i<del_ids.length; i++){
 //            xhttp.open("GET", '{{url_for("admin_account_delete")}}'+kw+'/'+del_ids[i], true);
 //	    console.log('{{url_for("admin_account_delete")}}'+kw+'/'+del_ids[i])

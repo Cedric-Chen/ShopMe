@@ -70,12 +70,13 @@ def admin_account_delete(kw, business_id):
             url_for('/'))
 
 @login_required
-@app.route('/admin/account/delete/')
-@app.route('/admin/account/delete/<kw>/<business_id>')
-def admin_account_delete(kw, business_id):
+@app.route('/admin/account/delete/group/')
+@app.route('/admin/account/delete/group/<kw>/<business_ids_str>')
+def admin_account_delete_group(kw, business_ids_str):
     if session['account_type'] == 'admin':
         from datamodel.business import business
-        business.delete(business_id,business.select(business_id))
+        for business_id in business_ids_str.split('-')
+            business.delete(business_id,business.select(business_id))
         return redirect(url_for('admin_account_search') + '/' + kw)
     else:
         return redirect(request.args.get('next') or \
