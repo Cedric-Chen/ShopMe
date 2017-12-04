@@ -24,7 +24,6 @@ class SQLTransaction(object):
         with self.__tctx as curser:
             while index < len(self.transact):
                 tran_no = self.transact[index]
-                print(tran_no)
                 if tran_no == self.__tctx.transact:
                     curser.execute(self.sql[index], tuple())
                     index += 1

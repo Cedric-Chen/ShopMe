@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import re
+
 from database.mysql.engine import DbCtx
 
 
@@ -59,6 +61,11 @@ class Transaction(dict):
         cmd = [self.transact, sql, placeholder]
         self.commands.append(cmd)
         self.__cmd_st.append(cmd)
-        self.__cursor.execute(sql, placeholder)
-        self.results.append(self.__cursor.fetchall())
+        if re.match(r'^call', sql, re.IGNORECASE):
+            sql = sql.lower().split('call ')[1].strip().split('()')[0]
+            ret = self.__cursor.callproc(sql, placeholder)
+            self.results.append(ret)
+        else:
+            self.__cursor.execute(sql, placeholder)
+            self.results.append(self.__cursor.fetchall())
         return self
