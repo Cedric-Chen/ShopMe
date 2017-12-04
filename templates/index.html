@@ -34,6 +34,36 @@
 .dropdown a:hover {background-color: #f1f1f1}
 
 .show {display:block;}
+
+.animated {
+  -webkit-animation-duration: 1.5s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
+
+.hideme
+{
+    opacity:0;
+}
 </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -72,7 +102,7 @@
   <div class="container">
     <div class="row">
       <div class="span4"></div>
-      <div class="span4"><img class="center-block" src="{{ url_for('static', filename='img/logo1.png') }}" id="logo" alt="logo"></div>
+      <div class="span4 animated fadeInUp"><img class="center-block" src="{{ url_for('static', filename='img/logo1.png') }}" id="logo" alt="logo"></div>
       <div class="span4"></div>
     </div>
 
@@ -107,7 +137,7 @@
                 <div class="col-md-3">
                 <div class="card">
                   <a href="#">
-                    <img class="card-img-top img-fluid mw-100 mh-100" src="{{ review['img'] }}" alt="" style="width:100%">
+                    <img class="hideme card-img-top img-fluid mw-100 mh-100" src="{{ review['img'] }}" alt="" style="width:100%">
                   </a>
                   <div class="card-block">
                     <h6 class="card-title mb-1">{{ review['user_name'] }}</h6>
@@ -171,5 +201,18 @@ function currentLocation() {
   console.log(obj.loc)
   document.getElementById("searchbox-loc").value = obj.loc;
 }
-
+$(document).ready(function() {
+    /* Every time the window is scrolled ... */
+    $(window).scroll( function(){
+        /* Check the location of each desired element */
+        $('.hideme').each( function(i){
+            var bottom_of_object = $(this).position().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* If the object is completely visible in the window, fade it it */
+            if( bottom_of_window > bottom_of_object ){
+                $(this).animate({'opacity':'1'},2500);
+            }
+        });
+    });
+});
 </script>
