@@ -70,8 +70,8 @@ def admin_account_delete(kw, business_id):
             url_for('/'))
 
 @login_required
-@app.route('/admin/account/delete/')
-@app.route('/admin/account/delete/<kw>/<business_id>')
+@app.route('/admin/account/delete/group/')
+@app.route('/admin/account/delete/group/<kw>/<business_id>')
 def admin_account_delete(kw, business_id):
     if session['account_type'] == 'admin':
         from datamodel.business import business
