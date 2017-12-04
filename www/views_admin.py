@@ -7,7 +7,7 @@ import requests, json
 from config import app
 
 @login_required
-@app.route('/admin_account')
+@app.route('/admin/account')
 def admin_account():
     if session['account_type'] == 'admin':
         return render_template(
@@ -19,7 +19,7 @@ def admin_account():
             url_for('/'))
 
 @login_required
-@app.route('/admin_database')
+@app.route('/admin/database')
 def admin_database():
     if session['account_type'] == 'admin':
         return render_template(
@@ -32,22 +32,11 @@ def admin_database():
 
 
 @login_required
-@app.route('/admin_account/search/<kw>', methods=['GET'])
-@app.route('/admin_account/search', methods=['POST'])
+@app.route('/admin/account/search/<kw>', methods=['GET'])
+@app.route('/admin/account/search', methods=['POST'])
 def admin_account_search(kw=None):
     if session['account_type'] == 'admin':
         from datamodel.business import business
- @login_required
-@app.route('/admin_account')
-def admin_account():
-    if session['account_type'] == 'admin':
-        return render_template(
-            'admin_account.html'
-        )
-    else:
-        return redirect(request.args.get('next') or \
-            request.referrer or \
-            url_for('/'))
        if not kw:
             kw = request.form['kw']
         if kw == '':
@@ -68,8 +57,8 @@ def admin_account():
             url_for('/'))
 
 @login_required
-@app.route('/admin_account/delete/')
-@app.route('/admin_account/delete/<kw>/<business_id>')
+@app.route('/admin/account/delete/')
+@app.route('/admin/account/delete/<kw>/<business_id>')
 def admin_account_delete(kw, business_id):
     if session['account_type'] == 'admin':
         from datamodel.business import business
@@ -81,8 +70,8 @@ def admin_account_delete(kw, business_id):
             url_for('/'))
 
 @login_required
-@app.route('/admin_account/update/', methods=['POST'])
-@app.route('/admin_account/update/<kw>/<business_id>', methods=['POST'])
+@app.route('/admin/account/update/', methods=['POST'])
+@app.route('/admin/account/update/<kw>/<business_id>', methods=['POST'])
 def admin_account_update(kw, business_id):
     if session['account_type'] == 'admin':
         from datamodel.account_business import account_business
