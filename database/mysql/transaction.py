@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import re
-
 from database.mysql.engine import DbCtx
 
 
@@ -61,9 +59,6 @@ class Transaction(dict):
         cmd = [self.transact, sql, placeholder]
         self.commands.append(cmd)
         self.__cmd_st.append(cmd)
-        ret = self.__cursor.execute(sql, placeholder)
-        if re.match(r'^SELECT', sql, re.IGNORECASE):
-            self.results.append(self.__cursor.fetchall())
-        else:
-            self.results.append(ret)
+        self.__cursor.execute(sql, placeholder)
+        self.results.append(self.__cursor.fetchall())
         return self
