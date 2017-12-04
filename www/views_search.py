@@ -12,6 +12,8 @@ from datamodel.category import category
 from datamodel.checkin import checkin
 from datamodel.review import review
 from datamodel.user import user
+from utility.lrudecorator import LRUDecorator
+
 
 class recommender(object):
     us_state_abbrev = {
@@ -91,8 +93,9 @@ def parse_loc(loc):
     else:
         return {'__type__':"city-state", 'city':'urbana', 'state':'IL'}
 
-@app.route(u'/search/kw=<kw>&loc=<loc>/')
-def search(kw, loc):
+
+@LRUDecorator(50)
+def search_result(kw, loc):
     cond_kw = parse_kw(kw)
     cond_loc = parse_loc(loc)
     if(cond_loc['__type__'] == "city-state"):
@@ -104,8 +107,12 @@ def search(kw, loc):
     # business_list = business.sort_by(cond, keys, [u'']*len(keys), u'*', u'*')
     business_list = business.keyword_search(cond_kw)
     # recommendation
-    RS = recommender(business_list,cond_loc)
-    business_list = RS.recommend()
+    return recommender(business_list,cond_loc).recommend()
+
+
+@app.route(u'/search/kw=<kw>&loc=<loc>/')
+def search(kw, loc):
+    business_list = search_result(kw, loc)
     # pagination
     page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')
     per_page = 10
