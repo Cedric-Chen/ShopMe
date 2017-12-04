@@ -19,32 +19,13 @@ class recommender(object):
 
     def __init__(self, business_list, cond_loc):
         self.business_list = business_list
-        self.us_state_abbrev = {
-            'Alabama': 'AL','Alaska': 'AK','Arizona': 'AZ','Arkansas': 'AR','California': 'CA',
-            'Colorado': 'CO','Connecticut': 'CT','Delaware': 'DE','Florida': 'FL','Georgia': 'GA',
-            'Hawaii': 'HI','Idaho': 'ID','Illinois': 'IL','Indiana': 'IN','Iowa': 'IA',
-            'Kansas': 'KS','Kentucky': 'KY','Louisiana': 'LA','Maine': 'ME','Maryland': 'MD',
-            'Massachusetts': 'MA','Michigan': 'MI','Minnesota': 'MN','Mississippi': 'MS',
-            'Missouri': 'MO','Montana': 'MT','Nebraska': 'NE','Nevada': 'NV','New Hampshire': 'NH',
-            'New Jersey': 'NJ','New Mexico': 'NM','New York': 'NY','North Carolina': 'NC',
-            'North Dakota': 'ND','Ohio': 'OH','Oklahoma': 'OK','Oregon': 'OR','Pennsylvania': 'PA',
-            'Rhode Island': 'RI','South Carolina': 'SC','South Dakota': 'SD','Tennessee': 'TN',
-            'Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virginia': 'VA','Washington': 'WA',
-            'West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY',
-            }
         if(cond_loc['__type__'] == "laglng"):
             self.user_laglng = (cond_loc['lag'], cond_loc['lng'])
-            geolocator = Nominatim()
-            location = geolocator.reverse("%s, %s" %self.user_laglng)
-            self.city = location.raw['address']['city']
-            self.state = self.us_state_abbrev[location.raw['address']['state']]
-        elif(cond_loc['__type__'] == "city-state"):
-            self.city = cond_loc['city']
-            self.state = cond_loc['state']
-            self.laglng = None
+        else:
+            self.user_laglng = None
 
     def score(self,business):
-        if self.laglng:
+        if self.user_laglng:
             distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
             score = business['stars'] + 1/distance
         else:
@@ -85,13 +66,27 @@ def parse_loc(loc):
             d['lag'] = float(loc.split(',')[0].strip())
             d['lng'] = float(loc.split(',')[1].strip())
             d['__type__'] = "laglng"
+            geolocator = Nominatim()
+            location = geolocator.reverse("%s, %s" %(d['lag'], d['lng']))
+            try:
+                d['postal_code'] = location.raw['address']['postcode']
+            except KeyError:
+                d['postal_code'] = None
         except ValueError:
             d['__type__'] = "city-state"
             d['city'] = loc.split(',')[0].strip()
             d['state'] = loc.split(',')[1].strip()
         return d
     else:
-        return {'__type__':"city-state", 'city':'urbana', 'state':'IL'}
+        try:
+            int(loc)
+            # assert len(loc) == 5
+            d['postal_code'] = loc.strip()
+            d['__type__'] = "postal_code"
+            return d
+        except:
+            pass
+    return {'__type__':"city-state", 'city':'urbana', 'state':'IL'}
 
 
 @LRUDecorator(50)
@@ -101,6 +96,8 @@ def search_result(kw, loc):
     if(cond_loc['__type__'] == "city-state"):
         cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
         cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
+    elif(cond_loc['__type__'] = "postal_code"):
+        cond_kw['attribute']['postal_code'] = "='" + cond_loc['postal_code'] + "'"
     # keys = list(cond.keys())
     # keys.remove('__type__')
     # query
