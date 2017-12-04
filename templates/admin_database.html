@@ -59,9 +59,10 @@
 	Execute</button>
 
     <textarea class="form-control"
-	 id="querys" name="querys" placeholder='{% if querys is defined %}{{ querys}}
-	{% endif %}'
-	rows="25"  style="margin-top:10px;"></textarea>
+	 id="querys" name="querys" placeholder='{% if querys is defined %}{{ querys}}{% endif %}' 
+	rows="25"  style="margin-top:10px;">
+{% if querys is defined %}{{ querys}}{% endif %}
+</textarea>
   </div>
 
 </form>
@@ -73,8 +74,7 @@
 	Log</label>
     <textarea class="form-control"
 	rows="12"  style="margin-top:10px;" readonly>
-    {% for command in commands %}
-	{{ (command[0]-1) * "+ " + command[2] + " " +  command[1]}} 
+    {% for command in commands %}{{ (command[0]-1) * "+ " + command[2] + " ------ " +  command[1]}} 
     {% endfor %}
     
     </textarea>
