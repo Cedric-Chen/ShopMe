@@ -38,9 +38,10 @@ def admin_database_do():
     if session['account_type'] == 'admin':
         from viewmodel.sqltransact import SQLTransaction
         querys = request.form['querys']
-#        rb_all = request.form.....
-        return querys
-        transcation, query = admin_database_parse(querys)
+        rb_all = request.form['rb_all']
+        rb_all = True if rb_all=='all' else False
+        transcation, sql = admin_database_parse(querys)
+        return str(transcation) + '<br>' + str(sql) + '<br>' + str(rb_all)
         sqltransaction = SQLTransaction(transaction,sql,rb_all)
         commands, results = sqltransaction.run()
 
@@ -58,10 +59,11 @@ def admin_database_parse(querys):
     values = querys.split(';')
     values.pop()
     transcation = []
-    querys = []
+    sql = []
     for value in values:
-
-    return [], []
+        transcation.append(value.count('+') + 1)
+        sql.append(value.replace('+',''))
+    return transcation, sql
 
 @login_required
 @app.route('/admin/account/search', methods=['POST'])

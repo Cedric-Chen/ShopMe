@@ -73,12 +73,26 @@
     <label>
 	Log</label>
     <textarea class="form-control"
-	rows="12"  style="margin-top:10px;" readonly></textarea>
+	rows="12"  style="margin-top:10px;" readonly>
+    {% for command in commands %}
+        {% for i in range(command[0]-1) %}
+        +
+        {% endfor %}
+        {{ command[2] }} &nbsp;&nbsp;----&nbsp;&nbsp;
+        {% if command[1].lower == 'commit' %}
+            succeed
+        {% else %}
+            failed
+        {% endfor %}
+    
+    </textarea>
 	<br><br><br>
     <label>
 	Result</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" 
-	rows="12"  style="margin-top:10px;" readonly></textarea>
+	rows="12"  style="margin-top:10px;" readonly>
+    
+    </textarea>
 </div>
 
 </body>
