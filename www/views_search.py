@@ -4,6 +4,7 @@
 from flask import render_template, request
 from flask_paginate import Pagination, get_page_args
 from geopy.distance import vincenty
+from geopy.geocoders import Nominatim
 
 from config import app
 from datamodel.business import business
@@ -11,56 +12,107 @@ from datamodel.category import category
 from datamodel.checkin import checkin
 from datamodel.review import review
 from datamodel.user import user
+from utility.lrudecorator import LRUDecorator
+
 
 class recommender(object):
-    def __init__(self, business_list, user_laglng):
+
+    def __init__(self, business_list, cond_loc):
         self.business_list = business_list
-        self.user_laglng = user_laglng
+        self.us_state_abbrev = {
+            'Alabama': 'AL','Alaska': 'AK','Arizona': 'AZ','Arkansas': 'AR','California': 'CA',
+            'Colorado': 'CO','Connecticut': 'CT','Delaware': 'DE','Florida': 'FL','Georgia': 'GA',
+            'Hawaii': 'HI','Idaho': 'ID','Illinois': 'IL','Indiana': 'IN','Iowa': 'IA',
+            'Kansas': 'KS','Kentucky': 'KY','Louisiana': 'LA','Maine': 'ME','Maryland': 'MD',
+            'Massachusetts': 'MA','Michigan': 'MI','Minnesota': 'MN','Mississippi': 'MS',
+            'Missouri': 'MO','Montana': 'MT','Nebraska': 'NE','Nevada': 'NV','New Hampshire': 'NH',
+            'New Jersey': 'NJ','New Mexico': 'NM','New York': 'NY','North Carolina': 'NC',
+            'North Dakota': 'ND','Ohio': 'OH','Oklahoma': 'OK','Oregon': 'OR','Pennsylvania': 'PA',
+            'Rhode Island': 'RI','South Carolina': 'SC','South Dakota': 'SD','Tennessee': 'TN',
+            'Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virginia': 'VA','Washington': 'WA',
+            'West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY',
+            }
+        if(cond_loc['__type__'] == "laglng"):
+            self.user_laglng = (cond_loc['lag'], cond_loc['lng'])
+            geolocator = Nominatim()
+            location = geolocator.reverse("%s, %s" %self.user_laglng)
+            self.city = location.raw['address']['city']
+            self.state = self.us_state_abbrev[location.raw['address']['state']]
+        elif(cond_loc['__type__'] == "city-state"):
+            self.city = cond_loc['city']
+            self.state = cond_loc['state']
+            self.laglng = None
+
     def score(self,business):
-        distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
-        return business['stars'] + 1/distance
+        if self.laglng:
+            distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
+            score = business['stars'] + 1/distance
+        else:
+            score = business['stars']
+        return score
+
     def recommend(self):
         return sorted(self.business_list, key = self.score, reverse = True)
 
 def parse_kw(kw):
-    l = kw.replace(' ', '').split(',')
+    l = kw.split(',')
     d = dict()
+    d['attribute'] = dict()
+    kws = []
+    op_list = ['==','>=','<=','=','>','<']
     for x in l:
-        if(len(x.split(':')) == 2):
-            k = x.split(':')[0]
-            v = x.split(':')[1]
-            d[k] = v
+        for op in op_list:
+            if(len(x.split(op)) == 2):
+                k = x.split(op)[0].strip()
+                v = x.split(op)[1].strip()
+                try:
+                    float(v)
+                    v = op + v
+                except ValueError:
+                    v = op + "'" + v + "'"
+                d['attribute'][k] = v
+                break
+            elif(op == op_list[-1]):
+                if(x.strip() != ""):
+                    kws.append(x.strip())
+    d['keyword'] = kws
     return d
 
 def parse_loc(loc):
     d = dict()
     if(len(loc.split(',')) == 2):
-        d['__type__'] = "city-state"
-        d['city'] = loc.split(',')[0].replace(' ', '')
-        d['state'] = loc.split(',')[1].replace(' ', '')
-        return d
-    elif(len(loc.split(':')) == 2):
-        d['__type__'] = "laglng"
-        d['lag'] = loc.split(':')[0].replace(' ', '')
-        d['lng'] = loc.split(':')[1].replace(' ', '')
+        try:
+            d['lag'] = float(loc.split(',')[0].strip())
+            d['lng'] = float(loc.split(',')[1].strip())
+            d['__type__'] = "laglng"
+        except ValueError:
+            d['__type__'] = "city-state"
+            d['city'] = loc.split(',')[0].strip()
+            d['state'] = loc.split(',')[1].strip()
         return d
     else:
         return {'__type__':"city-state", 'city':'urbana', 'state':'IL'}
 
-@app.route(u'/search/kw=<kw>&loc=<loc>/')
-def search(kw, loc):
+
+@LRUDecorator(50)
+def search_result(kw, loc):
     cond_kw = parse_kw(kw)
     cond_loc = parse_loc(loc)
-    cond = {**cond_kw, **cond_loc}
-    keys = list(cond.keys())
+    if(cond_loc['__type__'] == "city-state"):
+        cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
+        cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
+    # keys = list(cond.keys())
     # keys.remove('__type__')
     # query
-    business_list = business.sort_by(cond, keys, [u'=']*len(keys), u'*', u'*')
+    # business_list = business.sort_by(cond, keys, [u'']*len(keys), u'*', u'*')
+    business_list = business.keyword_search(cond_kw)
     # recommendation
-    if(cond['__type__'] == "laglng"):
-        user_laglng = (cond['lag'], cond['lng'])
-        RS = recommender(business_list,user_laglng)
-        business_list = RS.recommend()
+    return recommender(business_list,cond_loc).recommend()
+
+
+@app.route(u'/search/kw=<kw>&loc=<loc>/')
+def search(kw, loc):
+    business_list = search_result(kw, loc)
     # pagination
     page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')
     per_page = 10

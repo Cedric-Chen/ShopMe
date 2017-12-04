@@ -8,27 +8,27 @@
     overflow: hidden;
 }
 </style>
-{% for key in review:%}
-<div id="review-{{key}}" name="review" class="row clearfix review">
+{% for item in review:%}
+<div id="review-{{item['id']}}" name="review" class="row clearfix review">
     <div class="col-md-11 column">
         <h2>
-            {{ review[key]["date"] }}
+            {{ item["date"] }}
         </h2>
         <p>
-            {{ review[key]["text"] }}
+            {{ item["text"] }}
         </p>
         <p>
-            {% if "stars" in review[key] %}
-                <span class="label label-primary">stars: <span name="review-{{key}}-stars">{{ review[key]["stars"] }}</span></span>
+            {% if "stars" in item %}
+                <span class="label label-primary">stars: <span name="review-{{item['id']}}-stars">{{ item["stars"] }}</span></span>
             {% endif %}
-            {% if "useful" in review[key] %}
-                <span class="label label-success">useful: <span name="review-{{key}}-useful">{{ review[key]["useful"] }}</span></span>
+            {% if "useful" in item %}
+                <span class="label label-success">useful: <span name="review-{{item['id']}}-useful">{{ item["useful"] }}</span></span>
             {% endif %}
-            {% if "funny" in review[key] %}
-                <span class="label label-danger">funny: <span name="review-{{key}}-funny">{{ review[key]["funny"] }}</span></span>
+            {% if "funny" in item %}
+                <span class="label label-danger">funny: <span name="review-{{item['id']}}-funny">{{ item["funny"] }}</span></span>
             {% endif %}
-            {% if "cool" in review[key] %}
-                <span class="label label-info">cool: <span name="review-{{key}}-cool">{{ review[key]["cool"] }}</span></span>
+            {% if "cool" in item %}
+                <span class="label label-info">cool: <span name="review-{{item['id']}}-cool">{{ item["cool"] }}</span></span>
             {% endif %}
         <p>
              <a class="btn" href="#">View details »</a>
@@ -36,35 +36,35 @@
     </div>
     <div class="col-md-1 column" style="padding: 15px">
         <div class="btn-group btn-group-sm btn-group-vertical" data-toggle="buttons">
-            {% if "stars" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'stars')">
+            {% if "stars" in item %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ item['id'] }}', 'stars')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-star"></em>
-                    <span name="review-{{key}}-stars" value=true>{{ review[key]["stars"] }}</span>
+                    <span name="review-{{item['id']}}-stars" value=true>{{ item["stars"] }}</span>
                 </button>
             {% endif %}
-            {% if "useful" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'useful')">
+            {% if "useful" in item %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ item['id'] }}', 'useful')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-thumbs-up"></em>
-                    <span name="review-{{key}}-useful" value=true>{{ review[key]["useful"] }}</span>
+                    <span name="review-{{item['id']}}-useful" value=true>{{ item["useful"] }}</span>
                 </button>
             {% endif %}
-            {% if "funny" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'funny')">
+            {% if "funny" in item %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ item['id'] }}', 'funny')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-heart"></em>
-                    <span name="review-{{key}}-funny" value=true> {{ review[key]["funny"] }}</span>
+                    <span name="review-{{item['id']}}-funny" value=true> {{ item["funny"] }}</span>
                 </button>
             {% endif %}
-            {% if "cool" in review[key] %}
-                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ review[key]['business_id'] }}', '{{ review[key]['id'] }}', '{{key}}', 'cool')">
+            {% if "cool" in item %}
+                <button class="btn btn-default" type="button" onclick="toggleReviewCount('{{ item['id'] }}', 'cool')">
                     <input type="checkbox" autocomplete="off">
                     <em class="glyphicon glyphicon-sunglasses"></em>
-                    <span name="review-{{key}}-cool" value=true> {{ review[key]["cool"] }}</span>
+                    <span name="review-{{item['id']}}-cool" value=true> {{ item["cool"] }}</span>
                 </button>
             {% endif %}
-            <button class="btn btn-default" type="button" onclick="hideReview('#review-{{key}}')">
+            <button class="btn btn-default" type="button" onclick="hideReview('#review-{{item['id']}}')">
                 <em class="glyphicon glyphicon-eye-close"></em>
             </button>
             
@@ -74,46 +74,78 @@
 {% endfor %}
 
 <div class="row clearfix">
-    {% if pagination["page_no"]|length > 1 %}
-    <ul class="pagination" style="display: flex; justify-content: center;">
-        <li>
-             <a href="#">Prev</a>
-        </li>
-        {% for pageno in pagination["page_no"] %}
-        <li>
-             <a href="#">{{ pageno }}</a>
-        </li>
-        {% endfor %}
-        <li>
-             <a href="#">Next</a>
-        </li>
-    </ul>
-    {% endif %}
+{% if pagination["page_no"] %}
+<ul class="pagination" style="display: flex; justify-content: center;">
+    <li>
+         <a href="#", onclick="return changePage(1)">First</a>
+    </li>
+    {% for pageno in pagination["page_no"] %}
+    <li>
+         <a href="#", onclick="return changePage( {{ pageno }} )">{{ pageno }}</a>
+    </li>
+    {% endfor %}
+    <li>
+         <a href="#", onclick="return changePage( {{ pagination['last'] }} )">Last</a>
+    </li>
+</ul>
+{% endif %}
 </div>
+<input type="hidden" id="btnName" value="date">
+<input type="hidden" id="valueChange" value="1">
+<input type="hidden" id="pageCount" value="" + "{{ pagination['current'] }}">
 <script>
-    function toggleReviewCount(business_id, review_id, key, btnName) {
-        var name = "review-" + key + "-" + btnName;
-        if(document.getElementsByName(name)[1].getAttribute("value") == "true") {
-            updateReviewCount(business_id, review_id, name, btnName, 1, false);
+    function set_page(page) {
+        document.getElementById("pageCount").value = page;
+    };
+    function get_page() {
+        return document.getElementById("pageCount").value;
+    };
+    function set_button(btnName) {
+        document.getElementById("btnName").value = btnName;
+    }
+    function get_button() {
+        return document.getElementById("btnName").value;
+    }
+    function toggleReviewCount(review_id, btnName) {
+        set_button(btnName);
+        var name = "review-" + review_id + "-" + btnName;
+        if(document.getElementById("valueChange").value == "1") {
+            updateReviewCount(review_id, name, btnName, 1, "-1");
         } else {
-            updateReviewCount(business_id, review_id, name, btnName, -1, true);
+            updateReviewCount(review_id, name, btnName, -1, "1");
         }
     };
-    function updateReviewCount(business_id, review_id, name, btnName, value, state) {
+    function updateReviewCount(review_id, name, btnName, value, next_val) {
         var cuurent = document.getElementsByName(name)[0].innerHTML;
-            document.getElementsByName(name)[0].innerHTML = parseInt(cuurent, 10) + value;
-            document.getElementsByName(name)[1].innerHTML = parseInt(cuurent, 10) + value;
-            document.getElementsByName(name)[1].setAttribute("value", state);
+        document.getElementsByName(name)[0].innerHTML = parseInt(cuurent, 10) + value;
+        document.getElementsByName(name)[1].innerHTML = parseInt(cuurent, 10) + value;
+        document.getElementById("valueChange").value = next_val;
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status != 200) {
-                alert("Update " + btnName + "Failed!");
+                alert("Update " + btnName + " Failed!");
+            }
+            if (this.readyState == 4 && this.status == 200) {
+                alert("Update " + btnName + " Succeeded!");
             }
         };
-        xhttp.open("GET", "{{ url_for('review_update') }}" + business_id + ":" + review_id + ":" + btnName + ":" + value, true);
+        xhttp.open("GET", "{{ url_for('review_update') }}" + "{{ business['id'] }}" + ":" + review_id + ":" + btnName + ":" + value, true);
         xhttp.send();
     };
     function hideReview(elem_id) {
         $(elem_id).toggle(500);
+    };
+    function changePage(page) {
+        set_page(page);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("review_board").innerHTML = this.responseText;
+            }
+        };
+        var orderby = document.getElementById("review_board_order").value;
+        xhttp.open("GET", "{{ url_for('review_board') }}" + "{{ business['id'] }}" + ":" + page + ":" + get_button() + ":" + orderby, true);
+        xhttp.send();
+        return false;
     };
 </script>

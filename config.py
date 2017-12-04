@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-from config_override import app_debug, override_db
 
+from config_override import app_debug, override_db
 
 config_db = { 
     u'user': u'user',
