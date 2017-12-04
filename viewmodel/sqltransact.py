@@ -12,7 +12,10 @@ class SQLTransaction(object):
 
     def run(self):
         if self.__rb_all:
-            self.rb_all(0)
+            try:
+                self.rb_all(0)
+            except:
+                pass
         else:
             self.rb_current(0)
         return self.__tctx

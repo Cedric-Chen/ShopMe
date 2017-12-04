@@ -39,21 +39,19 @@
 <div class='container col-md-4 col-md-offset-1'>
 <form method='post' action="{{ url_for("admin_database_do") }}">
 
-	<div class="form-check form-check-inline">
-	  <label class="form-check-label">
-	    <input class="form-check-input" type="radio" name="rb_all" 
-		id="inlineRadio1" value="all"> Rollback All 
-	  </label>
-	</div>
-	<div class="form-check form-check-inline">
-	  <label class="form-check-label">
-	    <input class="form-check-input" type="radio" name="rb_all" 
-		id="inlineRadio2" value="same"> 
-		Rollback Only Same Transcation
-	  </label>
-	</div>
-
   <div class="form-group">
+
+  <label class="form-check-label">
+    <input class="form-check-input" type="radio" name="rb_all" checked
+	id="inlineRadio1" value="all"> Rollback All 
+  </label> &nbsp;&nbsp;&nbsp;&nbsp;
+  <label class="form-check-label">
+    <input class="form-check-input" type="radio" name="rb_all" 
+	id="inlineRadio2" value="same"> 
+	Rollback Only Same Transcation
+  </label>
+
+
     <label for="querys">
 	Please enter your SQL query here.</label>
     <button class='btn btn-primary' type="submit"
@@ -61,7 +59,8 @@
 	Execute</button>
 
     <textarea class="form-control"
-	 id="querys" name="querys"
+	 id="querys" name="querys" placeholder='{% if querys is defined %}{{ querys}}
+	{% endif %}'
 	rows="25"  style="margin-top:10px;"></textarea>
   </div>
 
@@ -75,22 +74,18 @@
     <textarea class="form-control"
 	rows="12"  style="margin-top:10px;" readonly>
     {% for command in commands %}
-        {% for i in range(command[0]-1) %}
-        +
-        {% endfor %}
-        {{ command[2] }} &nbsp;&nbsp;----&nbsp;&nbsp;
-        {% if command[1].lower == 'commit' %}
-            succeed
-        {% else %}
-            failed
-        {% endfor %}
+	{{ (command[0]-1) * "+ " + command[2] + " " +  command[1]}} 
+    {% endfor %}
     
     </textarea>
 	<br><br><br>
     <label>
 	Result</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" 
+    <textarea class="form-control" 
 	rows="12"  style="margin-top:10px;" readonly>
+{% for result in results %}{{ join(result,', ') }}
+
+{%  endfor %}
     
     </textarea>
 </div>

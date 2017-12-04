@@ -38,17 +38,19 @@ def admin_database_do():
     if session['account_type'] == 'admin':
         from viewmodel.sqltransact import SQLTransaction
         querys = request.form['querys']
-        rb_all = request.form['rb_all']
+        rb_all = request.form.get('rb_all')
         rb_all = True if rb_all=='all' else False
-        transcation, sql = admin_database_parse(querys)
-        return str(transcation) + '<br>' + str(sql) + '<br>' + str(rb_all)
+        transaction, sql = admin_database_parse(querys)
+#        return str(transaction) + '<br>' + str(sql) + '<br>' + str(rb_all)
         sqltransaction = SQLTransaction(transaction,sql,rb_all)
-        commands, results = sqltransaction.run()
+        ret = sqltransaction.run()
+#        return str(ret.commands) + '<br>' + str(ret.results)
 
         return render_template(
             'admin_database.html',
-            commands = commands,
-            results = results
+            commands = ret.commands,
+            results = ret.results,
+            querys = querys
         )
     else:
         return redirect(request.args.get('next') or \
@@ -58,12 +60,13 @@ def admin_database_do():
 def admin_database_parse(querys):
     values = querys.split(';')
     values.pop()
-    transcation = []
+    transaction = []
     sql = []
     for value in values:
-        transcation.append(value.count('+') + 1)
-        sql.append(value.replace('+',''))
-    return transcation, sql
+        transaction.append(value.count('+') + 1)
+        sql.append(
+		value.replace('+','').replace('\r','').replace('\n','')+';')
+    return transaction, sql
 
 @login_required
 @app.route('/admin/account/search', methods=['POST'])

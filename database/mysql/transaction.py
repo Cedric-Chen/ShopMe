@@ -57,6 +57,7 @@ class Transaction(dict):
             self.__dbctx.cleanup()
 
     def execute(self, sql, placeholder):
+        sql = sql.strip()
         cmd = [self.transact, sql, placeholder]
         self.commands.append(cmd)
         self.__cmd_st.append(cmd)

@@ -13,9 +13,17 @@ def utility_processor():
             return True
         else:
             return False
+    def join(atuple, seperator=','):
+        if atuple is None:
+            return ''
+        ret = ''
+        for value in atuple:
+            ret += str(value) + seperator
+        return ret[:-1]
 
     return dict(
         split_field_name = split_field_name,
         is_dict = is_dict,
-        true_or_false = true_or_false
+        true_or_false = true_or_false,
+        join = join
         )
