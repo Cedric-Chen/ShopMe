@@ -55,6 +55,7 @@ class recommender(object):
 def parse_kw(kw):
     l = kw.split(',')
     d = dict()
+    d['attribute'] = dict()
     kws = []
     op_list = ['==','>=','<=','=','>','<']
     for x in l:
@@ -67,8 +68,6 @@ def parse_kw(kw):
                     v = op + v
                 except ValueError:
                     v = op + "'" + v + "'"
-                if not "attribute" in d:
-                    d['attribute'] = dict()
                 d['attribute'][k] = v
                 break
             elif(op == op_list[-1]):

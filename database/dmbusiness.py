@@ -32,17 +32,17 @@ class DMBusiness(DataModel):
         return self.sort_ret()
 
     def keyword_search(self, query_dict):
-        condition = []
+        condition = ['category.business_id = business.id']
         if "keyword" in query_dict and query_dict["keyword"] != []:
             keywords = query_dict["keyword"]
             for key in keywords:
                 condition.append(
                     u"(category like '" + key + "%'" + u" OR " + u"name like '%" + key + "%')")
-            self.query_sql = u'SELECT %s FROM busicate WHERE ' %(','.join(self.dm_attr))
+            self.query_sql = u'SELECT DISTINCT %s FROM category, business WHERE ' %(','.join(self.dm_attr))
         else:
-            self.query_sql = u'SELECT * FROM business WHERE '
+            self.query_sql = u'SELECT DISTINCT * FROM business WHERE '
 
-        if "attribute" in query_dict:
+        if "attribute" in query_dict and query_dict["attribute"] != {}:
             attributes = query_dict["attribute"]
             for attr in query_dict["attribute"]:
                 if attr in self.dm_attr:
