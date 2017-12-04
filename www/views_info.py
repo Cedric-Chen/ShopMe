@@ -17,6 +17,7 @@ from datamodel.tip import tip
 from datamodel.user import user
 
 from viewmodel.pagination import Pagination
+from utility.lrudecorator import LRUDecorator
 
 REVIEW_PERPAGE = 3
 REVIEW_PAGES = 5
@@ -38,11 +39,17 @@ def view_merchant_info(business_id):
         category=_category, hours=_hours, review=_review, \
         pagination=review_pagination)
 
+
+@LRUDecorator(50)
+def review_result(business_id, field, order):
+    return review.sort(business_id, u'*', field, int(order))
+
+
 @app.route(u'/information/review/')
 @app.route(u'/information/review/<business_id>:<page>:<field>:<order>/')
 def review_board(business_id, page, field, order):
     _business = business.select(business_id)
-    _review = review.sort(business_id, u'*', field, int(order))
+    _review = review_result(business_id, field, order)
     review_pagination = Pagination(u'review', len(_review), REVIEW_PERPAGE, \
         REVIEW_PAGES)
     review_pagination.jump(page)
