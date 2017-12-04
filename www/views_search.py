@@ -96,7 +96,7 @@ def search_result(kw, loc):
     if(cond_loc['__type__'] == "city-state"):
         cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
         cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
-    elif(cond_loc['__type__'] = "postal_code"):
+    elif(cond_loc['__type__'] == "postal_code"):
         cond_kw['attribute']['postal_code'] = "='" + cond_loc['postal_code'] + "'"
     # keys = list(cond.keys())
     # keys.remove('__type__')
