@@ -99,8 +99,10 @@
 <table id="myTable">
   <tr class="header">
     <th><input type='checkbox' id='globalCheckbox'>
-        &nbsp;&nbsp;<a onclick="globalDelete('{{kw}}')">
+        &nbsp;&nbsp;<a onclick="globalDelete('{{kw}}')" >
 	<i class="fa fa-trash"></i></a>
+	<a href = "{{ url_for("admin_account_search") +'/'+ kw}}">
+	<i class="fa fa-refresh"></i>
     </th>
     <th style="width:auto;">Name</th>
     <th style="width:auto;">Location</th>
@@ -116,7 +118,8 @@
 	</a>
 	&nbsp;&nbsp;
 	<a id="refresh_button_{{business['id'] }}" 
-		onclick='$("#update_{{business["id"]}}").toggle(500)'>
+		onclick='$("#update_{{business["id"]}}").toggle(500)'
+		>
 	<i class="fa fa-refresh"></i>
 	</a>
     </td>
@@ -170,36 +173,41 @@
         });
 
     function globalDelete(kw) {
+        console.log('hello world');
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+//            if (this.readyState == 4 && this.status == 200){
+//                document.write(xhttp.responseText);
+//            }
+	      if (false){
+		  document.write(xhttp.responseText);
+		}
+        };
+
         var boxs = document.getElementsByClassName('checkBox');
         var del_ids = [];
         for(i=0; i<boxs.length; i++) {
             if(boxs[i].checked) {
                 var del_url = boxs[i].nextElementSibling.href;
-                var value = del_url.split('/');
-                id = value[value.length-1];
-                del_ids.push(id);
+		xhttp.open("GET", del_url, true);
+	    	xhttp.send();
+console.log(del_url);
+
+//                var value = del_url.split('/');
+//                id = value[value.length-1];
+//                del_ids.push(id);
             }
         }
 
-        console.log('hello world');
-        console.log(del_ids.length)
-        var xhttp = new XMLHttpRequest();
-        xhttp.tag = 0;
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200 && this.tag == del_ids.length){
-                document.write(xhttp.responseText);
-            }
-            else{
-                this.tag++;
-                console.log(this.tag);
-            }
-        };
 
-        for(i=0; i<del_ids.length; i++){
-            xhttp.open("GET", '{{url_for("admin_account_delete")}}'+'/'+kw+'/'+del_ids[i], true);
-            xhttp.send();
+//        for(i=0; i<del_ids.length; i++){
+//            xhttp.open("GET", '{{url_for("admin_account_delete")}}'+kw+'/'+del_ids[i], true);
+//	    console.log('{{url_for("admin_account_delete")}}'+kw+'/'+del_ids[i])
+//            xhttp.send();
+//	}
+//        xhttp.open("GET", '{{url_for("admin_account_search")}}'+'/'+kw, true);
+//        xhttp.send();
+//	window.location.assign('{{url_for("admin_account_search")}}'+'/'+kw)
 
-        xhttp.open("GET", '{{url_for("admin_account_search")}}'+'/'+kw, true);
-        xhttp.send();
-	}
+    }
 </script>

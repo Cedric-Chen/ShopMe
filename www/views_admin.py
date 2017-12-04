@@ -37,7 +37,7 @@ def admin_database():
 def admin_account_search(kw=None):
     if session['account_type'] == 'admin':
         from datamodel.business import business
-       if not kw:
+        if not kw:
             kw = request.form['kw']
         if kw == '':
             return render_template('admin_account.html')
@@ -51,6 +51,19 @@ def admin_account_search(kw=None):
             business_list = business_list,
             kw = kw
         )
+    else:
+        return redirect(request.args.get('next') or \
+            request.referrer or \
+            url_for('/'))
+
+@login_required
+@app.route('/admin/account/delete/')
+@app.route('/admin/account/delete/<kw>/<business_id>')
+def admin_account_delete(kw, business_id):
+    if session['account_type'] == 'admin':
+        from datamodel.business import business
+        business.delete(business_id,business.select(business_id))
+        return redirect(url_for('admin_account_search') + '/' + kw)
     else:
         return redirect(request.args.get('next') or \
             request.referrer or \
@@ -94,5 +107,3 @@ def parse_keyword(kw):
             v = x.split(':')[1]
             d[k] = v
     return d
-
-@

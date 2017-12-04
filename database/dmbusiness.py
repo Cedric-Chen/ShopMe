@@ -66,6 +66,11 @@ class DMBusiness(DataModel):
         self.query_sql = u'DELETE FROM `business` WHERE id="%s"' % business_id
         super().execute()
 
+    def delete_group(self, business_ids_list):
+        for business_id in business_ids_list:
+            self.delete(business_id, self.select(business_id))
+
+
     def insert(self, business_id, business):
         key = []
         value = []
