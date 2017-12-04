@@ -98,11 +98,22 @@
 
 <table id="myTable">
   <tr class="header">
-    <th><input type='checkbox' id='globalCheckbox'>
+    <th>
+	{% if kw is defined %}
+	<input type='checkbox' id='globalCheckbox'>
         &nbsp;&nbsp;<a onclick="globalDelete('{{kw}}')" >
 	<i class="fa fa-trash"></i></a>
+	&nbsp;&nbsp;
 	<a href = "{{ url_for("admin_account_search") +'/'+ kw}}">
 	<i class="fa fa-refresh"></i>
+	</a>
+	{% else %}
+	<input type='checkbox' id='globalCheckbox' style="display:none;">
+        &nbsp;&nbsp;	<i class="fa fa-trash" style="display:none;"></i>
+	&nbsp;&nbsp;
+	<i class="fa fa-refresh" style="display:none;"></i>
+
+	{% endif %}
     </th>
     <th style="width:auto;">Name</th>
     <th style="width:auto;">Location</th>
@@ -145,8 +156,7 @@
     <td></td>
     <td></td>
   </tr>
-
-  {% endfor %}
+{% endfor %}
   {% endif %}
 </table>
 
@@ -172,16 +182,14 @@
             }
         });
 
+{% if kw is defined %}
     function globalDelete(kw) {
         console.log('hello world');
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
-//            if (this.readyState == 4 && this.status == 200){
-//                document.write(xhttp.responseText);
-//            }
-	      if (false){
-		  document.write(xhttp.responseText);
-		}
+            if (this.readyState == 4 && this.status == 200){
+                document.write(xhttp.responseText);
+            }
         };
 
         var boxs = document.getElementsByClassName('checkBox');
@@ -189,25 +197,16 @@
         for(i=0; i<boxs.length; i++) {
             if(boxs[i].checked) {
                 var del_url = boxs[i].nextElementSibling.href;
-		xhttp.open("GET", del_url, true);
-	    	xhttp.send();
-console.log(del_url);
-
-//                var value = del_url.split('/');
-//                id = value[value.length-1];
-//                del_ids.push(id);
+                var value = del_url.split('/');
+                id = value[value.length-1];
+                del_ids.push(id);
             }
         }
-
-
-//        for(i=0; i<del_ids.length; i++){
-//            xhttp.open("GET", '{{url_for("admin_account_delete")}}'+kw+'/'+del_ids[i], true);
-//	    console.log('{{url_for("admin_account_delete")}}'+kw+'/'+del_ids[i])
-//            xhttp.send();
-//	}
-//        xhttp.open("GET", '{{url_for("admin_account_search")}}'+'/'+kw, true);
-//        xhttp.send();
-//	window.location.assign('{{url_for("admin_account_search")}}'+'/'+kw)
-
+        id_str = del_ids.join('~')
+        console.log(id_str)
+        xhttp.open("POST", '{{url_for("admin_account_delete_group")}}'+kw+'/', true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(id_str);
     }
+{% endif %}
 </script>

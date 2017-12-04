@@ -50,7 +50,7 @@ def check_user():
     try:
         account_type = request.form['account_type']
     except:
-        flash('Please choose an account type.')
+        flash('Please choose an account type.', category='danger')
         return redirect(request.args.get('next') or \
 	request.referrer or \
 	url_for('index'))
@@ -72,7 +72,7 @@ def check_user():
 	    request.referrer or \
 	    url_for('index'))
 
-    flash(info)
+    flash(info, category = 'danger')
     return redirect(request.args.get('next') or \
 	request.referrer or \
 	url_for('index'))
@@ -84,7 +84,7 @@ def register_user():
     try:
         account_type = request.form['account_type']
     except:
-        flash('Please choose an account type.')
+        flash('Please choose an account type.', category = 'danger')
         return redirect(request.args.get('next') or \
 	request.referrer or \
 	url_for('index'))
@@ -95,12 +95,12 @@ def register_user():
         status, info = account_business.insert(username, password)
 
     if status:
-        flash(info)
+        flash(info, category = 'success')
         return redirect(request.args.get('next') or \
 	    request.referrer or \
 	    url_for('index'))
     else:
-        flash(info)
+        flash(info, category = 'danger')
         return redirect(request.args.get('next') or \
 	    request.referrer or \
 	    url_for('index'))

@@ -65,7 +65,7 @@
 	    {% if messages %}
 		<ul class = "flashes">
 		{% for message in messages %}
-		<div class="message_flash alert alert-danger" role='alert'>
+		<div class="message_flash alert alert-{{category}}" role='alert'>
 		{{ message }}
 		</div>
 		{% endfor %}

@@ -32,8 +32,8 @@ def admin_database():
 
 
 @login_required
-@app.route('/admin/account/search/<kw>', methods=['GET'])
 @app.route('/admin/account/search', methods=['POST'])
+@app.route('/admin/account/search/<kw>', methods=['GET'])
 def admin_account_search(kw=None):
     if session['account_type'] == 'admin':
         from datamodel.business import business
@@ -71,11 +71,15 @@ def admin_account_delete(kw, business_id):
 
 @login_required
 @app.route('/admin/account/delete/group/')
-@app.route('/admin/account/delete/group/<kw>/<business_id>')
-def admin_account_delete(kw, business_id):
+@app.route('/admin/account/delete/group/<kw>/', methods=['POST'])
+def admin_account_delete_group(kw):
     if session['account_type'] == 'admin':
+        for key, value in request.form.to_dict().items():
+            business_ids_str = key
         from datamodel.business import business
-        business.delete(business_id,business.select(business_id))
+        for business_id in business_ids_str.split('~'):
+            business.delete(business_id,business.select(business_id))
+        flash('Delete group succeeds.', category='success')
         return redirect(url_for('admin_account_search') + '/' + kw)
     else:
         return redirect(request.args.get('next') or \
@@ -91,7 +95,7 @@ def admin_account_update(kw, business_id):
         new_username = request.form['new_username']
         new_password = request.form['new_password']
         status,info = account_business.update(business_id, new_username, new_password)
-        flash(info)
+        flash(info, category='success')
         return redirect(url_for('admin_account_search') + '/' + kw)
     else:
         return redirect(request.args.get('next') or \
