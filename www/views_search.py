@@ -4,6 +4,7 @@
 from flask import render_template, request
 from flask_paginate import Pagination, get_page_args
 from geopy.distance import vincenty
+from geopy.geocoders import Nominatim
 
 from config import app
 from datamodel.business import business
@@ -13,12 +14,41 @@ from datamodel.review import review
 from datamodel.user import user
 
 class recommender(object):
-    def __init__(self, business_list, user_laglng):
+    us_state_abbrev = {
+    'Alabama': 'AL','Alaska': 'AK','Arizona': 'AZ','Arkansas': 'AR','California': 'CA',
+    'Colorado': 'CO','Connecticut': 'CT','Delaware': 'DE','Florida': 'FL','Georgia': 'GA',
+    'Hawaii': 'HI','Idaho': 'ID','Illinois': 'IL','Indiana': 'IN','Iowa': 'IA',
+    'Kansas': 'KS','Kentucky': 'KY','Louisiana': 'LA','Maine': 'ME','Maryland': 'MD',
+    'Massachusetts': 'MA','Michigan': 'MI','Minnesota': 'MN','Mississippi': 'MS',
+    'Missouri': 'MO','Montana': 'MT','Nebraska': 'NE','Nevada': 'NV','New Hampshire': 'NH',
+    'New Jersey': 'NJ','New Mexico': 'NM','New York': 'NY','North Carolina': 'NC',
+    'North Dakota': 'ND','Ohio': 'OH','Oklahoma': 'OK','Oregon': 'OR','Pennsylvania': 'PA',
+    'Rhode Island': 'RI','South Carolina': 'SC','South Dakota': 'SD','Tennessee': 'TN',
+    'Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virginia': 'VA','Washington': 'WA',
+    'West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY',
+    }
+
+    def __init__(self, business_list, cond_loc):
         self.business_list = business_list
-        self.user_laglng = user_laglng
+        if(cond_loc['__type__'] == "laglng"):
+            self.user_laglng = (cond_loc['lag'], cond_loc['lng'])
+            geolocator = Nominatim()
+            location = geolocator.reverse("%s, %s" %self.user_laglng)
+            self.city = location.raw['address']['city']
+            self.state = us_state_abbrev[location.raw['address']['state']]
+        elif(cond_loc['__type__'] == "city-state"):
+            self.city = cond_loc['city']
+            self.state = cond_loc['state']
+            self.laglng = None
+
     def score(self,business):
-        distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
-        return business['stars'] + 1/distance
+        if self.laglng:
+            distance = vincenty(self.user_laglng,(business['latitude'],business['longitude'])).miles
+            score = business['stars'] + 1/distance
+        else:
+            score = business['stars']
+        return score
+
     def recommend(self):
         return sorted(self.business_list, key = self.score, reverse = True)
 
@@ -26,7 +56,7 @@ def parse_kw(kw):
     l = kw.split(',')
     d = dict()
     kws = []
-    op_list = ['=','==','>','>=','<','<=']
+    op_list = ['==','>=','<=','=','>','<']
     for x in l:
         for op in op_list:
             if(len(x.split(op)) == 2):
@@ -50,11 +80,9 @@ def parse_loc(loc):
     d = dict()
     if(len(loc.split(',')) == 2):
         try:
-            float(loc.split(',')[0].strip())
-            float(loc.split(',')[1].strip())
+            d['lag'] = float(loc.split(',')[0].strip())
+            d['lng'] = float(loc.split(',')[1].strip())
             d['__type__'] = "laglng"
-            d['lag'] = loc.split(',')[0].strip()
-            d['lng'] = loc.split(',')[1].strip()
         except ValueError:
             d['__type__'] = "city-state"
             d['city'] = loc.split(',')[0].strip()
@@ -67,16 +95,17 @@ def parse_loc(loc):
 def search(kw, loc):
     cond_kw = parse_kw(kw)
     cond_loc = parse_loc(loc)
-    cond = {**cond_kw, **cond_loc}
-    keys = list(cond.keys())
+    if(cond_loc['__type__'] == "city-state"):
+        cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
+        cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
+    # keys = list(cond.keys())
     # keys.remove('__type__')
     # query
-    business_list = business.sort_by(cond, keys, [u'=']*len(keys), u'*', u'*')
+    # business_list = business.sort_by(cond, keys, [u'']*len(keys), u'*', u'*')
+    business_list = business.keyword_search(cond_kw)
     # recommendation
-    if(cond['__type__'] == "laglng"):
-        user_laglng = (cond['lag'], cond['lng'])
-        RS = recommender(business_list,user_laglng)
-        business_list = RS.recommend()
+    RS = recommender(business_list,cond_loc)
+    business_list = RS.recommend()
     # pagination
     page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')
     per_page = 10
