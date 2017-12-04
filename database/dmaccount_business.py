@@ -1,0 +1,135 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+from database.datamodel import DataModel
+
+class DMAccount_Business(DataModel):
+    def __init__(self, cls):
+        super().__init__(cls)
+        self.dm_attr = [u'username', u'merchantid', u'password']
+
+#    def check_existence(self, username):
+#        self.query_sql = u'SELECT count(*) FROM account_user \
+#            WHERE username = "%s"' % (username)
+#        ret = super().select()
+#        if ret[0]:
+#            return True
+#        else
+#            return False 
+    def check(self, username, password):
+        self.query_sql = u'SELECT username FROM account_business \
+            WHERE username = "%s" and password=password("%s")'\
+            % (username,password)
+        ret = super().select()
+
+        if not len(ret):
+            return False, u"Business login failed!"
+
+        return True, None
+
+    def get_id(self, username):
+        self.query_sql = u'SELECT merchantid FROM account_business \
+            WHERE username = "%s"' % (username)
+        ret = super().select()
+
+        if not len(ret):
+            return ''
+        else:
+            return ret[0][0]
+
+    def insert(self, username, password, merchantid=''):
+        self.query_sql = u'SELECT merchantid FROM account_business \
+            WHERE username = "%s"' % (username)
+        ret = super().select()
+        if len(ret):
+            return False, 'Username has been used'
+
+        self.query_sql = \
+            u'INSERT INTO account_business(username, merchantid, password) \
+            values("%s", "%s", "%s") ' % (username, merchantid, password)
+        super().execute()
+        return True, \
+            'Congratulations, you register successfully! Please Login.'
+
+    def update(self, business_id, new_username, new_password):
+        if new_username != '':
+            self.query_sql = u'SELECT merchantid FROM account_business \
+                WHERE username = "%s"' % (new_username)
+            ret = super().select()
+            if len(ret):
+                return False, 'Username has been used'
+
+        self.query_sql = u'SELECT merchantid FROM account_business \
+            WHERE merchantid = "%s"' % (business_id)
+        ret = super().select()
+        if not len(ret):
+            self.insert(new_username, new_password, business_id)
+            return True, 'Update succeeds.'+business_id
+
+        if new_username != '':
+            self.query_sql = u'UPDATE account_business \
+                SET username="%s" \
+                WHERE merchantid = "%s"' % (new_username,business_id)
+            ret = super().execute()
+
+        if new_password != '':
+            self.query_sql = u'UPDATE account_business \
+                SET password="%s" \
+                WHERE merchantid = "%s"' % (new_password,business_id)
+            ret = super().execute()
+        
+        return True, 'Update succeeds.'
+
+#    def select(self, username):
+#        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
+#            + u'FROM photo WHERE business_id = "%s"' % (business_id)
+#        ret = super().select()
+#        result = dict()
+#        for entry in ret:
+#            result[entry[0]] = {
+#                self.dm_attr[index]: value \
+#                for index, value in enumerate(entry)
+#            }
+#        return result
+#
+#    def delete(self, business_id, photo):
+#        if len(photo) == 0:
+#            self.query_sql = u'DELETE FROM `photo` WHERE business_id="%s"' \
+#                % (business_id)
+#            super().execute()
+#        for key, val in photo.items():
+#            pair = [u'id=%s' % (self.quote_sql(key))]
+#            for k, v in val.items():
+#                if k != 'id':
+#                    pair.append(u'%s=%s' % (k, self.quote_sql(v)))
+#            self.query_sql = u'DELETE FROM `photo` WHERE %s' \
+#                % (' AND '.join(pair))
+#            super().execute()
+#
+#    def insert(self, business_id, photo):
+#        from datamodel.business import business
+#        if len(business.select(business_id)) < 1:
+#            business.insert(business_id, {})
+#        for key, val in photo.items():
+#            k = [u'id']
+#            v = [self.quote_sql(key)]
+#            for attr in self.dm_attr:
+#                if attr in val and attr != u'id':
+#                    k.append(attr)
+#                    v.append(self.quote_sql(val[attr]))
+#            self.query_sql = u'INSERT INTO `photo`(%s) ' % (u','.join(k)) \
+#                + 'VALUES(%s)' % (u','.join(v))
+#            super().execute()
+#
+#    def update(self, business_id, photo, old_photo):
+#        for key, val in photo.items():
+#            if key not in old_photo and key not in self.select(business_id):
+#                self.insert(business_id, {key: val})
+#            else:
+#                pair = [u'id=%s' % (self.quote_sql(key))]
+#                for k, v in val.items():
+#                    if k != 'id':
+#                        pair.append(u'%s=%s' % (k, self.quote_sql(v)))
+#                self.query_sql = u'UPDATE photo SET %s WHERE id="%s"' \
+#                    % (u', '.join(pair), key)
+#                super().execute()

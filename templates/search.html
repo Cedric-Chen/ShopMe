@@ -66,7 +66,37 @@
         width: 300px;
         height: 400px;
         background-color: grey;
+        position:fixed;
       }
+      .pagination-page-info {
+          padding-left: 0;
+          width: 40em;
+          margin: .5em;
+          margin-left: 0;
+          font-size: 12px;
+      }
+      .pagination-page-info b {
+          color: black;
+          /*background: #6aa6ed;*/
+          padding-left: 2px;
+          padding: .1em .25em;
+          /*font-size: 100%;*/
+      }
+      .pagination ul{
+      	list-style-type: none;
+      }
+      .pagination li {
+      	float:left;
+      }
+      .pagination a {
+      	display:block;
+          text-align: center;
+          padding: 16px;
+          text-decoration: none;
+      }
+      .pagination a:hover {
+    background-color: #f0f0f0;
+}
     </style>
 
     <!-- Bootstrap core JavaScript
@@ -136,8 +166,8 @@
           </p>
           <div class="top-shelf top-shelf-grey row">
             <div class="top-column">
-              <div class="search-header">
-                <h3>Search results for XXX in Urbana Champaign, IL </h3>
+              <div class="search-header" style="margin-left:15px">
+                <h3>Search results</h3>
               </div>
               <!-- FILTER START -->
               <!-- <div class="filter-panel">
@@ -163,8 +193,9 @@
               <div id="content" class="container col-xs-12 col-sm-12 col-lg-12">
                   <div class="panel panel-default">
                       <div class="panel-body">
-                          <h6 class="nomargin">
-                              {{result_list|length}} results
+                          <h6 class="nomargin" style="margin-top:0;margin-bottom:0;">
+                              <!-- {{result_list|length}} results -->
+                              {{ pagination.info }}
                               <!-- <small class="text-success">(0.07 seconds) </small> -->
                           </h6>
                           <hr style="margin-bottom:0px">
@@ -180,7 +211,7 @@
                                   </a>
                                 </div> -->
                                 <div class="col-lg-6">
-                                    <h4><a href="{{ url_for('information') + result['business']['id'] }}" class="search-result-title">{{loop.index}}. {{result['business']['name']}}</a></h4>
+                                    <h4><a href="{{ url_for('view_merchant_info') + result['business']['id'] }}" class="search-result-title">{{loop.index+ (page - 1) * per_page}}. {{result['business']['name']}}</a></h4>
                                   <div class="primary-attributes">
                                     <div class="row">
                                       <!-- <p>Stars: {{result['business']['stars']}}</p> -->
@@ -211,10 +242,9 @@
                                 </div>
                               </div>
                               <div class="review-block">
-                                <p><a href="#">{{result['user']['name']+": "}}</a>
-                                    {{result['review']['text']}}
-                                </p>
-                                <p><a href="#"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
+                                <p><a href="{{ url_for('view_user',user_id = result['user']['id']) }}">{{result['user']['name']+": "}}</a>
+                                    {{result['review']}}
+                                <a href="{{ url_for('view_merchant_info') + result['business']['id'] }}"> >> {{result['business']['review_count']-1}} more reviews...</a></p>
                               </div>
 
                           </div>
@@ -235,14 +265,14 @@
 
                           <!-- PAGINATION -->
                           <div class = "text-center margin-top-20">
-                            <ul class="pagination">
+                            <!-- <ul class="pagination">
                               <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                               <li class="page-item"><a class="page-link" href="#">1</a></li>
-                              <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li> -->
                               <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                            </ul>
+                            </ul> -->
+                            {{ pagination.links }}
                         </div>
+
                           <!-- /PAGINATION -->
                       </div>  <!-- panel body -->
                   </div>  <!-- panel -->
@@ -253,7 +283,9 @@
             <!-- /sidebar -->
             <div class="col-xs-4 col-sm-4 col-lg-4">
               <div class="container col-xs-12 col-sm-12 col-lg-12">
-              <div id="googleMap"></div>
+                <div class="jumbotron" style="padding:8px;8px;8px;8px;">
+                  <div id="googleMap" style="position:relative"></div>
+                </div>
                 <!-- include 'google-map.html' here -->
                 <script>
                 function initMap() {
@@ -306,8 +338,12 @@
 
       <hr>
 
-      <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+      <footer class="sticky-footer">
+        <div class="container">
+          <div class="text-center">
+            <small>Copyright © M2P2 2017</small>
+          </div>
+        </div>
       </footer>
 
     </div><!--/.container-->

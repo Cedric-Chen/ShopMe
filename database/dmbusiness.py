@@ -27,9 +27,32 @@ class DMBusiness(DataModel):
                 cond.append(u'%s %s %s' \
                     % (field, op_list[x], self.quote_sql(business[field])))
         self.query_sql = u'SELECT %s FROM business WHERE %s ' \
-            % (u', '.join(self.dm_attr), u', '.join(cond))
+            % (u', '.join(self.dm_attr), u' AND '.join(cond))
         self.query_sql += self.select_order(key, order)
         return self.sort_ret()
+
+    def keyword_search(self, query_dict):
+        condition = []
+        if "keyword" in query_dict and query_dict["keyword"] != []:
+            condition.append('category.business_id = business.id')
+            keywords = query_dict["keyword"]
+            for key in keywords:
+                condition.append(
+                    u"(category like '" + key + "%'" + u" OR " + u"name like '%" + key + "%')")
+            self.query_sql = u'SELECT DISTINCT %s FROM category, business WHERE ' %(','.join(self.dm_attr))
+        else:
+            self.query_sql = u'SELECT DISTINCT * FROM business WHERE '
+
+        if "attribute" in query_dict and query_dict["attribute"] != {}:
+            attributes = query_dict["attribute"]
+            for attr in query_dict["attribute"]:
+                if attr in self.dm_attr:
+                    condition.append(attr + attributes[attr])
+        self.query_sql += u' AND '.join(condition)
+        self.query_sql += self.select_order([u"name"], 1)
+        return self.sort_ret()
+
+
 
     def sort_close(self, business, distance, key, order):
         longi = business.get(u'longitude', None)
@@ -80,8 +103,9 @@ class DMBusiness(DataModel):
 
     def update(self, business_id, business, old_business):
         pair = []
-        for key, value in business.items():
-            pair.append(u'%s=%s' % (key, self.quote_sql(value)))
+        for key in self.dm_attr:
+            if key in business:
+                pair.append(u'%s=%s' % (key, self.quote_sql(business[key])))
         self.query_sql = u'UPDATE `business` SET %s WHERE id="%s"' \
             % (u','.join(pair), business_id)
         super().execute()

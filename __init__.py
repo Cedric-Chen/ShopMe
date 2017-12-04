@@ -13,7 +13,6 @@ from filelogger import filelogger
 app.logger.addHandler(filelogger(os.path.join(log_dir, u'applog')))
 from datetime import datetime
 app.logger.info(u'Restarting @ {}'.format(datetime.utcnow()))
-from www import assets
 
 # create database
 from config import config_db

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+
 from config_override import app_debug, override_db
 
 config_db = { 
@@ -24,6 +25,7 @@ for k, v in config_db.items():
 from flask import Flask
 app = Flask(__name__)
 app.debug = app_debug
+app.config['SECRET_KEY'] = 'nooneknows'
 
 # directory
 app_dir = os.path.dirname(__file__)

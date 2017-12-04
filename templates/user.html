@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>Hello from Flask</title>
+  <title>User Page</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <script type="text/javascript" src="https://unpkg.com/popper.js@1.12.7/dist/umd/popper.js"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"/>
@@ -20,6 +20,8 @@
 
 </head>
 <body>
+{% include "navbar.html" %}
+
 <script src="https://www.codeply.com/plugins/bootstrap-select.min.js"></script>
         <script src="https://www.codeply.com/codemirror/jquery.codemirror.js"></script>
         <script src="https://www.codeply.com/beautifier.js"></script>
@@ -317,9 +319,16 @@
 <div class="container target">
     <div class="row">
         <div class="col-sm-10">
+	{% if current_user.is_authenticated and session['id']==user.id %}
              <h1 class="" value="{{user.id}}" id="editable">{{ user.name }}</h1>
+	{% else %}
+             <h1 class="" value="{{user.id}}">{{ user.name }}</h1>
+	{% endif %}
 
-          <button type="button" class="btn btn-success">Follow</button>  <button type="button" class="btn btn-info">Send me a message</button>
+<!-- 
+          <button type="button" id="add_friend" class="btn btn-success">Follow</button> 
+<button type="button" class="btn btn-info">Send me a message</button>
+-->
 <br>
         </div>
       <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.rlsandbox.com/img/profile.jpg"></a>
@@ -374,7 +383,7 @@
                 <div class="panel-heading">{{ user.name }}'s Friends</div>
                    <div class="input-group col-md-12">
                         <input id="friend_id" type="text" class="form-control input-lg"
-                               placeholder="Enter your friend's ID"/>
+                               placeholder="Enter your friend's ID or username"/>
                         <span class="input-group-btn">
                             <button id="add_friend" class="btn btn-info btn-lg" type="button">
                                 <i class="glyphicon glyphicon-plus"></i>
@@ -394,7 +403,10 @@
                             </div>
                             <div class="col-md-10">
                                 <strong>{{value.name}}</strong><br>
+                                <span class="text-muted">Review count: {{value.review_count}}</span>
+<!--
                                 <span class="text-muted">User ID: {{field}}</span>
+-->
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".{{field}}">
                                 <i class="glyphicon glyphicon-chevron-down text-muted"></i>
