@@ -5,7 +5,7 @@ import ast
 
 from flask import Flask, redirect, render_template, request, \
      session, url_for, flash, abort, Response
-from flask.ext.login import LoginManager, UserMixin, login_required, \
+from flask_login import LoginManager, UserMixin, login_required, \
     login_user, logout_user, current_user
 
 from config import app

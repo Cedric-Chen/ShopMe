@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from flask import render_template, url_for, session, request
-from flask.ext.login import login_required
+from flask_login import login_required
 
 from config import app
 from datamodel.attribute import attribute
