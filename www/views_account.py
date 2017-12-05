@@ -39,7 +39,7 @@ def check_user():
     username = request.form['username']
     password = request.form['password']
 
-    if username=='admin' and password =='admin':
+    if username=='admin' and password =='10101940':
         session['account_type'] = 'admin'
         user = User('admin')
         login_user(user)

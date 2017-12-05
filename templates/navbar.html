@@ -44,7 +44,7 @@
       <li><a href="{{ url_for("view_merchant_info") + session['id'] }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Page</a></li>
       <li><a href="{{ url_for("view_merchant_profile") }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
       {% else %}
-      <li><a href="{{ url_for("view_user") }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> my profile</a></li>
+      <li><a href="{{ url_for("view_user") }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
       {% endif %}
       <li><a href="{{ url_for("logout") }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> Logout</a></li>
     {% else %}
