@@ -16,6 +16,11 @@ class Transaction(dict):
         self.results = list()
         self.__cmd_st = list()
         self.commands = list()
+        self.failed = None
+
+    def prepared(self):
+        self.__cursor = self.__dbctx.prepared().cursor()
+        return self
 
     def __enter__(self):
         self.transact += 1
@@ -44,6 +49,8 @@ class Transaction(dict):
             message[u'traceback'] = traceback
             message[u'action'] = u'Rollback'
             self.__dbctx.rollback()
+            if not self.failed:
+                self.failed = message
         else:
             message[u'exc_value'] = u'Succeeded'
             message[u'action'] = u'Commit'
