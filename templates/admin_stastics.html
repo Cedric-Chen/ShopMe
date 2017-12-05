@@ -16,6 +16,7 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -36,12 +37,56 @@
 <body>
   {% include "navbar.html" %}
 
-<div class='container col-md-4 col-md-offset-1'>
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#opening"><h3> 
+	Amounts of Opening Business in Different States
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='opening' class="collapse">
+    <div class='container col-md-10 col-md-offset-1'>
+    <div id='chart_1' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-1'></div>
+    <div class='container col-md-10 col-md-offset-1'>
+    <div id='chart_2' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-1'></div>
+</div>
 
-<div id='my_chart'></div>
-{{ data[0][0] }}
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#reviews"><h3> 
+	Amount of Reviews in Different States
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='reviews' class="collapse">
+    <div class='container col-md-10 col-md-offset-1'>
+    <div id='chart_3' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-1'></div>
+    <div class='container col-md-10 col-md-offset-1'>
+    <div id='chart_4' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-1'></div>
+</div>
 
-
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#stars"><h3> 
+	Stars of Business in Different States
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='stars' class="collapse">
+    <div class='container col-md-10 col-md-offset-1'>
+    <div id='chart_5' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-10 col-md-offset-1'>
+    <div id='chart_6' style='width:100%;'></div>
+    </div>
 </div>
 
 </body>
@@ -49,22 +94,79 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script> 
 <script>
    google.load("visualization", "1", {packages:["corechart"]});
-   google.setOnLoadCallback(drawChart);
-   function drawChart() {
-    // Create and populate the data table.
-    var data = google.visualization.arrayToDataTable({{ data|tojson }});
-//var data = google.visualization.arrayToDataTable([
-//         ['Element', 'Density'],
-//         ['Copper', 8.94],        
-//         ['Silver', 10.49],         
-//         ['Gold', 19.30],
-//         ['Platinum', 21.45 ]
-//    ]);
-    var options = {
-      title: 'What is your favorite pie flavor?'
-    };
-     // Create and draw the visualization.
-    new google.visualization.LineChart(
-      document.getElementById('my_chart')).draw(data, options);
+   google.setOnLoadCallback(draw_state_is_open);
+   google.setOnLoadCallback(draw_state_review_count);
+  google.setOnLoadCallback(draw_state_stars);
+
+   function draw_state_is_open() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable({{ state_is_open|tojson }});
+        var options = {
+	  height: 400, width:1000
+        };
+         // Create and draw the visualization.
+        new google.visualization.ColumnChart(
+          document.getElementById('chart_1')).draw(data, options);
+        new google.visualization.PieChart(
+          document.getElementById('chart_2')).draw(data, options);
   }
+   function draw_state_review_count() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable({{ state_review_count|tojson }});
+        var options = {
+	  height: 400, width:1000
+        };
+         // Create and draw the visualization.
+        new google.visualization.ColumnChart(
+          document.getElementById('chart_3')).draw(data, options);
+        new google.visualization.PieChart(
+          document.getElementById('chart_4')).draw(data, options);
+  }
+
+   function draw_state_stars() {
+        // Create and populate the data table.
+var data = new google.visualization.DataTable();
+data.addColumn({type:'number',label:'stars',role:'domain'});
+data.addColumn({type:'string',label:'state',role:'annotation'});
+data.addColumn('number','number');
+data.addRows({{state_stars|tojson}})
+
+//        var data = google.visualization.arrayToDataTable({{ state_stars|tojson }});
+
+//        var data = google.visualization.arrayToDataTable([
+//		[{label:'stars',type:'number'}, {label:'number',type:'number'}],
+//		[ 1,10],
+//		[ 2,5],
+//	]);
+
+        var options = {
+	  height: 400, width:1000
+        };
+         // Create and draw the visualization.
+        new google.visualization.BarChart(
+          document.getElementById('chart_5')).draw(data, options);
+//        new google.visualization.PieChart(
+//          document.getElementById('chart_6')).draw(data, options);
+  }
+
+    if (document.addEventListener) {
+        window.addEventListener('resize', draw_state_is_open);
+        window.addEventListener('resize', draw_state_review_count);
+        window.addEventListener('resize', draw_state_stars);
+
+  }
+  else if (document.attachEvent) {
+      window.attachEvent('onresize', draw_state_is_open);
+        window.attachEvent('onresize', draw_state_review_count);
+        window.attachEvent('onresize', draw_state_stars);
+
+  }
+  else {
+      window.resize = draw_state_is_open;
+        window.resize = draw_state_review_count;
+        window.resize = draw_state_stars;
+
+    }
+
+
 </script> 
