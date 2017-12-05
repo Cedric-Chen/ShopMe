@@ -89,7 +89,7 @@ def parse_loc(loc):
         except:
             if(loc.strip().upper() in US_STATES):
                 d['state'] = loc.strip().upper()
-            else:
+            elif(loc.strip() != ""):
                 d['city'] = loc.strip().lower()
             return d
     return {}
@@ -118,9 +118,9 @@ def search_result(kw, loc):
     print("Recommend time: %s" %(recommend_over - query_over))
     return recommended_business_list
 
-
+@app.route(u'/search/kw=<kw>&loc=/')
 @app.route(u'/search/kw=<kw>&loc=<loc>/')
-def search(kw, loc):
+def search(kw, loc=''):
     business_list = search_result(kw, loc)
     # pagination
     page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')
