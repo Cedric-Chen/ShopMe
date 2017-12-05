@@ -20,7 +20,7 @@ class SQLStats(dict):
 
     def refresh(self):
         for name in self.__sp_name:
-            thread = threading.Thread(target=sql_stats.run, name)
+            thread = threading.Thread(target=sql_stats.run, args=(name))
             thread.start()
 
     def run(self, name):
