@@ -5,6 +5,7 @@ from flask import render_template, request
 from flask_paginate import Pagination, get_page_args
 from geopy.distance import vincenty
 from geopy.geocoders import Nominatim
+import time
 
 from config import app
 from datamodel.business import business
@@ -14,12 +15,17 @@ from datamodel.review import review
 from datamodel.user import user
 from utility.lrudecorator import LRUDecorator
 
+US_STATES = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",  \
+"HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", \
+"MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", \
+"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", \
+"SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
 
 class recommender(object):
 
     def __init__(self, business_list, cond_loc):
         self.business_list = business_list
-        if(cond_loc['__type__'] == "laglng"):
+        if('lag' in cond_loc.keys() and 'lng' in cond_loc.keys()):
             self.user_laglng = (cond_loc['lag'], cond_loc['lng'])
         else:
             self.user_laglng = None
@@ -65,7 +71,6 @@ def parse_loc(loc):
         try:
             d['lag'] = float(loc.split(',')[0].strip())
             d['lng'] = float(loc.split(',')[1].strip())
-            d['__type__'] = "laglng"
             geolocator = Nominatim()
             location = geolocator.reverse("%s, %s" %(d['lag'], d['lng']))
             try:
@@ -73,42 +78,49 @@ def parse_loc(loc):
             except KeyError:
                 d['postal_code'] = None
         except ValueError:
-            d['__type__'] = "city-state"
             d['city'] = loc.split(',')[0].strip()
             d['state'] = loc.split(',')[1].strip()
         return d
     else:
         try:
             int(loc)
-            # assert len(loc) == 5
             d['postal_code'] = loc.strip()
-            d['__type__'] = "postal_code"
             return d
         except:
-            pass
-    return {'__type__':"city-state", 'city':'urbana', 'state':'IL'}
+            if(loc.strip().upper() in US_STATES):
+                d['state'] = loc.strip().upper()
+            elif(loc.strip() != ""):
+                d['city'] = loc.strip().lower()
+            return d
+    return {}
 
 
 @LRUDecorator(50)
 def search_result(kw, loc):
+    start = time.time()
     cond_kw = parse_kw(kw)
     cond_loc = parse_loc(loc)
-    if(cond_loc['__type__'] == "city-state"):
+    if('city' in cond_loc.keys()):
         cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
+    if('state' in cond_loc.keys()):
         cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
-    elif(cond_loc['postal_code'] != None):
+    if('postal_code' in cond_loc.keys()):
         cond_kw['attribute']['postal_code'] = "='" + cond_loc['postal_code'] + "'"
-    # keys = list(cond.keys())
-    # keys.remove('__type__')
+    parse_over = time.time()
     # query
-    # business_list = business.sort_by(cond, keys, [u'']*len(keys), u'*', u'*')
     business_list = business.keyword_search(cond_kw)
+    query_over = time.time()
     # recommendation
-    return recommender(business_list,cond_loc).recommend()
+    recommended_business_list = recommender(business_list,cond_loc).recommend()
+    recommend_over = time.time()
+    print("Parse time: %s" %(parse_over - start))
+    print("Query time: %s" %(query_over - parse_over))
+    print("Recommend time: %s" %(recommend_over - query_over))
+    return recommended_business_list
 
-
+@app.route(u'/search/kw=<kw>&loc=/')
 @app.route(u'/search/kw=<kw>&loc=<loc>/')
-def search(kw, loc):
+def search(kw, loc=''):
     business_list = search_result(kw, loc)
     # pagination
     page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')
@@ -158,4 +170,6 @@ def search(kw, loc):
         laglng_list=laglng_list,
         page=page,
         per_page=per_page,
-        pagination=pagination)
+        pagination=pagination,
+        kw = kw,
+        loc = loc)
