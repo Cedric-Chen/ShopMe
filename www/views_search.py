@@ -113,9 +113,9 @@ def search_result(kw, loc):
     # recommendation
     recommended_business_list = recommender(business_list,cond_loc).recommend()
     recommend_over = time.time()
-    print("Parse time: %s" %parse_over - start)
-    print("Query time: %s" %query_over - parse_over)
-    print("Recommend time: %s" %recommend_over - query_over)
+    print("Parse time: %s" %(parse_over - start))
+    print("Query time: %s" %(query_over - parse_over))
+    print("Recommend time: %s" %(recommend_over - query_over))
     return recommended_business_list
 
 
