@@ -16,6 +16,22 @@ from datamodel.photo import photo
 from datamodel.review import review
 from datamodel.tip import tip
 from datamodel.user import user
+from viewmodel.pagination import Pagination
+from utility.lrudecorator import LRUDecorator
+
+FRIEND_PERPAGE = 5
+FRIEND_PAGES = 5
+
+
+@LRUDecorator(50)
+def friend_result(user_id):
+    friends = []
+    for one_id in friend.select(user_id):
+        friend_dict = user.select(one_id)
+        if 'name' in friend_dict:
+            friends.append(friend_dict)
+    return friends
+
 
 @login_required
 @app.route('/user/profile')
@@ -23,14 +39,17 @@ def view_user():
     user_id = session['id']
     if 'account_type' in session and \
         session['account_type'] == 'user':
-        friends = {}
-        for one_id in friend.select(user_id):
-            friend_dict = user.select(one_id)
-            if 'name' in friend_dict:
-                friends[one_id] = friend_dict
+        friendlist = friend_result(user_id)
+        friend_pagination = Pagination(u'friend', len(friendlist), \
+            FRIEND_PERPAGE, FRIEND_PAGES)
+        friend_pagination.jump(request.args.get('page', 1))
+        friendlist = friendlist[ \
+            friend_pagination['start']: friend_pagination['end']]
+        print(friend_pagination)
         return render_template('user.html',
             user=user.select(user_id),
-            friend=friends
+            friendlist=friendlist,
+            pagination=friend_pagination,
         )
     else:
         return redirect(request.args.get('next') or \

@@ -393,8 +393,8 @@
                <p></p>
                     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap3.min.css') }}"/>
                     <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}" />
-                     {% for field,value in friend.items() %}
-
+                    <div id="friend_board">
+                    {% for field in friendlist %}
                         <div class="row user-row col-xs-offset-0 col-sm-offset-0 col-md-offset-0.5">
                             <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
                                 <img class="img-circle"
@@ -402,24 +402,24 @@
                                      alt="User Pic">
                             </div>
                             <div class="col-md-10">
-                                <strong>{{value.name}}</strong><br>
-                                <span class="text-muted">Review count: {{value.review_count}}</span>
+                                <strong>{{field.name}}</strong><br>
+                                <span class="text-muted">Review count: {{field.review_count}}</span>
 <!--
-                                <span class="text-muted">User ID: {{field}}</span>
+                                <span class="text-muted">User ID: {{field.id}}</span>
 -->
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".{{field}}">
+                            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".{{field.id}}">
                                 <i class="glyphicon glyphicon-chevron-down text-muted"></i>
                             </div>
                         </div>
-                        <div class="row user-infos {{field}}">
+                        <div class="row user-infos {{field.id}}">
                             <div class="col-md-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">User information</h3>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="row">
+                                        <div id="info-{{ field.id }}" class="row">
                                             <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
                                                 <img class="img-circle"
                                                      src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
@@ -431,53 +431,60 @@
                                                      alt="User Pic">
                                             </div>
                                             <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
-                                                <strong>{{value.name}}</strong><br>
+                                                <strong>{{field.name}}</strong><br>
                                                 <dl>
                                                     <dt>Review count</dt>
-                                                    <dd>{{value.review_count}}</dd>
+                                                    <dd>{{field.review_count}}</dd>
                                                     <dt>Yelping since:</dt>
-                                                    <dd>{{value.yelping_since}}</dd>
+                                                    <dd>{{field.yelping_since}}</dd>
                                                     <dt>Fans</dt>
-                                                    <dd>{{value.fans}}</dd>
+                                                    <dd>{{field.fans}}</dd>
                                                     <dt>Useful</dt>
-                                                    <dd>{{value.useful}}</dd>
+                                                    <dd>{{field.useful}}</dd>
                                                 </dl>
                                             </div>
                                             <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
-                                                <strong>{{value.name}}</strong><br>
+                                                <strong>{{field.name}}</strong><br>
                                                 <table class="table table-user-information">
                                                     <tbody>
                                                     <tr>
                                                         <td>Review count</td>
-                                                        <td>{{value.review_count}}</td>
+                                                        <td>{{field.review_count}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Yelping since:</td>
-                                                        <td>{{value.yelping_since}}</td>
+                                                        <td>{{field.yelping_since}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Fans</td>
-                                                        <td>{{value.fans}}</td>
+                                                        <td>{{field.fans}}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Useful</td>
-                                                        <td>{{value.useful}}</td>
+                                                        <td>{{field.useful}}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        <div id="message-{{ field.id }}">
+                                            this is message box.
+                                        </div>
                                     </div>
                                     <div class="panel-footer">
                                         <button class="btn btn-sm btn-primary" type="button"
                                                 data-toggle="tooltip"
-                                                data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
-                                        <span class="pull-right">
-                                            <button class="btn btn-sm btn-warning" type="button"
+                                                data-original-title="Send message to user">
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" type="button"
                                                     data-toggle="tooltip"
-                                                    data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
+                                                    data-original-title="Edit this user">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                        <span class="pull-right">
                                             <button class="btn btn-sm btn-danger" type="remove_button"
-                                                    data-toggle="tooltip" value="{{field}}"
+                                                    data-toggle="tooltip" value="{{field.id}}"
                                                     data-original-title="Remove this user"
                                                     onclick="removeFriend(this.value)">
                                                 <i class="glyphicon glyphicon-remove"></i></button>
@@ -494,9 +501,25 @@
                                 history.go(0)
                             }
                         </script>
-
                     {% endfor %}
-
+                    <div class="row clearfix">
+                    {% if pagination["page_no"] %}
+                    <ul class="pagination" style="display: flex; justify-content: center;">
+                        <li>
+                             <a href="{{ url_for('view_user', page=1)}}"><<</a>
+                        </li>
+                        {% for pageno in pagination["page_no"] %}
+                        <li>
+                             <a href="{{ url_for('view_user', page=pageno)}}">{{ pageno }}</a>
+                        </li>
+                        {% endfor %}
+                        <li>
+                             <a href="{{ url_for('view_user', page=pagination['last'])}}">>></a>
+                        </li>
+                    </ul>
+                    {% endif %}
+                    </div>
+                    </div>
            </div>
         </div>
     </div>
