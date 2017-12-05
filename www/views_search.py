@@ -102,7 +102,7 @@ def search_result(kw, loc):
     cond_loc = parse_loc(loc)
     if(cond_loc['city'] != None):
         cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
-    if(cond_loc['state'] != None)
+    if(cond_loc['state'] != None):
         cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
     if(cond_loc['postal_code'] != None):
         cond_kw['attribute']['postal_code'] = "='" + cond_loc['postal_code'] + "'"
