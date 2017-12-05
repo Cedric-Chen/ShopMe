@@ -16,6 +16,11 @@ class Transaction(dict):
         self.results = list()
         self.__cmd_st = list()
         self.commands = list()
+        self.failed = None
+
+    def prepared(self):
+        self.__cursor = self.__dbctx.prepared().cursor()
+        return self
 
     def __enter__(self):
         self.transact += 1
@@ -44,6 +49,8 @@ class Transaction(dict):
             message[u'traceback'] = traceback
             message[u'action'] = u'Rollback'
             self.__dbctx.rollback()
+            if not self.failed:
+                self.failed = message
         else:
             message[u'exc_value'] = u'Succeeded'
             message[u'action'] = u'Commit'
@@ -63,8 +70,9 @@ class Transaction(dict):
         self.__cmd_st.append(cmd)
         if re.match(r'^call', sql, re.IGNORECASE):
             sql = sql.lower().split('call ')[1].strip().split('()')[0]
-            ret = self.__cursor.callproc(sql, placeholder)
-            self.results.append(ret)
+            self.__cursor.callproc(sql, placeholder)
+            self.results.append([ret.fetchall() \
+                for ret in self.__cursor.stored_results()])
         else:
             self.__cursor.execute(sql, placeholder)
             self.results.append(self.__cursor.fetchall())
