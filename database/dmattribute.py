@@ -13,7 +13,7 @@ class DMAttribute(DataModel):
     def select(self, business_id):
         self.query_sql = u'SELECT name, value FROM attribute WHERE ' \
             + 'business_id = "%s"' % (business_id)
-        ret = super().select()
+        ret = super().execute()
         result = dict()
         for entry in ret:
             value = entry[1]
@@ -30,16 +30,20 @@ class DMAttribute(DataModel):
             else json.dumps(attr)
         return self.quote_sql(attr_value)
 
+    def del_sql(self, business_id):
+        self.query_sql = u'DELETE FROM `attribute` WHERE business_id=%s'
+        self.query_args = (business_id,)
+        return self
+
     def delete(self, business_id, attribute):
         if len(attribute) == 0:
-            self.query_sql = u'DELETE FROM `attribute` WHERE business_id="%s"' \
-                % (business_id)
-            super().execute()
+            self.query_sql = self.del_sql(business_id).toquery()
+            super().commit()
         for key in attribute:
             self.query_sql = \
                 u'DELETE FROM `attribute` WHERE business_id="%s" AND name=%s' \
                 % (business_id, self.quote_sql(key))
-            super().execute()
+            super().commit()
 
     def insert(self, business_id, attribute):
         from datamodel.business import business
@@ -50,7 +54,7 @@ class DMAttribute(DataModel):
                 u'INSERT INTO `attribute`(`business_id`, `name`, `value`) ' \
                 + 'VALUES("%s", %s, %s)' \
                 % (business_id, self.quote_sql(key), self.val2sql(val))
-            super().execute()
+            super().commit()
 
     def update(self, business_id, attribute, old_attribute):
         for key, val in attribute.items():
@@ -60,4 +64,4 @@ class DMAttribute(DataModel):
                 % (business_id, self.quote_sql(key))
 #            assert False, self.query_sql
             
-            super().execute()
+            super().commit()

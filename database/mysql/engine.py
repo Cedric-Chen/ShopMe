@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector, threading
+from mysql.connector.cursor import MySQLCursorPrepared
+
 from config import app
 
 database = None
@@ -39,7 +41,7 @@ class _Connection(object):
         if self.__conn is None:
             self.__conn = database.connect()
             app.logger.debug('[CONNECTION] <%s> OPEN' % hex(id(self.__conn)))
-        return self.__conn.cursor(prepared=prepared)
+        return self.__conn.cursor(buffered=not prepared, prepared=prepared)
 
     def rollback(self):
         if self.__conn:

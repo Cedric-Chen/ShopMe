@@ -10,23 +10,27 @@ class DMCheckIn(DataModel):
     def select(self, business_id):
         self.query_sql = u'SELECT `date`, `count` FROM `checkin` WHERE ' \
             + u'business_id = "%s"' % (business_id)
-        ret = super().select()
+        ret = super().execute()
         result = dict()
         for entry in ret:
             k_date = entry[0]
             result[k_date] = result.get(k_date, 0) + entry[1]
         return result
 
+    def del_sql(self, business_id):
+        self.query_sql = u'DELETE FROM `checkin` WHERE business_id=%s'
+        self.query_args = (business_id,)
+        return self
+
     def delete(self, business_id, checkin):
         if len(checkin) == 0:
-            self.query_sql = u'DELETE FROM `checkin` WHERE business_id="%s"' \
-                % (business_id)
-            super().execute()
+            self.query_sql = self.del_sql(business_id).toquery()
+            super().commit()
         for key, val in checkin.items():
             self.query_sql = \
                 u'DELETE FROM `checkin` WHERE business_id="%s" AND `date`="%s"' \
                 % (business_id, key)
-            super().execute()
+            super().commit()
 
     def insert(self, business_id, checkin):
         from datamodel.business import business
@@ -37,7 +41,7 @@ class DMCheckIn(DataModel):
                 u'INSERT INTO `checkin`(`business_id`, `date`, `count`) ' \
                 + 'VALUES("%s", "%s", %s)' \
                 % (business_id, key, val)
-            super().execute()
+            super().commit()
 
     def update(self, business_id, checkin, old_checkin):
         for key, val in checkin.items():
@@ -51,4 +55,4 @@ class DMCheckIn(DataModel):
                     u'UPDATE `checkin` SET count=%s WHERE ' % (val) \
                     + 'business_id="%s" AND date="%s"' \
                     % (business_id, key)
-            super().execute()
+            super().commit()

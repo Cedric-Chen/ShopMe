@@ -11,7 +11,7 @@ class DMAccount_User(DataModel):
 #    def check_existence(self, username):
 #        self.query_sql = u'SELECT count(*) FROM account_user \
 #            WHERE username = "%s"' % (username)
-#        ret = super().select()
+#        ret = super().execute()
 #        if ret[0]:
 #            return True
 #        else
@@ -21,7 +21,7 @@ class DMAccount_User(DataModel):
         self.query_sql = u'SELECT username FROM account_user \
             WHERE username = "%s" and password=password("%s")' \
             % (username,password)
-        ret = super().select()
+        ret = super().execute()
 
         if not len(ret):
             return False, u"Login Failed!"
@@ -30,7 +30,7 @@ class DMAccount_User(DataModel):
     def get_id(self, username):
         self.query_sql = u'SELECT userid FROM account_user \
             WHERE username = "%s"' % (username)
-        ret = super().select()
+        ret = super().execute()
 
         if not len(ret):
             return ''
@@ -40,7 +40,7 @@ class DMAccount_User(DataModel):
     def insert(self, username, password):
         self.query_sql = u'SELECT userid FROM account_user \
             WHERE username = "%s"' % (username)
-        ret = super().select()
+        ret = super().execute()
         if len(ret):
             return False, 'Username has been used'
 
@@ -48,60 +48,6 @@ class DMAccount_User(DataModel):
         self.query_sql = \
             u'INSERT INTO account_user(username, userid, password) \
             values("%s", "", "%s") ' % (username,password)
-        super().execute()
+        super().commit()
         return True, \
             'Congratulations, you register successfully! Please Login.'
-  
-#    def select(self, username):
-#        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
-#            + u'FROM photo WHERE business_id = "%s"' % (business_id)
-#        ret = super().select()
-#        result = dict()
-#        for entry in ret:
-#            result[entry[0]] = {
-#                self.dm_attr[index]: value \
-#                for index, value in enumerate(entry)
-#            }
-#        return result
-#
-#    def delete(self, business_id, photo):
-#        if len(photo) == 0:
-#            self.query_sql = u'DELETE FROM `photo` WHERE business_id="%s"' \
-#                % (business_id)
-#            super().execute()
-#        for key, val in photo.items():
-#            pair = [u'id=%s' % (self.quote_sql(key))]
-#            for k, v in val.items():
-#                if k != 'id':
-#                    pair.append(u'%s=%s' % (k, self.quote_sql(v)))
-#            self.query_sql = u'DELETE FROM `photo` WHERE %s' \
-#                % (' AND '.join(pair))
-#            super().execute()
-#
-#    def insert(self, business_id, photo):
-#        from datamodel.business import business
-#        if len(business.select(business_id)) < 1:
-#            business.insert(business_id, {})
-#        for key, val in photo.items():
-#            k = [u'id']
-#            v = [self.quote_sql(key)]
-#            for attr in self.dm_attr:
-#                if attr in val and attr != u'id':
-#                    k.append(attr)
-#                    v.append(self.quote_sql(val[attr]))
-#            self.query_sql = u'INSERT INTO `photo`(%s) ' % (u','.join(k)) \
-#                + 'VALUES(%s)' % (u','.join(v))
-#            super().execute()
-#
-#    def update(self, business_id, photo, old_photo):
-#        for key, val in photo.items():
-#            if key not in old_photo and key not in self.select(business_id):
-#                self.insert(business_id, {key: val})
-#            else:
-#                pair = [u'id=%s' % (self.quote_sql(key))]
-#                for k, v in val.items():
-#                    if k != 'id':
-#                        pair.append(u'%s=%s' % (k, self.quote_sql(v)))
-#                self.query_sql = u'UPDATE photo SET %s WHERE id="%s"' \
-#                    % (u', '.join(pair), key)
-#                super().execute()
