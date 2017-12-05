@@ -104,7 +104,7 @@ def search_result(kw, loc):
         cond_kw['attribute']['city'] = "='" + cond_loc['city'] + "'"
     if('state' in cond_loc.keys()):
         cond_kw['attribute']['state'] = "='" + cond_loc['state'] + "'"
-    if(postal_code in cond_loc.keys()):
+    if('postal_code' in cond_loc.keys()):
         cond_kw['attribute']['postal_code'] = "='" + cond_loc['postal_code'] + "'"
     parse_over = time.time()
     # query
