@@ -25,7 +25,7 @@ class recommender(object):
 
     def __init__(self, business_list, cond_loc):
         self.business_list = business_list
-        if(cond_loc['__type__'] == "laglng"):
+        if('lag' in cond_loc.keys() and 'lng' in cond_loc.keys()):
             self.user_laglng = (cond_loc['lag'], cond_loc['lng'])
         else:
             self.user_laglng = None
