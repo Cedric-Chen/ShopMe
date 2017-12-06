@@ -481,10 +481,11 @@ _qevents.push({
                                             <i class="glyphicon glyphicon-envelope"></i>
                                         </button>
                                         <div class="input-group" style="display:none" id = "input-{{ field.id }}">
-                                            <input id="friend_id" type="text" class="form-control"
-                                                   placeholder="Enter your friend's ID"/>
+                                            <input id="message-box" type="text" class="form-control"
+                                                   placeholder="Type Message"/>
                                             <span class="input-group-btn">
-                                                <button id="sent_message" class="btn btn-info" type="button">
+                                                <button id="sent_message" class="btn btn-info" type="button"
+                                                    value="{{ field.id }}">
                                                     <i class="glyphicon glyphicon-edit"></i>
                                                 </button>
                                             </span>
@@ -510,11 +511,19 @@ _qevents.push({
                             var infoWindow;
                             var url = "{{ url_for('stream') }}";
 
+                            $(document).ready(function() {
+                                $("#sent_message").click(function(){
+                                    var message = $("#message-box").val();
+                                    $.get("/message/"+ message + ":" + this.val() + ":" + '{{ user.id }}' + "/")
+                    {#                history.go(0)#}
+                                });
+                            })
+
                             function chatWithFriend(val){
                                 infobox = document.getElementById('infobox-' + val);
                                 infoWindow = document.getElementById('info-window-' + val);
                                 var inputbar = document.getElementById('input-' + val);
-                                inputbar.style.diplay = "block"
+                                inputbar.style.display = "block"
                                 var es = new EventSource(url); //连接服务器
                                 es.onmessage = msg;
                                 infoWindow.innerHTML = ""
