@@ -524,9 +524,9 @@ _qevents.push({
 {#                                infoWindow.innerHTML += "<br> Me:" + message;#}
 {#                                infobox += "<br> Me:" + message;#}
                                 infoWindow.innerHTML = infoWindow.innerHTML.substr(0,infoWindow.innerHTML.length -11) +
-                                "<br> Friend:" + message +  '</textarea>';
+                                "Me:" + message +  '\n</textarea>';
                                 infobox.innerHTML = infobox.innerHTML.substr(0,infobox.innerHTML.length -11) +
-                                    "<br> Friend:" + message +  '</textarea>';
+                                    "Me:" + message +  '\n</textarea>';
 
 {#                                    confirm(message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}')#}
                 {#                history.go(0)#}
@@ -546,10 +546,10 @@ _qevents.push({
                         function msg(e) {
 {#                            infoWindow.innerHTML += "<br> Friend:" + e.data;  // e.data即服务器返回的数据#}
                             infoWindow.innerHTML = infoWindow.innerHTML.substr(0,infoWindow.innerHTML.length -11) +
-                                "<br> Friend:" + e.data +  '</textarea>';
+                                "Friend:" + e.data +  '\n</textarea>';
 {#                            confirm(infoWindow.innerHTML);#}
-                            infobox.innerHTML = infobox.innerHTML.substr(0,infobox.innerHTML.length -11) +
-                                "<br> Friend:" + e.data +  '</textarea>';
+                            infobox.innerHTML = infobgitox.innerHTML.substr(0,infobox.innerHTML.length -11) +
+                                "Friend:" + e.data +  '\n</textarea>';
 {#                            infobox.innerHTML += "<br> Friend:" + e.data;#}
                         }
                         function removeFriend(val){
