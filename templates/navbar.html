@@ -24,7 +24,7 @@
     <div class="navbar-collapse collapse" id="bs-navbar-collapse-1"
       aria-expanded="true" style="">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/"  style='color:DarkTurquoise;'><b>Home</b></a></li>
+        <li class="active"><a href="/index/"  style='color:DarkTurquoise;'><b>Home</b></a></li>
         {% if current_user.is_authenticated %}
           {% if session['account_type'] == 'admin' %}
                <li><a href="{{ url_for('admin_account') }}" style='color:DarkTurquoise;'> Accounts  </a></li>
