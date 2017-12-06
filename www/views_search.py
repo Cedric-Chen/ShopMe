@@ -119,8 +119,9 @@ def search_result(kw, loc):
     return recommended_business_list
 
 @app.route(u'/search/kw=<kw>&loc=/')
+@app.route(u'/search/kw=&loc=<loc>/')
 @app.route(u'/search/kw=<kw>&loc=<loc>/')
-def search(kw, loc=''):
+def search(kw='', loc=''):
     business_list = search_result(kw, loc)
     # pagination
     page, per_page, offset = get_page_args(page_parameter='page',per_page_parameter='per_page')

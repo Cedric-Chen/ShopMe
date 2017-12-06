@@ -135,10 +135,10 @@
 
       {% if session['account_type'] == 'business' %}
       <li class="nav-item">
-      <a class="nav-link" href="{{ url_for("view_merchant_info") + session['id'] }}"><i class="fa fa-fw fa-sign-out"></i> My Page</a>
+      <a class="nav-link" href="{{ url_for("view_merchant_info") + session['id'] }}"><i class="fa fa-fw fa-user"></i> My Page</a>
 	</li>
       <li class="nav-item">
-	<a class="nav-link" href="{{ url_for("view_merchant_profile") }}"><i class="fa fa-fw fa-sign-out"></i> My Profile</a>
+	<a class="nav-link" href="{{ url_for("view_merchant_profile") }}"><i class="fa fa-fw fa-user"></i> My Profile</a>
 	</li>
       {% else %}
       <li><a href="{{ url_for("index") }}"><i class="fa fa-fw fa-sign-out"></i> My Page</a></li>
