@@ -6,6 +6,7 @@ import __init__
 
 from flask import render_template
 from config import app, app_debug, log_dir
+import hellow_flask
 from www import assets, views_index, views_merchant, views_info, \
     views_search, views_user, views_utility, views_account, url, \
     views_admin_account, views_admin_database, views_admin_stats

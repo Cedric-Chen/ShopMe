@@ -23,319 +23,312 @@
 {% include "navbar.html" %}
 
 <script src="https://www.codeply.com/plugins/bootstrap-select.min.js"></script>
-        <script src="https://www.codeply.com/codemirror/jquery.codemirror.js"></script>
-        <script src="https://www.codeply.com/beautifier.js"></script>
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-          ga('create', 'UA-40413119-1', 'bootply.com');
-          ga('send', 'pageview');
-        </script>
-        <script>
-        jQuery.fn.shake = function(intShakes, intDistance, intDuration, foreColor) {
-            this.each(function() {
-                if (foreColor && foreColor!="null") {
-                    $(this).css("color",foreColor);
-                }
-                $(this).css("position","relative");
-                for (var x=1; x<=intShakes; x++) {
-                $(this).animate({left:(intDistance*-1)}, (((intDuration/intShakes)/4)))
-                .animate({left:intDistance}, ((intDuration/intShakes)/2))
-                .animate({left:0}, (((intDuration/intShakes)/4)));
-                $(this).css("color","");
-            }
-          });
-        return this;
-        };
-        </script>
-        <script>
-        $(document).ready(function() {
-
-            $('.tw-btn').fadeIn(3000);
-            $('.alert').delay(5000).fadeOut(1500);
-
-            $('#btnLogin').click(function(){
-                $(this).text("...");
-                $.ajax({
-                    url: "/loginajax",
-                    type: "post",
-                    data: $('#formLogin').serialize(),
-                    success: function (data) {
-                        //console.log('data:'+data);
-                        if (data.status==1&&data.user) { //logged in
-                            $('#menuLogin').hide();
-                            $('#lblUsername').text(data.user.username);
-                            $('#menuUser').show();
-                            /*
-                            $('#completeLoginModal').modal('show');
-                            $('#btnYes').click(function() {
-                                window.location.href="/";
-                            });
-                            */
-                        }
-                        else {
-                            $('#btnLogin').text("Login");
-                            prependAlert("#spacer",data.error);
-                            $('#btnLogin').shake(4,6,700,'#CC2222');
-                            $('#username').focus();
-                        }
-                    },
-                    error: function (e) {
-                        $('#btnLogin').text("Login");
-                        console.log('error:'+JSON.stringify(e));
-                    }
-                });
-            });
-            $('#btnRegister').click(function(){
-                $(this).text("Wait..");
-                $.ajax({
-                    url: "/signup?format=json",
-                    type: "post",
-                    data: $('#formRegister').serialize(),
-                    success: function (data) {
-                        console.log('data:'+JSON.stringify(data));
-                        if (data.status==1) {
-                            $('#btnRegister').attr("disabled","disabled");
-                            $('#formRegister').text('Thanks. You can now login using the Login form.');
-                        }
-                        else {
-                            prependAlert("#spacer",data.error);
-                            $('#btnRegister').shake(4,6,700,'#CC2222');
-                            $('#btnRegister').text("Sign Up");
-                            $('#inputEmail').focus();
-                        }
-                    },
-                    error: function (e) {
-                        $('#btnRegister').text("Sign Up");
-                        console.log('error:'+e);
-                    }
-                });
-            });
-
-            $('.loginFirst').click(function(){
-                $('#navLogin').trigger('click');
-                return false;
-            });
-
-            $('#btnForgotPassword').on('click',function(){
-                $.ajax({
-                    url: "/resetPassword",
-                    type: "post",
-                    data: $('#formForgotPassword').serializeObject(),
-                    success: function (data) {
-                        if (data.status==1){
-                            prependAlert("#spacer",data.msg);
-                            return true;
-                        }
-                        else {
-                            prependAlert("#spacer","Your password could not be reset.");
-                            return false;
-                        }
-                    },
-                    error: function (e) {
-                        console.log('error:'+e);
-                    }
-                });
-            });
-
-            $('#btnContact').click(function(){
-
-                $.ajax({
-                    url: "/contact",
-                    type: "post",
-                    data: $('#formContact').serializeObject(),
-                    success: function (data) {
-                        if (data.status==1){
-                            prependAlert("#spacer","Thanks. We got your message and will get back to you shortly.");
-                             $('#contactModal').modal('hide');
-                            return true;
-                        }
-                        else {
-                            prependAlert("#spacer",data.error);
-                            return false;
-                        }
-                    },
-                    error: function (e) {
-                        console.log('error:'+e);
-                    }
-                });
-                return false;
-            });
-
-            /*
-            $('.nav .dropdown-menu input').on('click touchstart',function(e) {
-                e.stopPropagation();
-            });
-            */
-
-
-
-
-
-        });
-        $.fn.serializeObject = function()
-        {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if (o[this.name] !== undefined) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [o[this.name]];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
-        var prependAlert = function(appendSelector,msg){
-            $(appendSelector).after('<div class="alert alert-info alert-block affix" id="msgBox" style="z-index:1300;margin:14px!important;">'+msg+'</div>');
-            $('.alert').delay(3500).fadeOut(1000);
+<script src="https://www.codeply.com/codemirror/jquery.codemirror.js"></script>
+<script src="https://www.codeply.com/beautifier.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-40413119-1', 'bootply.com');
+  ga('send', 'pageview');
+</script>
+<script>
+jQuery.fn.shake = function(intShakes, intDistance, intDuration, foreColor) {
+    this.each(function() {
+        if (foreColor && foreColor!="null") {
+            $(this).css("color",foreColor);
         }
-        </script>
-        <!-- Quantcast Tag -->
-        <script type="text/javascript">
-        var _qevents = _qevents || [];
+        $(this).css("position","relative");
+        for (var x=1; x<=intShakes; x++) {
+        $(this).animate({left:(intDistance*-1)}, (((intDuration/intShakes)/4)))
+        .animate({left:intDistance}, ((intDuration/intShakes)/2))
+        .animate({left:0}, (((intDuration/intShakes)/4)));
+        $(this).css("color","");
+    }
+  });
+return this;
+};
+</script>
+<script>
+$(document).ready(function() {
 
-        (function() {
-        var elem = document.createElement('script');
-        elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
-        elem.async = true;
-        elem.type = "text/javascript";
-        var scpt = document.getElementsByTagName('script')[0];
-        scpt.parentNode.insertBefore(elem, scpt);
-        })();
+    $('.tw-btn').fadeIn(3000);
+    $('.alert').delay(5000).fadeOut(1500);
 
-        _qevents.push({
-        qacct:"p-0cXb7ATGU9nz5"
+    $('#btnLogin').click(function(){
+        $(this).text("...");
+        $.ajax({
+            url: "/loginajax",
+            type: "post",
+            data: $('#formLogin').serialize(),
+            success: function (data) {
+                //console.log('data:'+data);
+                if (data.status==1&&data.user) { //logged in
+                    $('#menuLogin').hide();
+                    $('#lblUsername').text(data.user.username);
+                    $('#menuUser').show();
+                    /*
+                    $('#completeLoginModal').modal('show');
+                    $('#btnYes').click(function() {
+                        window.location.href="/";
+                    });
+                    */
+                }
+                else {
+                    $('#btnLogin').text("Login");
+                    prependAlert("#spacer",data.error);
+                    $('#btnLogin').shake(4,6,700,'#CC2222');
+                    $('#username').focus();
+                }
+            },
+            error: function (e) {
+                $('#btnLogin').text("Login");
+                console.log('error:'+JSON.stringify(e));
+            }
         });
-        </script>
-        <noscript>
-        &amp;amp;amp;amp;amp;amp;amp;lt;div style="display:none;"&amp;amp;amp;amp;amp;amp;amp;gt;
-        &amp;amp;amp;amp;amp;amp;amp;lt;img src="//pixel.quantserve.com/pixel/p-0cXb7ATGU9nz5.gif" border="0" height="1" width="1" alt="Quantcast"/&amp;amp;amp;amp;amp;amp;amp;gt;
-        &amp;amp;amp;amp;amp;amp;amp;lt;/div&amp;amp;amp;amp;amp;amp;amp;gt;
-        </noscript>
-        <!-- End Quantcast tag -->
-        <div id="completeLoginModal" class="modal hide">
-            <div class="modal-header">
-                <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
-                 <h3>Do you want to proceed?</h3>
-            </div>
-            <div class="modal-body">
-                <p>This page must be refreshed to complete your login.</p>
-                <p>You will lose any unsaved work once the page is refreshed.</p>
-                <br><br>
-                <p>Click "No" to cancel the login process.</p>
-                <p>Click "Yes" to continue...</p>
-            </div>
-            <div class="modal-footer">
-              <a href="#" id="btnYes" class="btn danger">Yes, complete login</a>
-              <a href="#" data-dismiss="modal" aria-hidden="true" class="btn secondary">No</a>
-            </div>
-        </div>
-        <div id="forgotPasswordModal" class="modal hide">
-            <div class="modal-header">
-                <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
-                 <h3>Password Lookup</h3>
-            </div>
-            <div class="modal-body">
-                  <form class="form form-horizontal" id="formForgotPassword">
-                  <div class="control-group">
-                      <label class="control-label" for="inputEmail">Email</label>
-                      <div class="controls">
-                          <input name="_csrf" id="token" value="CkMEALL0JBMf5KSrOvu9izzMXCXtFQ/Hs6QUY=" type="hidden">
-                          <input name="email" id="inputEmail" placeholder="you@youremail.com" required="" type="email">
-                          <span class="help-block"><small>Enter the email address you used to sign-up.</small></span>
-                      </div>
+    });
+    $('#btnRegister').click(function(){
+        $(this).text("Wait..");
+        $.ajax({
+            url: "/signup?format=json",
+            type: "post",
+            data: $('#formRegister').serialize(),
+            success: function (data) {
+                console.log('data:'+JSON.stringify(data));
+                if (data.status==1) {
+                    $('#btnRegister').attr("disabled","disabled");
+                    $('#formRegister').text('Thanks. You can now login using the Login form.');
+                }
+                else {
+                    prependAlert("#spacer",data.error);
+                    $('#btnRegister').shake(4,6,700,'#CC2222');
+                    $('#btnRegister').text("Sign Up");
+                    $('#inputEmail').focus();
+                }
+            },
+            error: function (e) {
+                $('#btnRegister').text("Sign Up");
+                console.log('error:'+e);
+            }
+        });
+    });
+
+    $('.loginFirst').click(function(){
+        $('#navLogin').trigger('click');
+        return false;
+    });
+
+    $('#btnForgotPassword').on('click',function(){
+        $.ajax({
+            url: "/resetPassword",
+            type: "post",
+            data: $('#formForgotPassword').serializeObject(),
+            success: function (data) {
+                if (data.status==1){
+                    prependAlert("#spacer",data.msg);
+                    return true;
+                }
+                else {
+                    prependAlert("#spacer","Your password could not be reset.");
+                    return false;
+                }
+            },
+            error: function (e) {
+                console.log('error:'+e);
+            }
+        });
+    });
+
+    $('#btnContact').click(function(){
+
+        $.ajax({
+            url: "/contact",
+            type: "post",
+            data: $('#formContact').serializeObject(),
+            success: function (data) {
+                if (data.status==1){
+                    prependAlert("#spacer","Thanks. We got your message and will get back to you shortly.");
+                     $('#contactModal').modal('hide');
+                    return true;
+                }
+                else {
+                    prependAlert("#spacer",data.error);
+                    return false;
+                }
+            },
+            error: function (e) {
+                console.log('error:'+e);
+            }
+        });
+        return false;
+    });
+
+    /*
+    $('.nav .dropdown-menu input').on('click touchstart',function(e) {
+        e.stopPropagation();
+    });
+    */
+
+});
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+var prependAlert = function(appendSelector,msg){
+    $(appendSelector).after('<div class="alert alert-info alert-block affix" id="msgBox" style="z-index:1300;margin:14px!important;">'+msg+'</div>');
+    $('.alert').delay(3500).fadeOut(1000);
+}
+</script>
+<!-- Quantcast Tag -->
+<script type="text/javascript">
+    var _qevents = _qevents || [];
+
+(function() {
+    var elem = document.createElement('script');
+    elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+    elem.async = true;
+    elem.type = "text/javascript";
+    var scpt = document.getElementsByTagName('script')[0];
+    scpt.parentNode.insertBefore(elem, scpt);
+})();
+
+_qevents.push({
+    qacct:"p-0cXb7ATGU9nz5"
+});
+</script>
+<noscript>
+&amp;amp;amp;amp;amp;amp;amp;lt;div style="display:none;"&amp;amp;amp;amp;amp;amp;amp;gt;
+&amp;amp;amp;amp;amp;amp;amp;lt;img src="//pixel.quantserve.com/pixel/p-0cXb7ATGU9nz5.gif" border="0" height="1" width="1" alt="Quantcast"/&amp;amp;amp;amp;amp;amp;amp;gt;
+&amp;amp;amp;amp;amp;amp;amp;lt;/div&amp;amp;amp;amp;amp;amp;amp;gt;
+</noscript>
+<!-- End Quantcast tag -->
+<div id="completeLoginModal" class="modal hide">
+    <div class="modal-header">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+         <h3>Do you want to proceed?</h3>
+    </div>
+    <div class="modal-body">
+        <p>This page must be refreshed to complete your login.</p>
+        <p>You will lose any unsaved work once the page is refreshed.</p>
+        <br><br>
+        <p>Click "No" to cancel the login process.</p>
+        <p>Click "Yes" to continue...</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" id="btnYes" class="btn danger">Yes, complete login</a>
+      <a href="#" data-dismiss="modal" aria-hidden="true" class="btn secondary">No</a>
+    </div>
+</div>
+<div id="forgotPasswordModal" class="modal hide">
+    <div class="modal-header">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+         <h3>Password Lookup</h3>
+    </div>
+    <div class="modal-body">
+          <form class="form form-horizontal" id="formForgotPassword">
+          <div class="control-group">
+              <label class="control-label" for="inputEmail">Email</label>
+              <div class="controls">
+                  <input name="_csrf" id="token" value="CkMEALL0JBMf5KSrOvu9izzMXCXtFQ/Hs6QUY=" type="hidden">
+                  <input name="email" id="inputEmail" placeholder="you@youremail.com" required="" type="email">
+                  <span class="help-block"><small>Enter the email address you used to sign-up.</small></span>
+              </div>
+          </div>
+          </form>
+    </div>
+    <div class="modal-footer pull-center">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</a>
+        <a href="#" data-dismiss="modal" id="btnForgotPassword" class="btn btn-success">Reset Password</a>
+    </div>
+</div>
+<div id="upgradeModal" class="modal hide">
+    <div class="modal-header">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+         <h4>Would you like to upgrade?</h4>
+    </div>
+    <div class="modal-body">
+          <p class="text-center"><strong></strong></p>
+          <h1 class="text-center">$4<small>/mo</small></h1>
+          <p class="text-center"><small>Unlimited plys. Unlimited downloads. No Ads.</small></p>
+          <p class="text-center"><img src="https://www.codeply.com/assets/i_visa.png" alt="visa" width="50"> <img src="https://www.codeply.com/assets/i_mc.png" alt="mastercard" width="50"> <img src="https://www.codeply.com/assets/i_amex.png" alt="amex" width="50"> <img src="https://www.codeply.com/assets/i_discover.png" alt="discover" width="50"> <img src="https://www.codeply.com/assets/i_paypal.png" alt="paypal" width="50"></p>
+    </div>
+    <div class="modal-footer pull-center">
+        <a href="/upgrade" class="btn btn-block btn-huge btn-success"><strong>Upgrade Now</strong></a>
+        <a href="#" data-dismiss="modal" class="btn btn-block btn-huge">No Thanks, Maybe Later</a>
+    </div>
+</div>
+
+<div id="contactModal" class="modal hide">
+    <div class="modal-header">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
+        <h3>Contact Us</h3>
+        <p>suggestions, questions or feedback</p>
+    </div>
+    <div class="modal-body">
+          <form class="form form-horizontal" id="formContact">
+              <input name="_csrf" id="token" value="CkMEALL0JBMf5KSrOvu9izzMXCXtFQ/Hs6QUY=" type="hidden">
+              <div class="control-group">
+                  <label class="control-label" for="inputSender">Name</label>
+                  <div class="controls">
+                      <input name="sender" id="inputSender" class="input-large" placeholder="Your name" type="text">
                   </div>
-                  </form>
-            </div>
-            <div class="modal-footer pull-center">
-                <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</a>
-            	<a href="#" data-dismiss="modal" id="btnForgotPassword" class="btn btn-success">Reset Password</a>
-            </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="inputMessage">Message</label>
+                  <div class="controls">
+                      <textarea name="notes" rows="5" id="inputMessage" class="input-large" placeholder="Type your message here"></textarea>
+                  </div>
+              </div>
+              <div class="control-group">
+                  <label class="control-label" for="inputEmail">Email</label>
+                  <div class="controls">
+                      <input name="email" id="inputEmail" class="input-large" placeholder="you@youremail.com (for reply)" required="" type="text">
+                  </div>
+              </div>
+          </form>
+    </div>
+    <div class="modal-footer pull-center">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</a>
+        <a href="#" data-dismiss="modal" aria-hidden="true" id="btnContact" role="button" class="btn btn-success">Send</a>
+    </div>
+</div>
 
-        </div>
-        <div id="upgradeModal" class="modal hide">
-            <div class="modal-header">
-                <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
-                 <h4>Would you like to upgrade?</h4>
-            </div>
-            <div class="modal-body">
-                  <p class="text-center"><strong></strong></p>
-                  <h1 class="text-center">$4<small>/mo</small></h1>
-                  <p class="text-center"><small>Unlimited plys. Unlimited downloads. No Ads.</small></p>
-                  <p class="text-center"><img src="https://www.codeply.com/assets/i_visa.png" alt="visa" width="50"> <img src="https://www.codeply.com/assets/i_mc.png" alt="mastercard" width="50"> <img src="https://www.codeply.com/assets/i_amex.png" alt="amex" width="50"> <img src="https://www.codeply.com/assets/i_discover.png" alt="discover" width="50"> <img src="https://www.codeply.com/assets/i_paypal.png" alt="paypal" width="50"></p>
-            </div>
-            <div class="modal-footer pull-center">
-            	<a href="/upgrade" class="btn btn-block btn-huge btn-success"><strong>Upgrade Now</strong></a>
-            	<a href="#" data-dismiss="modal" class="btn btn-block btn-huge">No Thanks, Maybe Later</a>
-            </div>
-        </div>
-        <div id="contactModal" class="modal hide">
-            <div class="modal-header">
-                <a href="#" data-dismiss="modal" aria-hidden="true" class="close">×</a>
-                <h3>Contact Us</h3>
-                <p>suggestions, questions or feedback</p>
-            </div>
-            <div class="modal-body">
-                  <form class="form form-horizontal" id="formContact">
-                      <input name="_csrf" id="token" value="CkMEALL0JBMf5KSrOvu9izzMXCXtFQ/Hs6QUY=" type="hidden">
-                      <div class="control-group">
-                          <label class="control-label" for="inputSender">Name</label>
-                          <div class="controls">
-                              <input name="sender" id="inputSender" class="input-large" placeholder="Your name" type="text">
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputMessage">Message</label>
-                          <div class="controls">
-                              <textarea name="notes" rows="5" id="inputMessage" class="input-large" placeholder="Type your message here"></textarea>
-                          </div>
-                      </div>
-                      <div class="control-group">
-                          <label class="control-label" for="inputEmail">Email</label>
-                          <div class="controls">
-                              <input name="email" id="inputEmail" class="input-large" placeholder="you@youremail.com (for reply)" required="" type="text">
-                          </div>
-                      </div>
-                  </form>
-            </div>
-            <div class="modal-footer pull-center">
-                <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</a>
-                <a href="#" data-dismiss="modal" aria-hidden="true" id="btnContact" role="button" class="btn btn-success">Send</a>
-            </div>
-        </div>
-
-
-
-
-	<script src="https://www.codeply.com/plugins/bootstrap-pager.js"></script>
+<script src="https://www.codeply.com/plugins/bootstrap-pager.js"></script>
 
 <hr class="">
 <div class="container target">
     <div class="row">
         <div class="col-sm-10">
-	{% if current_user.is_authenticated and session['id']==user.id %}
-             <h1 class="" value="{{user.id}}" id="editable">{{ user.name }}</h1>
-	{% else %}
-             <h1 class="" value="{{user.id}}">{{ user.name }}</h1>
-	{% endif %}
-
-<!-- 
-          <button type="button" id="add_friend" class="btn btn-success">Follow</button> 
-<button type="button" class="btn btn-info">Send me a message</button>
--->
-<br>
+            {% if current_user.is_authenticated and session['id']==user.id %}
+                <h1 class="" value="{{user.id}}" id="editable">{{ user.name }}</h1>
+            {% else %}
+                <h1 class="" value="{{user.id}}">{{ user.name }}</h1>
+            {% endif %}
+            <!--
+            <button type="button" id="add_friend" class="btn btn-success">Follow</button>
+            <button type="button" class="btn btn-info">Send me a message</button>
+            -->
+        <br>
         </div>
-      <div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.rlsandbox.com/img/profile.jpg"></a>
-
+        <div class="col-sm-2"><a href="/user/profile?page1" class="pull-right">
+            <img title="profile image" class="img-circle img-responsive"
+                src="http://www.rlsandbox.com/img/profile.jpg"></a>
         </div>
     </div>
-  <br>
+    <br>
     <div class="row">
         <div class="col-sm-4">
             <!--left col-->
@@ -365,7 +358,6 @@
                 <!--<div class="panel-heading">Social Media</div>-->
                 <!--<div class="panel-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i>-->
                     <!--<i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>-->
-
                 <!--</div>-->
             <!--</div>-->
         </div>
@@ -384,7 +376,7 @@
                     {% if recommendations is defined %}
                     {% for recommendation in recommendations %}
                     <a href="{{ url_for("view_merchant_info") + recommendation['id'] + '/'}}" >
-                        {{ recommendation['name'] }}
+                        {{ recommendation['name'] }}<br>
                     </a>
                     {% endfor %}
                     {% endif %}
@@ -445,56 +437,78 @@
                                                      alt="User Pic">
                                             </div>
                                             <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
-                                                <strong>{{field.name}}</strong><br>
-                                                <dl>
-                                                    <dt>Review count</dt>
-                                                    <dd>{{field.review_count}}</dd>
-                                                    <dt>Yelping since:</dt>
-                                                    <dd>{{field.yelping_since}}</dd>
-                                                    <dt>Fans</dt>
-                                                    <dd>{{field.fans}}</dd>
-                                                    <dt>Useful</dt>
-                                                    <dd>{{field.useful}}</dd>
-                                                </dl>
+                                                <strong>{{field.name}}</strong><br/><br/>
+                                                <div id = "infobox-{{ field.id }}">
+                                                    <dl>
+                                                        <dt>User ID</dt>
+                                                        <dd>{{field.id}}</dd>
+                                                        <dt>Review count</dt>
+                                                        <dd>{{field.review_count}}</dd>
+                                                        <dt>Yelping since:</dt>
+                                                        <dd>{{field.yelping_since}}</dd>
+                                                        <dt>Fans</dt>
+                                                        <dd>{{field.fans}}</dd>
+                                                        <dt>Useful</dt>
+                                                        <dd>{{field.useful}}</dd>
+                                                    </dl>
+                                                </div>
                                             </div>
                                             <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
                                                 <strong>{{field.name}}</strong><br>
-                                                <table class="table table-user-information">
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Review count</td>
-                                                        <td>{{field.review_count}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Yelping since:</td>
-                                                        <td>{{field.yelping_since}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Fans</td>
-                                                        <td>{{field.fans}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Useful</td>
-                                                        <td>{{field.useful}}</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
+                                                <div id = "info-window-{{ field.id }}">
+                                                    <table class="table table-user-information">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>Id</td>
+                                                            <td>{{field.id}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Review count</td>
+                                                            <td>{{field.review_count}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Yelping since:</td>
+                                                            <td>{{field.yelping_since}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fans</td>
+                                                            <td>{{field.fans}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Useful</td>
+                                                            <td>{{field.useful}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
                                             </div>
                                         </div>
                                         <div id="message-{{ field.id }}">
-                                            this is message box.
                                         </div>
                                     </div>
                                     <div class="panel-footer">
                                         <button class="btn btn-sm btn-primary" type="button"
                                                 data-toggle="tooltip"
-                                                data-original-title="Send message to user">
+                                                data-original-title="Send message to user"
+                                                value="{{field.id}}"
+                                                onclick="chatWithFriend(this.value)">
                                             <i class="glyphicon glyphicon-envelope"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-warning" type="button"
-                                                    data-toggle="tooltip"
-                                                    data-original-title="Edit this user">
-                                            <i class="glyphicon glyphicon-edit"></i>
+                                        <div class="input-group" style="display:none" id = "input-{{ field.id }}">
+                                            <input id="message-box" type="text" class="form-control"
+                                                   placeholder="Type Message"/>
+                                            <span class="input-group-btn">
+                                                <button id="sent_message" class="btn btn-info" type="button"
+                                                    value="{{ field.id }}">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+{#                                        <button class="btn btn-sm btn-warning" type="button"#}
+{#                                                    data-toggle="tooltip"#}
+{#                                                    data-original-title="Edit this user">#}
+{#                                            <i class="glyphicon glyphicon-edit"></i>#}
                                         </button>
                                         <span class="pull-right">
                                             <button class="btn btn-sm btn-danger" type="remove_button"
@@ -508,10 +522,36 @@
                             </div>
                         </div>
                         <script>
+                            var infobox;
+                            var infoWindow;
+                            var url = "{{ url_for('stream') }}";
+                            var friendName;
+
+                            $(document).ready(function() {
+                                $("#sent_message").click(function(){
+                                    var message = $("#message-box").val();
+                                    var friend_id = $("#sent_message").val()
+                                    $.get("/message/"+ '{{user.id }}'+'/' + friend_id + '/'+ message + "/")
+                                    infoWindow.innerHTML = infoWindow.innerHTML + "<br> Me:" + message;
+{#                                    confirm(message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}')#}
+                    {#                history.go(0)#}
+                                });
+                            })
+
+                            function chatWithFriend(friend_id){
+                                infobox = document.getElementById('infobox-' + friend_id);
+                                infoWindow = document.getElementById('info-window-' + friend_id);
+                                var inputbar = document.getElementById('input-' + friend_id);
+                                inputbar.style.display = "block"
+                                var es = new EventSource(url+'{{user.id }}'+'/' + friend_id + '/'); //连接服务器
+                                es.onmessage = msg;
+                                infoWindow.innerHTML = ""
+                            }
+                            function msg(e) {
+                                infoWindow.innerHTML = infoWindow.innerHTML + "<br> Friend:" + e.data;  // e.data即服务器返回的数据
+                            }
                             function removeFriend(val){
-                                var url = window.location.href.split('/')
-                                var id = url[url.length-1]
-                                $.get("/friend/remove/"+val+ '/' + id)
+                                $.get("/friend/remove/"+ val + '/' + '{{user.id }}')
                                 history.go(0)
                             }
                         </script>
@@ -537,42 +577,40 @@
            </div>
         </div>
     </div>
+    <div id="push"></div>
+</div>
 
-
-            <div id="push"></div>
-        </div>
-        <!--<footer id="footer">-->
-            <!--<div class="row-fluid">-->
-                <!--<div class="span3">-->
-                    <!--<p>-->
-                        <!--<a href="http://twitter.com/Bootply" rel="nofollow" title="Bootply on Twitter" target="ext">Twitter</a><br>-->
-                        <!--<a href="https://plus.google.com/+Bootply" rel="publisher">Google+</a><br>-->
-                        <!--<a href="http://facebook.com/Bootply" rel="nofollow" title="Bootply on Facebook" target="ext">Facebook</a><br>-->
-                        <!--<a href="https://github.com/iatek/bootply" title="Bootply on GitHub" target="ext">GitHub</a><br>-->
-                    <!--</p>-->
-                <!--</div>-->
-                <!--<div class="span3">-->
-                    <!--<p>-->
-                        <!--<a data-toggle="modal" role="button" href="#contactModal">Contact Us</a><br>-->
-                        <!--<a href="/tags">Tags</a><br>-->
-                        <!--<a href="/bootstrap-community">Community</a><br>-->
-                        <!--<a href="/upgrade">Upgrade</a><br>-->
-                    <!--</p>-->
-                <!--</div>-->
-                <!--<div class="span3">-->
-                    <!--<p>-->
-                        <!--<a href="http://www.bootbundle.com" target="ext" rel="nofollow">BootBundle</a><br>-->
-                        <!--<a href="https://bootstrapbay.com/?ref=skelly" target="_ext" rel="nofollow" title="Premium Bootstrap themes">Bootstrap Themes</a><br>-->
-                        <!--<a href="http://www.bootstrapzero.com" target="_ext" rel="nofollow" title="Free Bootstrap templates">BootstrapZero</a><br>-->
-                        <!--<a href="http://upgrade-bootstrap.bootply.com/">2.x Upgrade Tool</a><br>-->
-                    <!--</p>-->
-                <!--</div>-->
-                <!--<div class="span3">-->
-                    <!--<span class="pull-right">©Copyright 2013-2014 <a href="/" title="The Bootstrap Playground">Bootply</a> | <a href="/about#privacy">Privacy</a></span>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</footer>-->
-
+<!--<footer id="footer">-->
+    <!--<div class="row-fluid">-->
+        <!--<div class="span3">-->
+            <!--<p>-->
+                <!--<a href="http://twitter.com/Bootply" rel="nofollow" title="Bootply on Twitter" target="ext">Twitter</a><br>-->
+                <!--<a href="https://plus.google.com/+Bootply" rel="publisher">Google+</a><br>-->
+                <!--<a href="http://facebook.com/Bootply" rel="nofollow" title="Bootply on Facebook" target="ext">Facebook</a><br>-->
+                <!--<a href="https://github.com/iatek/bootply" title="Bootply on GitHub" target="ext">GitHub</a><br>-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--<div class="span3">-->
+            <!--<p>-->
+                <!--<a data-toggle="modal" role="button" href="#contactModal">Contact Us</a><br>-->
+                <!--<a href="/tags">Tags</a><br>-->
+                <!--<a href="/bootstrap-community">Community</a><br>-->
+                <!--<a href="/upgrade">Upgrade</a><br>-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--<div class="span3">-->
+            <!--<p>-->
+                <!--<a href="http://www.bootbundle.com" target="ext" rel="nofollow">BootBundle</a><br>-->
+                <!--<a href="https://bootstrapbay.com/?ref=skelly" target="_ext" rel="nofollow" title="Premium Bootstrap themes">Bootstrap Themes</a><br>-->
+                <!--<a href="http://www.bootstrapzero.com" target="_ext" rel="nofollow" title="Free Bootstrap templates">BootstrapZero</a><br>-->
+                <!--<a href="http://upgrade-bootstrap.bootply.com/">2.x Upgrade Tool</a><br>-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--<div class="span3">-->
+            <!--<span class="pull-right">©Copyright 2013-2014 <a href="/" title="The Bootstrap Playground">Bootply</a> | <a href="/about#privacy">Privacy</a></span>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</footer>-->
 
 </div>
 

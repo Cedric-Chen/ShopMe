@@ -28,7 +28,7 @@ def get_recommendation(user_id):
     reviews = review.select('*',user_id)
     print(len(reviews))
     blist = [reviews[k]['business_id'] for k in reviews if reviews[k]['stars'] >= 4 ]
-    blist = list(set(blist))
+    blist = list(set(blist))[0:10]
     rblist = frequentpattern.select_recommendation(blist)
     return [business.select(b_id) for b_id in rblist]
 
@@ -79,14 +79,20 @@ def view_friend():
 @login_required
 @app.route('/friend/remove/<friend_id>/<user_id>')
 def remove_friend(friend_id, user_id):
+    friend_result .clear()
     friend.delete(user_id, {friend_id:user_id})
+    return url_for('view_user')
 
 @login_required
 @app.route('/friend/add/<friend_id>/<user_id>')
 def add_friend(friend_id, user_id):
+    friend_result .clear()
     friend.insert(user_id, {friend_id:user_id})
+    return url_for('view_user')
 
 @login_required
 @app.route('/update/name/<name>/<user_id>')
 def update_name(name, user_id):
+    friend_result .clear()
     user.update(user_id,{"name":name})
+    return url_for('view_user')

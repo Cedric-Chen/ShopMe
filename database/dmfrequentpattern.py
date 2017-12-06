@@ -12,12 +12,12 @@ class DMFrequentpattern(DataModel):
 
     def select_frequent(self, business_id):
         self.query_sql = u'SELECT business2_id ' \
-            + u'FROM frequentpattern WHERE business1_id = "%s"' % (business_id)
+            + u'FROM frequentpattern WHERE business1_id = "%s" limit 5' % (business_id)
         print(self.query_sql)
         ret = super().execute()
         result1 = [entry[0] for entry in ret]
         self.query_sql = u'SELECT business1_id ' \
-            + u'FROM frequentpattern WHERE business2_id = "%s"' % (business_id)
+            + u'FROM frequentpattern WHERE business2_id = "%s" limit 5' % (business_id)
         print(self.query_sql)
         ret = super().execute()
         result2 = [entry[0] for entry in ret]
