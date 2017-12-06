@@ -431,7 +431,15 @@ _qevents.push({
                             <div class="col-md-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">User information</h3>
+                                        <h3 class="panel-title" style='display:inline;'>User information</h3>
+                                        <span class="" style='float:right; margin-bottom:5px;'>
+                                            <button class="btn btn-sm btn-danger" type="remove_button"
+                                                    data-toggle="tooltip" value="{{field.id}}"
+                                                    data-original-title="Remove this user"
+                                                    onclick="removeFriend(this.value)">
+                                                <i class="glyphicon glyphicon-remove"></i></button>
+                                        </span>
+
                                     </div>
                                     <div class="panel-body">
                                         <div id="info-{{ field.id }}" class="row">
@@ -514,19 +522,15 @@ _qevents.push({
                                                     <i class="glyphicon glyphicon-edit"></i>
                                                 </button>
                                             </span>
-                                        </div>
+<!--
 {#                                        <button class="btn btn-sm btn-warning" type="button"#}
 {#                                                    data-toggle="tooltip"#}
 {#                                                    data-original-title="Edit this user">#}
 {#                                            <i class="glyphicon glyphicon-edit"></i>#}
                                         </button>
-                                        <span class="pull-right">
-                                            <button class="btn btn-sm btn-danger" type="remove_button"
-                                                    data-toggle="tooltip" value="{{field.id}}"
-                                                    data-original-title="Remove this user"
-                                                    onclick="removeFriend(this.value)">
-                                                <i class="glyphicon glyphicon-remove"></i></button>
-                                        </span>
+-->
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
