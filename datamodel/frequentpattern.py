@@ -3,8 +3,8 @@
 
 from database.dmrecommendation import DMRecommendation
 
-class Recommendation(DMRecommendation):
+class Frequentpattern(DMFrequentpattern):
     def __init__(self):
         super().__init__(self)
 
-recommendation = Recommendation()
+frequentpattern = Frequentpattern()

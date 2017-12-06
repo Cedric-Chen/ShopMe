@@ -5,28 +5,29 @@ from database.datamodel import DataModel
 from database.mysql.transaction import Transaction
 
 
-class DMRecommendation(DataModel):
+class DMFrequentpattern(DataModel):
     def __init__(self, cls):
         super().__init__(cls)
-#        self.dm_attr = [u'id', u'name', u'review_count', u'yelping_since', \
-#            u'useful', u'funny', u'cool', u'fans', u'average_stars', \
-#            u'compliment_hot', u'compliment_more', u'compliment_profile', \
-#            u'compliment_cute', u'compliment_list', u'compliment_note', \
-#            u'compliment_plain', u'compliment_cool', u'compliment_funny', \
-#            u'compliment_writer', u'compliment_photos'
-#        ]
+        self.dm_attr = ['business1_id','business2_id']
 
-    def select(self, userid):
-        self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
-            + u'FROM user WHERE id = "%s"' % (_id)
+    def select_frequent(self, business_id):
+        self.query_sql = u'SELECT business2_id ' \
+            + u'FROM frequentpattern WHERE business1_id = "%s"' % (business_id)
+        print(self.query_sql)
         ret = super().execute()
-        result = dict()
-        for entry in ret:
-            result = {
-                self.dm_attr[index]: value \
-                for index, value in enumerate(entry)
-            }
-        return result
+        result1 = [entry[0] for entry in ret]
+        self.query_sql = u'SELECT business1_id ' \
+            + u'FROM frequentpattern WHERE business2_id = "%s"' % (business_id)
+        print(self.query_sql)
+        ret = super().execute()
+        result2 = [entry[0] for entry in ret]
+        return result1 + result2
+
+    def select_recommendation(self, business_id_list):
+        recommendation = []
+        for business_id in business_id_list:
+            recommendation += select_frequent(business_id)
+        return recommendation
 
 #    def del_trigger(self, user_id):
 #        from datamodel.elite_years import elite_years
