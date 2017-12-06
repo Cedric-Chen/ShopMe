@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from database.datamodel import DataModel
+from database.mysql.transaction import Transaction
 
 
 class DMBusiness(DataModel):
@@ -14,7 +15,7 @@ class DMBusiness(DataModel):
     def sort_ret(self):
         return [{self.dm_attr[index]: value \
                 for index, value in enumerate(entry)
-            } for entry in super().select()
+            } for entry in super().execute()
         ]
 
     def sort_by(self, business, field_list, op_list, key, order):
@@ -52,8 +53,6 @@ class DMBusiness(DataModel):
         self.query_sql += self.select_order([u"name"], 1)
         return self.sort_ret()
 
-
-
     def sort_close(self, business, distance, key, order):
         longi = business.get(u'longitude', None)
         latit = business.get(u'latitude', None)
@@ -67,14 +66,14 @@ class DMBusiness(DataModel):
     def select(self, business_id):
         self.query_sql = u'SELECT %s FROM business WHERE id = "%s"' \
                          % (u', '.join(self.dm_attr), business_id)
-        ret = super().select()
+        ret = super().execute()
         result = dict()
         for entry in ret:
             for index, value in enumerate(entry):
                 result[self.dm_attr[index]] = value
         return result
 
-    def delete(self, business_id, business):
+    def del_trigger(self, business_id):
         from datamodel.attribute import attribute
         from datamodel.category import category
         from datamodel.checkin import checkin
@@ -83,16 +82,35 @@ class DMBusiness(DataModel):
         from datamodel.review import review
         from datamodel.tip import tip
         for model in [attribute, category, checkin, hours, photo]:
-            model.delete(business_id, {})
+            yield model.del_sql(business_id)
         for model in [review, tip]:
-            model.delete(business_id, u'*', {})
-        self.query_sql = u'DELETE FROM `business` WHERE id="%s"' % business_id
-        super().execute()
+            yield model.del_sql(business_id, u'*')
+
+    def del_sql(self, business_id):
+        self.query_sql = u'DELETE FROM `business` WHERE id=%s'
+        self.query_args = (business_id,)
+        return self
+
+    def delete(self, business_id, business):
+        with Transaction().prepared() as cursor:
+            for model in self.del_trigger(business_id):
+                cursor.execute(model.query_sql, model.query_args)
+            sql_args = self.del_sql(business_id)
+            cursor.execute(sql_args.query_sql, sql_args.query_args)
 
     def delete_group(self, business_ids_list):
-        for business_id in business_ids_list:
-            self.delete(business_id, self.select(business_id))
-
+        tran = Transaction().prepared()
+        models = [model for model in self.del_trigger(business_id)]
+        with tran as cursor:
+            for model in models:
+                cursor = tran.prepared()
+                for business_id in business_ids_list:
+                    cursor.execute(model.query_sql, (business_id,))
+            sql_args = self.del_sql(business_id, business)
+            cursor = tran.prepared()
+            for business_id in business_ids_list:
+                cursor.execute(sql_args.query_sql, (business_id,))
+        return tran
 
     def insert(self, business_id, business):
         key = []
@@ -104,7 +122,7 @@ class DMBusiness(DataModel):
                 value.append(self.quote_sql(business[attr]))
         self.query_sql = u'INSERT INTO `business`(%s) VALUES(%s)' \
             % (u','.join([u'`%s`' % k for k in key]), u','.join(value))
-        super().execute()
+        super().commit()
 
     def update(self, business_id, business, old_business):
         pair = []
@@ -113,4 +131,4 @@ class DMBusiness(DataModel):
                 pair.append(u'%s=%s' % (key, self.quote_sql(business[key])))
         self.query_sql = u'UPDATE `business` SET %s WHERE id="%s"' \
             % (u','.join(pair), business_id)
-        super().execute()
+        super().commit()

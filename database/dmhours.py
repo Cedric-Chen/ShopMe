@@ -13,23 +13,27 @@ class DMHours(DataModel):
     def select(self, business_id):
         self.query_sql = u'SELECT hours FROM hours WHERE business_id = "%s"' \
             % (business_id)
-        ret = super().select()
+        ret = super().execute()
         result = dict()
         for entry in ret:
             date, time = entry[0].split(u'|')
             result[date] = time
         return result
 
+    def del_sql(self, business_id):
+        self.query_sql = u'DELETE FROM `hours` WHERE business_id=%s'
+        self.query_args = (business_id,)
+        return self
+
     def delete(self, business_id, hours):
         if len(hours) == 0:
-            self.query_sql = u'DELETE FROM `hours` WHERE business_id="%s"' \
-                % (business_id)
-            super().execute()
+            self.query_sql = self.del_sql(business_id).toquery()
+            super().commit()
         for key, val in hours.items():
             self.query_sql = \
                 u'DELETE FROM `hours` WHERE business_id="%s" AND ' \
                 % (business_id) + 'hours="%s"' % (key + "|" + val)
-            super().execute()
+            super().commit()
 
     def insert(self, business_id, hours):
         from datamodel.business import business
@@ -39,7 +43,7 @@ class DMHours(DataModel):
             self.query_sql = \
                 u'INSERT INTO `hours`(`business_id`, `hours`) ' \
                 + 'VALUES("%s", "%s")' % (business_id, key + "|" + val)
-            super().execute()
+            super().commit()
 
     def update(self, business_id, hours, old_hours):
         self.delete(business_id, old_hours)

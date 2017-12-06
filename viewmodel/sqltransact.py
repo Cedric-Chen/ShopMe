@@ -12,7 +12,10 @@ class SQLTransaction(object):
 
     def run(self):
         if self.__rb_all:
-            self.rb_all(0)
+            try:
+                self.rb_all(0)
+            except:
+                pass
         else:
             self.rb_current(0)
         return self.__tctx
@@ -21,7 +24,6 @@ class SQLTransaction(object):
         with self.__tctx as curser:
             while index < len(self.transact):
                 tran_no = self.transact[index]
-                print(tran_no)
                 if tran_no == self.__tctx.transact:
                     curser.execute(self.sql[index], tuple())
                     index += 1

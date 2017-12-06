@@ -3,6 +3,7 @@
 
 import re
 
+from config import app
 from database.mysql.engine import DbCtx
 
 
@@ -16,6 +17,11 @@ class Transaction(dict):
         self.results = list()
         self.__cmd_st = list()
         self.commands = list()
+        self.failed = None
+
+    def prepared(self):
+        self.__cursor = self.__dbctx.prepared().cursor()
+        return self
 
     def __enter__(self):
         self.transact += 1
@@ -44,10 +50,16 @@ class Transaction(dict):
             message[u'traceback'] = traceback
             message[u'action'] = u'Rollback'
             self.__dbctx.rollback()
+            if not self.failed:
+                self.failed = message
+            app.logger.debug(u'[ROLLBACK] TRANSACTION %s, %s' \
+                % (self.transact, message))
         else:
             message[u'exc_value'] = u'Succeeded'
             message[u'action'] = u'Commit'
             self.__dbctx.commit()
+            app.logger.debug(u'[COMMIT] TRANSACTION %s: %s' \
+                % (self.transact, message))
         self.__stack[-1].append(message)
         self.__stack.pop()
         while self.__cmd_st and self.__cmd_st[-1][0] == self.transact:
@@ -57,12 +69,21 @@ class Transaction(dict):
             self.__dbctx.cleanup()
 
     def execute(self, sql, placeholder):
+        sql = sql.strip()
         cmd = [self.transact, sql, placeholder]
-        self.commands.append(cmd)
         self.__cmd_st.append(cmd)
-        ret = self.__cursor.execute(sql, placeholder)
-        if re.match(r'^SELECT', sql, re.IGNORECASE):
-            self.results.append(self.__cursor.fetchall())
+        self.commands.append(cmd)
+        app.logger.debug(u'[EXECUTE] %s' % (cmd))
+        if re.match(r'^CALL', sql, re.IGNORECASE):
+            sql = sql.lower().split('CALL ')[1].strip().split('()')[0]
+            self.__cursor.callproc(sql, placeholder)
+            self.results.append([ret.fetchall() \
+                for ret in self.__cursor.stored_results()])
         else:
+            self.__cursor.execute(sql, placeholder)
+            try:
+                ret = self.__cursor.fetchall()
+            except:
+                ret = []
             self.results.append(ret)
         return self

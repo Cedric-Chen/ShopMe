@@ -1,85 +1,41 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import requests, json
+from decimal import Decimal
 from flask import render_template,request, session, url_for, redirect, flash
 from flask_login import login_required
-import requests, json
+
 from config import app
+
 
 @login_required
 @app.route('/admin/account')
 def admin_account():
-    if session['account_type'] == 'admin':
+    if 'account_type' in session and session['account_type'] == 'admin':
         return render_template(
             'admin_account.html'
         )
     else:
         return redirect(request.args.get('next') or \
             request.referrer or \
-            url_for('/'))
-
-@login_required
-@app.route('/admin/database/')
-def admin_database(commands={}, results={}):
-    if session['account_type'] == 'admin':
-        return render_template(
-            'admin_database.html',
-            commands = commands,
-            results = results
-        )
-    else:
-        return redirect(request.args.get('next') or \
-            request.referrer or \
-            url_for('/'))
-
-@login_required
-@app.route('/admin/database/do/', methods=['POST'])
-def admin_database_do():
-    if session['account_type'] == 'admin':
-        from viewmodel.sqltransact import SQLTransaction
-        querys = request.form['querys']
-        rb_all = request.form['rb_all']
-        rb_all = True if rb_all=='all' else False
-        transcation, sql = admin_database_parse(querys)
-        return str(transcation) + '<br>' + str(sql) + '<br>' + str(rb_all)
-        sqltransaction = SQLTransaction(transaction,sql,rb_all)
-        commands, results = sqltransaction.run()
-
-        return render_template(
-            'admin_database.html',
-            commands = commands,
-            results = results
-        )
-    else:
-        return redirect(request.args.get('next') or \
-            request.referrer or \
-            url_for('/'))
-
-def admin_database_parse(querys):
-    values = querys.split(';')
-    values.pop()
-    transcation = []
-    sql = []
-    for value in values:
-        transcation.append(value.count('+') + 1)
-        sql.append(value.replace('+',''))
-    return transcation, sql
+            url_for('index'))
 
 @login_required
 @app.route('/admin/account/search', methods=['POST'])
 @app.route('/admin/account/search/<kw>', methods=['GET'])
 def admin_account_search(kw=None):
-    if session['account_type'] == 'admin':
+    if  'account_type' in session and session['account_type'] == 'admin':
         from datamodel.business import business
+        kw = request.form.get('kw', kw)
+        cond_kw, op_list = parse_keyword(kw)
         if not kw:
-            kw = request.form['kw']
-        if kw == '':
             return render_template('admin_account.html')
-        cond_kw = parse_keyword(kw)
-        keys = list(cond_kw.keys())
+        if not cond_kw:
+            return render_template('admin_account.html', kw = kw)
 
         business_list = business.sort_by( \
-            cond_kw, keys, [u'=']*len(keys), u'*', u'*')
+            cond_kw, list(cond_kw.keys()), op_list, u'*', u'*')
         return render_template(
             'admin_account.html',
             business_list = business_list,
@@ -88,43 +44,43 @@ def admin_account_search(kw=None):
     else:
         return redirect(request.args.get('next') or \
             request.referrer or \
-            url_for('/'))
+            url_for('index'))
 
 @login_required
 @app.route('/admin/account/delete/')
 @app.route('/admin/account/delete/<kw>/<business_id>')
 def admin_account_delete(kw, business_id):
-    if session['account_type'] == 'admin':
+    if  'account_type' in session and session['account_type'] == 'admin':
         from datamodel.business import business
         business.delete(business_id,business.select(business_id))
         return redirect(url_for('admin_account_search') + '/' + kw)
     else:
         return redirect(request.args.get('next') or \
             request.referrer or \
-            url_for('/'))
+            url_for('index'))
 
 @login_required
 @app.route('/admin/account/delete/group/')
 @app.route('/admin/account/delete/group/<kw>/', methods=['POST'])
 def admin_account_delete_group(kw):
-    if session['account_type'] == 'admin':
+    if  'account_type' in session and session['account_type'] == 'admin':
         for key, value in request.form.to_dict().items():
             business_ids_str = key
-        from datamodel.business import business
-        for business_id in business_ids_str.split('~'):
-            business.delete(business_id,business.select(business_id))
-        flash('Delete group succeeds.', category='success')
+            from datamodel.business import business
+            for business_id in business_ids_str.split('~'):
+                business.delete(business_id,business.select(business_id))
+            flash('Delete group succeeds.', category='success')
         return redirect(url_for('admin_account_search') + '/' + kw)
     else:
         return redirect(request.args.get('next') or \
             request.referrer or \
-            url_for('/'))
+            url_for('index'))
 
 @login_required
 @app.route('/admin/account/update/', methods=['POST'])
 @app.route('/admin/account/update/<kw>/<business_id>', methods=['POST'])
 def admin_account_update(kw, business_id):
-    if session['account_type'] == 'admin':
+    if  'account_type' in session and session['account_type'] == 'admin':
         from datamodel.account_business import account_business
         new_username = request.form['new_username']
         new_password = request.form['new_password']
@@ -134,14 +90,19 @@ def admin_account_update(kw, business_id):
     else:
         return redirect(request.args.get('next') or \
             request.referrer or \
-            url_for('/'))
+            url_for('index'))
 
 def parse_keyword(kw):
-    l = kw.replace(' ', '').split(',')
+    l = kw.replace('  ', ' ').split(',')
     d = dict()
+    op_list = list()
     for x in l:
-        if(len(x.split(':')) == 2):
-            k = x.split(':')[0]
-            v = x.split(':')[1]
-            d[k] = v
-    return d
+        for op in ['<=', '>=', '!=', '<>', '=', '<', '>']:
+            if(len(x.split(op)) == 2):
+                k = x.strip().split(op)[0].strip()
+                v = x.strip().split(op)[1].strip()
+                d[k] = v
+                op_list.append(op)
+                break
+    return d, op_list
+

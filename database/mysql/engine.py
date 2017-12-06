@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector, threading
+from mysql.connector.cursor import MySQLCursorPrepared
+
 from config import app
 
 database = None
@@ -35,11 +37,11 @@ class _Connection(object):
             app.logger.debug('[CONNECTION] <%s> COMMIT' % hex(id(self.__conn)))
             self.__conn.commit()
 
-    def cursor(self):
+    def cursor(self, prepared):
         if self.__conn is None:
             self.__conn = database.connect()
             app.logger.debug('[CONNECTION] <%s> OPEN' % hex(id(self.__conn)))
-        return self.__conn.cursor()
+        return self.__conn.cursor(buffered=not prepared, prepared=prepared)
 
     def rollback(self):
         if self.__conn:
@@ -50,12 +52,13 @@ class DbCtx(threading.local):
     # define short cut for all the available db operations
     def __init__(self):
         self.__conn = _Connection()
+        self.__prepared = False
 
     def __call__(self):
         return self
 
     def __enter__(self):
-        return self.__conn.cursor()
+        return self.__conn.cursor(self.__prepared)
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.cleanup()
@@ -69,8 +72,12 @@ class DbCtx(threading.local):
         return self
 
     def cursor(self):
-        return self.__conn.cursor()
+        return self.__conn.cursor(self.__prepared)
 
     def rollback(self):
         self.__conn.rollback()
+        return self
+
+    def prepared(self):
+        self.__prepared = True
         return self

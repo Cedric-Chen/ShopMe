@@ -27,12 +27,12 @@ class DMTip(DataModel):
         self.query_sql += self.select_order(key, order)
         return [{self.dm_attr[index]: value \
                     for index, value in enumerate(entry)
-                } for entry in super().select()
+                } for entry in super().execute()
             ]
 
     def select(self, business_id, user_id):
         self.query_sql = self.select_query(business_id, user_id)
-        ret = super().select()
+        ret = super().execute()
         result = dict()
         for no, entry in enumerate(ret):
             result[no] = {
@@ -41,25 +41,30 @@ class DMTip(DataModel):
             }
         return result
 
+    def del_sql(self, business_id, user_id):
+        if business_id == u'*' and user_id != u'*':
+            self.query_sql = u'DELETE FROM `tip` WHERE user_id=%s'
+            self.query_args = (user_id,)
+        elif business_id != u'*' and user_id == u'*':
+            self.query_sql = u'DELETE FROM `tip` WHERE business_id=%s'
+            self.query_args = (business_id,)
+        else:
+            self.query_sql = u'DELETE FROM `tip` WHERE business_id=%s AND ' \
+                + 'user_id=%s'
+            self.query_args = (business_id, user_id)
+        return self
+
     def delete(self, business_id, user_id, tip):
         if len(tip) == 0:
-            if business_id == u'*':
-                self.query_sql = \
-                    u'DELETE FROM `tip` WHERE user_id="%s"' % (user_id)
-            elif user_id == u'*':
-                self.query_sql = \
-                    u'DELETE FROM `tip` WHERE business_id="%s"' % (business_id)
-            else:
-                self.query_sql = u'DELETE FROM `tip` WHERE business_id="%s"' \
-                    % (business_id) + u' AND user_id="%s"' % (user_id)
-            super().execute()
+            self.query_sql = self.del_sql(business_id, user_id).toquery()
+            super().commit()
         for key, val in tip.items():
             pair = []
             for k, v in val.items():
                 pair.append(u'%s=%s' % (k, self.quote_sql(v)))
             self.query_sql = u'DELETE FROM `tip` WHERE %s' \
                 % (' AND '.join(pair))
-            super().execute()
+            super().commit()
 
     def insert(self, business_id, user_id, tip):
         from datamodel.business import business
@@ -76,7 +81,7 @@ class DMTip(DataModel):
                 v.append(self.quote_sql(val[attr]))
             self.query_sql = u'INSERT INTO `tip`(%s) ' % (u','.join(k)) \
                 + 'VALUES(%s)' % (u','.join(v))
-            super().execute()
+            super().commit()
 
     def update(self, business_id, user_id, tip, old_tip):
         for key, val in tip.items():
@@ -90,4 +95,4 @@ class DMTip(DataModel):
                 self.query_sql = u'UPDATE tip SET %s WHERE business_id="%s"' \
                     % (u', '.join(pair), business_id) \
                     + u' AND user_id="%s"' % (user_id)
-                super().execute()
+                super().commit()

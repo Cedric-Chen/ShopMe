@@ -4,7 +4,7 @@
 import ast
 
 from flask import redirect, render_template, request, session, url_for
-from flask.ext.login import login_required, current_user
+from flask_login import login_required, current_user
 from www.tools import is_account_a_business
 
 from config import app

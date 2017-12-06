@@ -11,7 +11,7 @@ class DMPhoto(DataModel):
     def select(self, business_id):
         self.query_sql = u'SELECT %s ' % (u', '.join(self.dm_attr)) \
             + u'FROM photo WHERE business_id = "%s"' % (business_id)
-        ret = super().select()
+        ret = super().execute()
         result = dict()
         for entry in ret:
             result[entry[0]] = {
@@ -20,11 +20,15 @@ class DMPhoto(DataModel):
             }
         return result
 
+    def del_sql(self, business_id):
+        self.query_sql = u'DELETE FROM `photo` WHERE business_id=%s'
+        self.query_args = (business_id,)
+        return self
+
     def delete(self, business_id, photo):
         if len(photo) == 0:
-            self.query_sql = u'DELETE FROM `photo` WHERE business_id="%s"' \
-                % (business_id)
-            super().execute()
+            self.query_sql = self.del_sql(business_id).toquery()
+            super().commit()
         for key, val in photo.items():
             pair = [u'id=%s' % (self.quote_sql(key))]
             for k, v in val.items():
@@ -32,7 +36,7 @@ class DMPhoto(DataModel):
                     pair.append(u'%s=%s' % (k, self.quote_sql(v)))
             self.query_sql = u'DELETE FROM `photo` WHERE %s' \
                 % (' AND '.join(pair))
-            super().execute()
+            super().commit()
 
     def insert(self, business_id, photo):
         from datamodel.business import business
@@ -47,7 +51,7 @@ class DMPhoto(DataModel):
                     v.append(self.quote_sql(val[attr]))
             self.query_sql = u'INSERT INTO `photo`(%s) ' % (u','.join(k)) \
                 + 'VALUES(%s)' % (u','.join(v))
-            super().execute()
+            super().commit()
 
     def update(self, business_id, photo, old_photo):
         for key, val in photo.items():
@@ -60,4 +64,4 @@ class DMPhoto(DataModel):
                         pair.append(u'%s=%s' % (k, self.quote_sql(v)))
                 self.query_sql = u'UPDATE photo SET %s WHERE id="%s"' \
                     % (u', '.join(pair), key)
-                super().execute()
+                super().commit()

@@ -25,19 +25,48 @@ class Table(MetaDatabase):
                 d[k_attr] = attr[index]
             self.schema[key] = d
 
+    def basetype_sql(self, value):
+        return type(value) in [bool, float, int]
+
+    def quote_sql(self, value):
+        return u'%s' % value if self.basetype_sql(value) else u'"%s"' % value
+
+    def toquery(self):
+        # convert query_sql, query_args -> query_sql
+        return self.query_sql \
+            % tuple([self.quote_sql(value) for value in self.query_args])
+
+    def select_order(self, key, order):
+        query_sql = ''
+        if key in self.dm_attr:
+            query_sql = u' ORDER BY %s ' % key
+            if order < 0:
+                query_sql += u' DESC'
+            elif order > 0:
+                query_sql += u' ASC'
+        return query_sql
+
+    # single select, delete, insert, update only
     def execute(self, query):
         db = DbCtx()
         with db() as cursor:
             app.logger.debug(u'[EXECUTE] %s' % (query))
             cursor.execute(query)
-            db.commit()
+            return cursor.fetchall()
 
-    def select(self, query):
+    # single delete, insert, update with commit
+    def commit(self, query):
         db = DbCtx()
         with db() as cursor:
-            app.logger.debug(u'[SELECT] %s' % (query))
+            app.logger.debug(u'[COMMIT] %s' % (query))
             cursor.execute(query)
-            return cursor.fetchall()
+            try:
+                ret = cursor.fetchall()
+            except:
+                ret = []
+            db.commit()
+            return ret
+
 
 def MetaTable():
     table = Table(Table)
