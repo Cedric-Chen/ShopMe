@@ -510,27 +510,30 @@ _qevents.push({
                             var infobox;
                             var infoWindow;
                             var url = "{{ url_for('stream') }}";
+                            var friendName;
 
                             $(document).ready(function() {
                                 $("#sent_message").click(function(){
                                     var message = $("#message-box").val();
-                                    $.get("/message/"+ message + "/")
+                                    var friend_id = $("#sent_message").val()
+                                    $.get("/message/"+ '{{user.id }}'+'/' + friend_id + '/'+ message + "/")
+                                    infoWindow.innerHTML = infoWindow.innerHTML + "<br> Me:" + message;
 {#                                    confirm(message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}')#}
                     {#                history.go(0)#}
                                 });
                             })
 
-                            function chatWithFriend(val){
-                                infobox = document.getElementById('infobox-' + val);
-                                infoWindow = document.getElementById('info-window-' + val);
-                                var inputbar = document.getElementById('input-' + val);
+                            function chatWithFriend(friend_id){
+                                infobox = document.getElementById('infobox-' + friend_id);
+                                infoWindow = document.getElementById('info-window-' + friend_id);
+                                var inputbar = document.getElementById('input-' + friend_id);
                                 inputbar.style.display = "block"
-                                var es = new EventSource(url); //连接服务器
+                                var es = new EventSource(url+'{{user.id }}'+'/' + friend_id + '/'); //连接服务器
                                 es.onmessage = msg;
                                 infoWindow.innerHTML = ""
                             }
                             function msg(e) {
-                                infoWindow.innerHTML = infobox.innerHTML + "<br>" + e.data;  // e.data即服务器返回的数据
+                                infoWindow.innerHTML = infoWindow.innerHTML + "<br> Friend:" + e.data;  // e.data即服务器返回的数据
                             }
                             function removeFriend(val){
                                 $.get("/friend/remove/"+ val + '/' + '{{user.id }}')
