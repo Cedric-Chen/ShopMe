@@ -437,6 +437,9 @@ _qevents.push({
                                                         <dd>{{field.useful}}</dd>
                                                     </dl>
                                                 </div>
+                                                <textarea class="form-cotrol" row="12" id = "text-{{ field.id }}"
+                                                          style="display: none">
+                                                </textarea>
                                             </div>
                                             <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
                                                 <strong>{{field.name}}</strong><br>
@@ -509,36 +512,40 @@ _qevents.push({
                         </div>
                     {% endfor %}
                     <script>
-                        var infobox;
-                        var infoWindow;
+                        var textWindow;
+                        var infoBox;
                         var url = "/stream/";
                         var friendName;
 
+
                         $(document).ready(function() {
                             $(".sent_message").click(function(){
-                                var friend_id = $(this).val()
-                                var message = $("#message-box-"+friend_id).val();
-                                $.get("/message/"+ '{{user.id }}'+'/' + friend_id + '/'+ message + "/")
+                                var friend_id = $(this).val();
+                                messageBox = $("#message-box-"+friend_id);
+                                var message = messageBox.val();
+                                messageBox.val("");
+                                $.get("/message/"+ '{{user.id }}'+'/' + friend_id + '/'+ message + "/");
                                 infoWindow.innerHTML += "<br> Me:" + message;
-                                infobox += "<br> Me:" + message;
+                                textWindow += "<br> Me:" + message;
 {#                                    confirm(message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}')#}
                 {#                history.go(0)#}
                             });
                         })
 
                         function chatWithFriend(friend_id){
-                            infobox = document.getElementById('infobox-' + friend_id);
-                            infoWindow = document.getElementById('info-window-' + friend_id);
+                            textWindow = document.getElementById('text-' + friend_id);
+                            infoBox = document.getElementById('infobox-' + friend_id);
                             var inputbar = document.getElementById('input-' + friend_id);
+                            infoBox.style.display = "none"
+                            textWindow.style.display = "block"
                             inputbar.style.display = "block"
                             var es = new EventSource(url+'{{user.id }}'+'/' + friend_id + '/'); //连接服务器
                             es.onmessage = msg;
-                            infoWindow.innerHTML = ""
-                            infobox = ""
+                            infoBox.innerHTML = ""
+                            textWindow.innerHTML = ""
                         }
                         function msg(e) {
-                            infoWindow.innerHTML += "<br> Friend:" + e.data;  // e.data即服务器返回的数据
-                            infobox.innerHTML += "<br> Friend:" + e.data;
+                            textWindow.innerHTML += "<br> Friend:" + e.data;
                         }
                         function removeFriend(val){
                             $.get("/friend/remove/"+ val + '/' + '{{user.id }}')
