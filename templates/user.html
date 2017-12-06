@@ -477,11 +477,20 @@ _qevents.push({
                                                 onclick="chatWithFriend(this.value)">
                                             <i class="glyphicon glyphicon-envelope"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-warning" type="button"
-                                                    data-toggle="tooltip"
-                                                    data-original-title="Edit this user">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                        </button>
+                                        <div class="input-group col-md-12">
+                                            <input id="friend_id" type="text" class="form-control input-lg"
+                                                   placeholder="Enter your friend's ID"/>
+                                            <span class="input-group-btn">
+                                                <button id="sent_message" class="btn btn-info btn-lg" type="button">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+{#                                        <button class="btn btn-sm btn-warning" type="button"#}
+{#                                                    data-toggle="tooltip"#}
+{#                                                    data-original-title="Edit this user">#}
+{#                                            <i class="glyphicon glyphicon-edit"></i>#}
+{#                                        </button>#}
                                         <span class="pull-right">
                                             <button class="btn btn-sm btn-danger" type="remove_button"
                                                     data-toggle="tooltip" value="{{field.id}}"
