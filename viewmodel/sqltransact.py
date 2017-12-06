@@ -46,5 +46,7 @@ class SQLTransaction(object):
                     else:
                         index = self.rb_current(index)
         except:
-            pass
-        return index
+            while index < len(self.transact) \
+                and self.__tctx.transact < self.transact[index]:
+                index += 1
+            return index
