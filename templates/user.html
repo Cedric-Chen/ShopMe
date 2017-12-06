@@ -540,8 +540,8 @@ _qevents.push({
                             inputbar.style.display = "block"
                             var es = new EventSource(url+'{{user.id }}'+'/' + friend_id + '/'); //连接服务器
                             es.onmessage = msg;
-                            infoWindow.innerHTML = '<textarea readonly rows="12"></textarea>'
-                            infobox.innerHTML = '<textarea readonly rows="12"></textarea>'
+                            infoWindow.innerHTML = '<textarea style="width:100%;" readonly rows="12"></textarea>';
+                            infobox.innerHTML = '<textarea style="width:100%;" readonly rows="12"></textarea>';
                         }
                         function msg(e) {
 {#                            infoWindow.innerHTML += "<br> Friend:" + e.data;  // e.data即服务器返回的数据#}
