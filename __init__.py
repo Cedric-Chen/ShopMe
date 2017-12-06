@@ -8,7 +8,7 @@ if app_dir not in sys.path:
 
 # set up app logger
 from config import app, log_dir
-app.logger.setLevel(logging.NOTSET)
+app.logger.setLevel(logging.CRITICAL)
 from filelogger import filelogger
 app.logger.addHandler(filelogger(os.path.join(log_dir, u'applog')))
 from datetime import datetime
