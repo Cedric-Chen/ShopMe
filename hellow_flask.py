@@ -38,30 +38,31 @@ def hello_worlds():
     return render_template('chat.html')
 
 
-def event():
-    timestamp = dt.now()
+def event(my_id, friend_id):
     db = DbCtx()
     with db() as cursor:
-        ret = cursor.execute('SELECT * FROM wechat ORDER BY timestamp ASC')
+        cursor.execute('SELECT * FROM chat WHERE user_id1=%s and user_id2=%s ORDER BY timestamp ASC',
+                             (friend_id, my_id))
         result = cursor.fetchall()
-        if isinstance(result,list):
+        if isinstance(result, list):
             for item in result:
-                cursor.execute('DELETE FROM wechat WHERE timestamp=%s', (item[1],))
-                yield 'data:%s \n\n' % str(item[0])
+                cursor.execute('DELETE FROM chat WHERE user_id1=%s and user_id2=%s and timestamp=%s',
+                               (friend_id, my_id, item[3]))
+                yield 'data:%s \n\n' % str(item[2])
         db.commit()
 
 
-@app.route('/stream/', methods=['GET', 'POST'])
-def stream():
-    return Response(event(), mimetype="text/event-stream")  # response type
+@app.route('/stream/<my_id>/<friend_id>/', methods=['GET', 'POST'])
+def stream(my_id, friend_id):
+    return Response(event(my_id, friend_id), mimetype="text/event-stream")  # response type
 
 
-@app.route('/message/<message>/')
-def add_message(message):
+@app.route('/message/<my_id>/<friend_id>/<message>/')
+def add_message(my_id, friend_id, message):
     db = DbCtx()
     with db() as cursor:
-        args = (message, dt.now())
-        cursor.execute('INSERT INTO wechat (text, timestamp) VALUES (%s, %s)', args)
+        args = (my_id, friend_id, message, dt.now())
+        cursor.execute('INSERT INTO chat (user_id1,user_id2,text, timestamp) VALUES (%s,%s,%s, %s)', args)
         print(cursor.fetchall())
         db.commit()
     # message_box.append(message)
