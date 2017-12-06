@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}" type="text/javascript" ></script>
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='favicon.ico') }}" rel="shortcut icon">
+  <title> Admin Statistics</title>
+
+  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<style>
+  body {
+    padding-top: 60px;
+  }
+  @media (max-width: 980px) {
+    body {
+      padding-top: 0;
+    }
+  }
+</style>
+
+</head>
+
+
+<body>
+  {% include "navbar.html" %}
+
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#opening"><h3> 
+	Amounts of Opening Business in Different States
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='opening' class="collapse">
+    <div class='container col-md-5 col-md-offset-1'>
+    <div id='chart_1' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-5'>
+    <div id='chart_2' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-1'></div>
+</div>
+
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#reviews"><h3> 
+	Amount of Reviews in Different States
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='reviews' class="collapse">
+    <div class='container col-md-5 col-md-offset-1'>
+    <div id='chart_3' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-5'>
+    <div id='chart_4' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-1'></div>
+</div>
+
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#stars"><h3> 
+	Stars of Business in Different States
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='stars' class="collapse">
+    <div class='container col-md-5 col-md-offset-1'>
+    <div id='chart_5' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-5'>
+    <div id='chart_6' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-10'>
+    <br><br>
+    </div>
+    <div class='container col-md-5 col-md-offset-1'>
+    <div id='chart_7' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-5'>
+    <div id='chart_8' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-10'>
+    <br><br>
+    </div>
+    <div class='container col-md-5 col-md-offset-1'>
+    <div id='chart_9' style='width:100%;'></div>
+    </div>
+    <div class='container col-md-5'>
+    <div id='chart_10' style='width:100%;'></div>
+    </div>
+    <br><br>
+</div>
+
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#checkin"><h3> 
+	Checkin time in Different States
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='checkin' class="collapse">
+    <div class='container col-md-10 col-md-offset-1'>
+    <div id='chart_11' style='width:100%;'></div>
+    </div>
+    <div  class='container col-md-12'>
+    <br><br>
+    </div>
+</div>
+
+
+</body>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script> 
+<script>
+   google.load("visualization", "1", {packages:["corechart"]});
+   google.setOnLoadCallback(draw_state_is_open);
+   google.setOnLoadCallback(draw_state_review_count);
+  google.setOnLoadCallback(draw_state_stars);
+  google.setOnLoadCallback(draw_state_checkin);
+
+   function draw_state_is_open() {
+	raw_data = {{ state_review_count|tojson }};
+	new_data = change_state_is_open_data(raw_data);
+	var data = new google.visualization.DataTable();
+	data.addColumn('string','state');
+	data.addColumn('number','opening');
+	data.addColumn('number','closed');
+	for(i=0; i<new_data.length; i++){
+	    data.addRow(new_data[i])
+	}
+
+        var options = {
+	  height: 400, width:500
+        };
+         // Create and draw the visualization.
+        new google.visualization.ColumnChart(
+          document.getElementById('chart_1')).draw(data, options);
+        new google.visualization.PieChart(
+          document.getElementById('chart_2')).draw(data, options);
+  }
+   function draw_state_review_count() {
+	raw_data = {{ state_review_count|tojson }};
+	new_data = change_state_review_count_data(raw_data);
+
+        var data = new google.visualization.DataTable();
+	data.addColumn('string','state');
+	data.addColumn('number','#');
+	for(i=0; i<new_data.length; i++){
+	    data.addRow(new_data[i])
+	}
+
+        var options = {
+	  height: 400, width:500
+        };
+         // Create and draw the visualization.
+        new google.visualization.ColumnChart(
+          document.getElementById('chart_3')).draw(data, options);
+        new google.visualization.PieChart(
+          document.getElementById('chart_4')).draw(data, options);
+  }
+
+   function draw_state_stars() {
+	raw_data = {{ state_stars|tojson }};
+	new_data = change_state_stars_data(raw_data)
+	console.log('new_data',new_data);
+
+	count=0; max=6;
+	start_chart = 5;
+	for(var key in new_data){
+		if(new_data[key] == []){continue;}
+
+		var data = new google.visualization.DataTable();
+		data.addColumn('number','stars');
+		data.addColumn('number','#');
+		 var options = {
+		  title : key + ' stars distribution',
+		  height: 400, width:500
+		};
+
+		for(i=0; i<new_data[key].length; i++){
+		    data.addRow(new_data[key][i])
+		}
+		chart = 'chart_'+start_chart.toString();
+		new google.visualization.ColumnChart(
+		  document.getElementById(chart)).draw(data, options);
+		++count;
+		++start_chart;
+		if(count==max) {break;}
+	}
+  }
+
+   function draw_state_checkin() {
+	raw_data = {{ state_checkin|tojson }};
+	new_data = change_state_checkin_data(raw_data)
+
+	count=0; max=1;
+	start_chart = 11;
+	for(var key in new_data){
+		if(key != 'AZ'){continue;}
+		var data = new google.visualization.DataTable();
+		data.addColumn('string','time');
+		data.addColumn('number','#');
+		 var options = {
+		  title : key + ' checkin time distribution',
+		  height: 400, width:1000
+		};
+
+		for(i=0; i<new_data[key].length; i++){
+		    data.addRow(new_data[key][i])
+		}
+		chart = 'chart_'+start_chart.toString();
+		new google.visualization.ColumnChart(
+		  document.getElementById(chart)).draw(data, options);
+		++count;
+		++start_chart;
+		if(count==max) {break;}
+	} }
+
+
+    function change_state_is_open_data(raw_data){
+	var ret=[] //dict
+	for(i=0; i<raw_data.length; i++){
+	    if(raw_data[i][0] == null || raw_data[i][1] == null){continue;}
+	    if(raw_data[i][1] < 1000){continue;}
+	    ret.push([raw_data[i][0],raw_data[i][1],raw_data[i][2]]);
+	}
+	return ret
+    }
+
+    function change_state_review_count_data(raw_data){
+	var ret=[] //dict
+	for(i=0; i<raw_data.length; i++){
+	    if(raw_data[i][0] == null || raw_data[i][1] == null){continue;}
+	    if(raw_data[i][1] < 10000){continue;}
+	    ret.push([raw_data[i][0],raw_data[i][1]]);
+	}
+	return ret
+    }
+
+    function change_state_stars_data(raw_data){
+	var ret={} //dict
+	console.log('raw_data',raw_data);
+	for(i=0; i<raw_data.length; i++){
+	    if(raw_data[i][1] == null){continue;}
+	    if(raw_data[i][2] <100){continue;} 
+	    if (!(raw_data[i][0] in ret)){
+		ret[raw_data[i][0]] = [];
+	    }
+	    ret[raw_data[i][0]].push([raw_data[i][1],raw_data[i][2]]);
+	}
+		
+	return ret
+    }
+
+    function change_state_checkin_data(raw_data){
+	var ret={} //dict
+	for(i=0; i<raw_data.length; i++){
+	    if(raw_data[i][0] == null || raw_data[i][1] == null){continue;}
+	    if (!(raw_data[i][0] in ret)){
+		ret[raw_data[i][0]] = [];
+	    }
+	    ret[raw_data[i][0]].push([raw_data[i][1],raw_data[i][2]]);
+	}
+
+	var ret2 = jQuery.extend(true, {}, ret);
+	for(var key in ret){
+		temp = ret2[key]
+		if(temp.length < 30){delete ret2[key]; continue;}
+		temp.sort(function(a,b){
+			a = a[0].split('-');
+			b = b[0].split('-');
+			day1 = a[0].toLowerCase(); 
+			hour1 = parseInt(a[1].split(':')[0]);
+			day2 = b[0].toLowerCase(); 
+			hour2 = parseInt(b[1].split(':')[0]);
+			
+			day = ['monday', 'tuesday', 'wednesday', 'thursday',
+				'friday', 'saturday', 'sunday'];
+
+			if(day.indexOf(day1) > day.indexOf(day2)){
+			    return 1;
+			}
+			else if(day.indexOf(day1) < day.indexOf(day2)){
+			    return -1;
+			}
+			else{
+			     if(hour1 > hour2){return 1;}
+			     else if(hour1 < hour2){return -1;}
+			     else{return 0;}
+			}
+		    })
+	}
+	return ret2;
+    }
+
+//    function time_sort(a,b){
+//	a = a.split('-');
+//	b = b.split('-');
+//	day1 = a[0]; hour1 = parseInt(a[1].split(':')[0]);
+//	day2 = b[0]; hour2 = parseInt(b[1].split(':')[0]);
+//	
+//	day = ['monday', 'tuesday', 'wednesday', 'thursday',
+//		'friday', 'saturday', 'sunday'];
+//	if(day.indexOf(day1.toLowerCase()) > day.indexOf(day1.toLowerCase())){
+//	    return true;
+//	}
+//	else if(day.indexOf(day1.toLowerCase()) < 
+//		day.indexOf(day1.toLowerCase())){
+//	    return false;
+//	}
+//	else{return hour1>hour2;}
+//    }
+
+    if (document.addEventListener) {
+        window.addEventListener('resize', draw_state_is_open);
+        window.addEventListener('resize', draw_state_review_count);
+        window.addEventListener('resize', draw_state_stars);
+        window.addEventListener('resize', draw_state_checkin);
+  }
+  else if (document.attachEvent) {
+      window.attachEvent('onresize', draw_state_is_open);
+        window.attachEvent('onresize', draw_state_review_count);
+        window.attachEvent('onresize', draw_state_stars);
+        window.attachEvent('onresize', draw_state_checkin);
+  }
+  else {
+      window.resize = draw_state_is_open;
+        window.resize = draw_state_review_count;
+        window.resize = draw_state_stars;
+        window.resize = draw_state_checkin;
+    }
+
+
+</script> 

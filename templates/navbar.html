@@ -1,71 +1,87 @@
+<style>
+.mybtn {
+  border-color: darkturquoise;
+}
+.icon-bar {
+  background-color: darkturquoise;
+}
+</style>
 <nav class="navbar navbar-fixed-top" style="background-color: #344a40!important;">
-  <div class="container-fluid" >
-    <a class="navbar-header, navbar-brand" href="{{ url_for('index') }}" >
-      <img class="img-responsive" src="{{ url_for('static', filename='img/logo1.png') }}" style="height:1.8rem; display:inline; margin:0; padding=0px">
-    </a>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="/"  style='color:DarkTurquoise;'><b>Home</b></a></li>
-
-    {% if current_user.is_authenticated %}
-      {% if session['account_type'] == 'admin' %}
-           <li><a href="{{ url_for("admin_account") }}" style='color:DarkTurquoise;'> Accounts  </a></li>
-           <li><a href="{{ url_for("admin_database") }}" style='color:DarkTurquoise;'> Database  </a></li>
-      {% elif session['account_type'] == 'business' %}
-          <li><a href="{{ url_for("view_merchant_info") + session['id'] }}" style='color:DarkTurquoise;'>{{ current_user.name[4:] }}</a></li>
-      {% else %}
-          <li><a href="{{ url_for("view_user")}}" style='color:DarkTurquoise;'>{{ current_user.name[4:] }}</a></li>
-      {% endif %}
-    {% endif %}
-    </ul>
-
-    {% if request.path != '/' and request.path != '/index/' and 'admin' not in request.path%}
-    <form class="navbar-form navbar-left">
-      <ul class="input-group" style="padding-left:0;margin:auto">
-    	   <li style="float:left;">
-    	      <input id="searchbox-kw" type="text" class="form-control" placeholder="Search" style="width:300px" {% if kw is defined %} value = {{kw}} {% endif %}>
-         </li>
-         <li style="float:left;">
-    	      <input id="searchbox-loc" type="text" class="form-control" placeholder="Location" style="width:180px" {% if loc is defined %} value = {{loc}} {% endif %}>
-         </li>
-        <li class="input-group-btn" style="float:left;">
-          <button type="button" class="btn btn-info" id="search" onclick="search_box()">
-          <i class="glyphicon glyphicon-search"></i>
-          </button>
-        </li>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="mybtn navbar-toggle collapsed" data-toggle="collapse"
+        data-target="#bs-navbar-collapse-1" aria-expanded="false">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('index') }}" >
+        <img class="img-responsive"
+          src="{{ url_for('static', filename='img/logo1.png') }}"
+          style="height:1.8rem; display:inline; margin:0; padding=0px">
+      </a>
+    </div>
+    <div class="navbar-collapse collapse" id="bs-navbar-collapse-1"
+      aria-expanded="true" style="">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/"  style='color:DarkTurquoise;'><b>Home</b></a></li>
+        {% if current_user.is_authenticated %}
+          {% if session['account_type'] == 'admin' %}
+               <li><a href="{{ url_for('admin_account') }}" style='color:DarkTurquoise;'> Accounts  </a></li>
+               <li><a href="{{ url_for('admin_database') }}" style='color:DarkTurquoise;'> Database  </a></li>
+               <li><a href="{{ url_for('admin_stastics') }}" style='color:DarkTurquoise;'> Statistics  </a></li>
+          {% elif session['account_type'] == 'business' %}
+              <li><a href="{{ url_for('view_merchant_info') + session['id'] }}" style='color:DarkTurquoise;'>{{ current_user.name[4:] }}</a></li>
+          {% else %}
+              <li><a href="{{ url_for('view_user', page=1)}}" style='color:DarkTurquoise;'>{{ current_user.name[4:] }}</a></li>
+          {% endif %}
+        {% endif %}
       </ul>
-    </form>
-    {% endif %}
 
-    <ul class="nav navbar-nav navbar-right">
-    {% if current_user.is_authenticated %}
-      {% if session['account_type'] == 'admin' %}
-
-      {% elif session['account_type'] == 'business' %}
-      <li><a href="{{ url_for("view_merchant_info") + session['id'] }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Page</a></li>
-      <li><a href="{{ url_for("view_merchant_profile") }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-      {% else %}
-      <li><a href="{{ url_for("view_user") }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> my profile</a></li>
+      {% if request.path != '/' and request.path != '/index/' and 'admin' not in request.path%}
+      <form class="navbar-form navbar-left">
+        <ul class="input-group" style="padding-left:0;margin:auto">
+           <li style="float:left;">
+              <input id="searchbox-kw" type="text" class="form-control" placeholder="Search" style="width:300px" {% if kw is defined %} value = {{kw}} {% endif %}>
+           </li>
+           <li style="float:left;">
+              <input id="searchbox-loc" type="text" class="form-control" placeholder="Location" style="width:180px" {% if loc is defined %} value = {{loc}} {% endif %}>
+           </li>
+          <li class="input-group-btn" style="float:left;">
+            <button type="button" class="btn btn-info" id="search" onclick="search_box()">
+            <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </li>
+        </ul>
+      </form>
       {% endif %}
-      <li><a href="{{ url_for("logout") }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> Logout</a></li>
-    {% else %}
-      <li><a data-toggle="modal" data-target="#popup_register" href="#" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a data-toggle="modal" data-target="#popup_user_login" href="#" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
-    {% endif %}
-    </ul>
+      <ul class="nav navbar-nav navbar-right">
+      {% if current_user.is_authenticated %}
+        {% if session['account_type'] == 'admin' %}
+
+        {% elif session['account_type'] == 'business' %}
+        <li><a href="{{ url_for('view_merchant_info') + session['id'] }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Page</a></li>
+        <li><a href="{{ url_for('view_merchant_profile') }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+        {% else %}
+        <li><a href="{{ url_for('view_user', page=1) }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('logout') }}" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+      {% else %}
+        <li><a data-toggle="modal" data-target="#popup_register" href="#" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a data-toggle="modal" data-target="#popup_user_login" href="#" style='color:DarkTurquoise;'><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% endif %}
+      </ul>
+    </div>
   </div>
-
 </nav>
-
-
-
 
 <div style='margin-top:50px; margin-right:40px'>
 	{% with messages = get_flashed_messages() %}
 	    {% if messages %}
 		<ul class = "flashes">
 		{% for message in messages %}
-		<div class="message_flash alert alert-{{category}}" role='alert'>
+		<div class="message_flash alert alert-danger alert-dismissible" role='alert'>
 		{{ message }}
 		</div>
 		{% endfor %}

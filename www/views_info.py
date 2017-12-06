@@ -15,12 +15,12 @@ from datamodel.photo import photo
 from datamodel.review import review
 from datamodel.tip import tip
 from datamodel.user import user
-
 from viewmodel.pagination import Pagination
 from utility.lrudecorator import LRUDecorator
 
 REVIEW_PERPAGE = 3
 REVIEW_PAGES = 5
+
 
 @app.route(u'/information/')
 @app.route(u'/information/<business_id>/')

@@ -18,12 +18,16 @@ class SQLStats(dict):
                 if item[2] == u'PROCEDURE' \
             ]
 
-    def run(self):
+    def refresh(self):
         for name in self.__sp_name:
-            sql = u'call %s();' % (name)
-            ret = SQLTransaction([1], [sql], False).run()
-            self[name] = ret.results[0][0]
+            thread = threading.Thread(target=sql_stats.run, args=(name))
+            thread.start()
+
+    def run(self, name):
+        sql = u'call %s();' % (name)
+        ret = SQLTransaction([1], [sql], False).run()
+        self[name] = ret.results[0][0]
+
 
 sql_stats = SQLStats()
-thread = threading.Thread(target=sql_stats.run)
-thread.start()
+sql_stats.refresh()
