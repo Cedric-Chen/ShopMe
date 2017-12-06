@@ -26,9 +26,13 @@ class DMAttribute(DataModel):
         return result
 
     def val2sql(self, attr):
-        attr_value = attr if self.basetype_sql(attr) or type(attr) == str \
-            else json.dumps(attr)
-        return self.quote_sql(attr_value)
+        if self.basetype_sql(attr):
+            return attr
+        elif type(attr) == str:
+            return "'%s'" % (attr)
+        else:
+            return "'%s'" % (json.dumps(attr))
+
 
     def del_sql(self, business_id):
         self.query_sql = u'DELETE FROM `attribute` WHERE business_id=%s'
