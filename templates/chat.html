@@ -23,7 +23,7 @@
     <script>
         var serverData;
         var serverStatus;
-        var url = 'http://127.0.0.1:5000/stream/' //服务端地址
+        var url = "{{ url_for('stream') }}" //服务端地址
 
         window.onload = function() {
             serverData = document.getElementById('serverData');
@@ -54,9 +54,9 @@
 
     <script>
         $(document).ready(function() {
-            $("#add_friend").click(function(){
+            $("#sent_message").click(function(){
                 var friend_id = $("#friend_id").val();
-                $.get("/message/"+friend_id + "/")
+                $.get("/message/"+ friend_id + "/")
 {#                history.go(0)#}
             });
         })
@@ -78,7 +78,7 @@
         <input id="friend_id" type="text" class="form-control input-lg"
                placeholder="Enter your friend's ID"/>
         <span class="input-group-btn">
-            <button id="add_friend" class="btn btn-info btn-lg" type="button">
+            <button id="sent_message" class="btn btn-info btn-lg" type="button">
                 <i class="glyphicon glyphicon-plus"></i>
             </button>
         </span>
