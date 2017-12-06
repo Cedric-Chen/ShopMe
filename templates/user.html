@@ -512,6 +512,7 @@ _qevents.push({
                                 var es = new EventSource(url); //连接服务器
                                 es.onmessage = msg;
                                 infobox.innerHTML = ""
+                                confirm(infobox.innerHTML)
                             }
                             function msg(e) {
                                 infobox.innerHTML = infobox.innerHTML + "<br>" + e.data;  // e.data即服务器返回的数据
