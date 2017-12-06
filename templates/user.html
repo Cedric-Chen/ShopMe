@@ -514,7 +514,8 @@ _qevents.push({
                             $(document).ready(function() {
                                 $("#sent_message").click(function(){
                                     var message = $("#message-box").val();
-                                    $.get("/message/"+ message + ":" + this.val() + ":" + '{{ user.id }}' + "/")
+                                    $.get("/message/"+ message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}' + "/")
+                                    confirm(message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}')
                     {#                history.go(0)#}
                                 });
                             })
