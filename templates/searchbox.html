@@ -5,4 +5,14 @@ function search_box() {
     if(kw)
         window.location = "/search/" + "kw=" + kw + "&loc=" + loc;
 };
+$(document).ready(function() {
+    $('#searchbox-kw').keypress(function(e){
+      if(e.keyCode==13)
+      $('#search').click();
+    });
+    $('#searchbox-loc').keypress(function(e){
+      if(e.keyCode==13)
+      $('#search').click();
+    });
+});
 </script>
