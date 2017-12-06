@@ -360,6 +360,20 @@ _qevents.push({
                     <!--<i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>-->
                 <!--</div>-->
             <!--</div>-->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Recommendations For You</div>
+                <div class="panel-body">
+                    {% if recommendations is defined %}
+                    {% for recommendation in recommendations %}
+                    <a href="{{ url_for("view_merchant_info") + recommendation['id'] + '/'}}" >
+                        {{ recommendation['name'] }}<br>
+                    </a>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
         <!--/col-3-->
         <div class="col-sm-8" style="" contenteditable="false">
@@ -370,7 +384,7 @@ _qevents.push({
                 </div>
             </div>
 
-            <div class="panel panel-default">
+           <div class="panel panel-default">
                 <div class="panel-heading">{{ user.name }}'s Friends</div>
                    <div class="input-group col-md-12">
                         <input id="friend_id" type="text" class="form-control input-lg"
