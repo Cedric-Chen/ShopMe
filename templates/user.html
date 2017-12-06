@@ -383,8 +383,7 @@
                 <div class="panel-body">
                     {% if recommendations is defined %}
                     {% for recommendation in recommendations %}
-                    <a href="{{ url_for("view_merchant_info") \
-                        + recommendation['id'] + '/')}} 
+                    <a href="{{ url_for("view_merchant_info") + recommendation['id'] + '/'}}" >
                         {{ recommendation['name'] }}
                     </a>
                     {% endfor %}
