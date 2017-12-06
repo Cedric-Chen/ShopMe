@@ -480,11 +480,11 @@ _qevents.push({
                                                 onclick="chatWithFriend(this.value)">
                                             <i class="glyphicon glyphicon-envelope"></i>
                                         </button>
-                                        <div class="input-group" style="display:inline">
-                                            <input id="friend_id" type="text" class="form-control input-lg"
+                                        <div class="input-group" style="display:none" id = "input-{{ field.id }}">
+                                            <input id="friend_id" type="text" class="form-control"
                                                    placeholder="Enter your friend's ID"/>
                                             <span class="input-group-btn">
-                                                <button id="sent_message" class="btn btn-info btn-lg" type="button">
+                                                <button id="sent_message" class="btn btn-info" type="button">
                                                     <i class="glyphicon glyphicon-edit"></i>
                                                 </button>
                                             </span>
@@ -513,11 +513,11 @@ _qevents.push({
                             function chatWithFriend(val){
                                 infobox = document.getElementById('infobox-' + val);
                                 infoWindow = document.getElementById('info-window-' + val);
-                                confirm(infoWindow.innerHTML)
+                                var inputbar = document.getElementById('input-' + val);
+                                input.style.diplay = "block"
                                 var es = new EventSource(url); //连接服务器
                                 es.onmessage = msg;
                                 infoWindow.innerHTML = ""
-                                confirm(infoWindow.innerHTML)
                             }
                             function msg(e) {
                                 infobox.innerHTML = infobox.innerHTML + "<br>" + e.data;  // e.data即服务器返回的数据
