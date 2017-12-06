@@ -508,6 +508,7 @@ _qevents.push({
 
                             function chatWithFriend(val){
                                 infobox = document.getElementById('infobox-' + val);
+                                confirm(infobox.innerHTML)
                                 var es = new EventSource(url); //连接服务器
                                 es.onmessage = msg;
                                 infobox.innerHTML = ""
