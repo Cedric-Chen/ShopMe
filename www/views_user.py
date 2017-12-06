@@ -29,7 +29,8 @@ def get_recommendation(user_id):
     print(len(reviews))
     blist = [reviews[k]['business_id'] for k in reviews if reviews[k]['stars'] >= 4 ]
     blist = list(set(blist))
-    return frequentpattern.select_recommendation(blist)
+    rblist = frequentpattern.select_recommendation(blist)
+    return [business.select(b_id) for b_id in rblist]
 
 @LRUDecorator(50)
 def friend_result(user_id):
