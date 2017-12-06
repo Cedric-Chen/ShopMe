@@ -56,3 +56,4 @@ if __name__ == '__main__':
     with open('result.txt', 'w') as f:
         for key, value in patterns.items():
             f.write(', '.join(list(key)) )
+            f.write('\n')

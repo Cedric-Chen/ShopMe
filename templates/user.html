@@ -378,6 +378,16 @@
                 </div>
             </div>
 
+            <div class="panel panel-default">
+                <div class="panel-heading">Recommendations For You</div>
+                <div class="panel-body">
+                    {% for recommendation in recommendations %}
+                        {{ recommendation['name'] }}
+                    {% endfor %}
+                </div>
+            </div>
+
+
 
            <div class="panel panel-default">
                 <div class="panel-heading">{{ user.name }}'s Friends</div>
