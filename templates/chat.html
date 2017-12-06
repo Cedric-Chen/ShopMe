@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>测试服务端主动推送</title>
+{#    <script src="https://www.codeply.com/plugins/bootstrap-select.min.js"></script>#}
+{#    <script src="https://www.codeply.com/codemirror/jquery.codemirror.js"></script>#}
+{#    <script src="https://www.codeply.com/beautifier.js"></script>#}
+    {% assets "jquery_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% assets "bootstrap_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% assets "user_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% assets "webevent_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <script>
+        var serverData;
+        var serverStatus;
+        var url = 'http://127.0.0.1:5000/stream/' //服务端地址
+
+        window.onload = function() {
+            serverData = document.getElementById('serverData');
+            serverStatus = document.getElementById('serverStatus');
+            startListenServer()
+        }
+
+        function startListenServer() {
+            serverStatus.innerHTML = "start connect server";
+            var es = new EventSource(url); //连接服务器
+            es.onopen = open;
+            es.onerror = error;
+            es.onmessage = msg;
+        }
+
+        function open(e) {
+            serverStatus.innerHTML = "server open";
+        }
+
+        function error(e) {
+            serverStatus.innerHTML = "server error";
+        }
+
+        function msg(e) {
+            serverData.innerHTML = serverData.innerHTML + "<br>" + e.data;  // e.data即服务器返回的数据
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#add_friend").click(function(){
+                var friend_id = $("#friend_id").val();
+                $.get("/message/"+friend_id + "/")
+{#                history.go(0)#}
+            });
+        })
+
+    </script>
+</head>
+
+<body>
+    <h1>data</h1>
+    <div id='serverData'>
+
+    </div>
+    <h1>status</h1>
+    <div id='serverStatus'>
+
+    </div>
+
+    <div class="input-group col-md-12">
+        <input id="friend_id" type="text" class="form-control input-lg"
+               placeholder="Enter your friend's ID"/>
+        <span class="input-group-btn">
+            <button id="add_friend" class="btn btn-info btn-lg" type="button">
+                <i class="glyphicon glyphicon-plus"></i>
+            </button>
+        </span>
+    </div>
+
+
+</body>
+
+</html>
