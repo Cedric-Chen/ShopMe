@@ -26,7 +26,7 @@ class DMFrequentpattern(DataModel):
     def select_recommendation(self, business_id_list):
         recommendation = []
         for business_id in business_id_list:
-            recommendation += select_frequent(business_id)
+            recommendation += self.select_frequent(business_id)
         return recommendation
 
 #    def del_trigger(self, user_id):

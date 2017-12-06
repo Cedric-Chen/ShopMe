@@ -29,7 +29,7 @@ def get_recommendation(user_id):
     print(len(reviews))
     blist = [reviews[k]['business_id'] for k in reviews if reviews[k]['stars'] >= 4 ]
     blist = list(set(blist))
-    return get_recommendation(blist)
+    return frequentpattern.select_recommendation(blist)
 
 @LRUDecorator(50)
 def friend_result(user_id):
@@ -53,8 +53,9 @@ def view_user():
         friend_pagination.jump(request.args.get('page', 1))
         friendlist = friendlist[ \
             friend_pagination['start']: friend_pagination['end']]
-        print(friend_pagination)
+        print('hello world!')
         recommendations = get_recommendation(user_id)
+        print(recommendations)
         return render_template('user.html',
             user=user.select(user_id),
             friendlist=friendlist,
