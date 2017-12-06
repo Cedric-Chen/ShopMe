@@ -47,8 +47,8 @@ def event(my_id, friend_id):
         if isinstance(result, list):
             for item in result:
                 cursor.execute('DELETE FROM chat WHERE user_id1=%s and user_id2=%s and timestamp=%s',
-                               (friend_id, my_id, item[1]))
-                yield 'data:%s \n\n' % str(item[0])
+                               (friend_id, my_id, item[3]))
+                yield 'data:%s \n\n' % str(item[2])
         db.commit()
 
 
