@@ -18,6 +18,15 @@
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 
+<style>
+    body {
+        background-image: url("{{ url_for('static', filename='image/Food-High.jpg') }}");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+    }
+</style>
 </head>
 <body>
 {% include "navbar.html" %}
@@ -308,15 +317,16 @@ _qevents.push({
 
 <script src="https://www.codeply.com/plugins/bootstrap-pager.js"></script>
 
-<hr class="">
 <div class="container target">
     <div class="row">
         <div class="col-sm-10">
+            <div class="col-sm-4" style="background-color: white; border-radius:5px;">
             {% if current_user.is_authenticated and session['id']==user.id %}
                 <h1 class="" value="{{user.id}}" id="editable">{{ user.name }}</h1>
             {% else %}
                 <h1 class="" value="{{user.id}}">{{ user.name }}</h1>
             {% endif %}
+            </div>
             <!--
             <button type="button" id="add_friend" class="btn btn-success">Follow</button>
             <button type="button" class="btn btn-info">Send me a message</button>

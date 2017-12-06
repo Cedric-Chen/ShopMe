@@ -7,6 +7,13 @@
     margin: 10px;
     overflow: hidden;
 }
+.review_text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
 </style>
 {% for item in review:%}
 <div id="review-{{item['id']}}" name="review" class="row clearfix review">
@@ -14,8 +21,14 @@
         <h2>
             {{ item["date"] }}
         </h2>
-        <p>
+        <p id='{{ item["id"] }}' class="review_text">
             {{ item["text"] }}
+        </p>
+        <p>
+            <a class="btn" id='{{ item["id"] }}_expand' style="text-align: left;"
+                onclick="expand_review('{{ item['id'] }}')">View details »</a>
+            <a class="btn" id='{{ item["id"] }}_collapse' style="display:none; text-align: left;"
+                onclick="collapse_review('{{ item['id'] }}')">Collapse</a>
         </p>
         <p>
             {% if "stars" in item %}
@@ -30,9 +43,6 @@
             {% if "cool" in item %}
                 <span class="label label-info">cool: <span name="review-{{item['id']}}-cool">{{ item["cool"] }}</span></span>
             {% endif %}
-        <p>
-             <a class="btn" href="#">View details »</a>
-        </p>
     </div>
     <div class="col-md-1 column" style="padding: 15px">
         <div class="btn-group btn-group-sm btn-group-vertical" data-toggle="buttons">
@@ -94,6 +104,16 @@
 <input type="hidden" id="valueChange" value="1">
 <input type="hidden" id="pageCount" value="" + "{{ pagination['current'] }}">
 <script>
+    function expand_review(review_id) {
+        document.getElementById(review_id).classList.remove("review_text");
+        document.getElementById(review_id+"_expand").style.display = "none";
+        document.getElementById(review_id+"_collapse").style.display="block";
+    };
+    function collapse_review(review_id) {
+        document.getElementById(review_id).classList.add("review_text");
+        document.getElementById(review_id+"_collapse").style.display = "none";
+        document.getElementById(review_id+"_expand").style.display="block";
+    };
     function set_page(page) {
         document.getElementById("pageCount").value = page;
     };

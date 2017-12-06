@@ -52,6 +52,7 @@ def event(my_id, friend_id):
         db.commit()
 
 
+@app.route('/stream/')
 @app.route('/stream/<my_id>/<friend_id>/', methods=['GET', 'POST'])
 def stream(my_id, friend_id):
     return Response(event(my_id, friend_id), mimetype="text/event-stream")  # response type
