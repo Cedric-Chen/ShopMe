@@ -514,7 +514,7 @@ _qevents.push({
                                 infobox = document.getElementById('infobox-' + val);
                                 infoWindow = document.getElementById('info-window-' + val);
                                 var inputbar = document.getElementById('input-' + val);
-                                input.style.diplay = "block"
+                                inputbar.style.diplay = "block"
                                 var es = new EventSource(url); //连接服务器
                                 es.onmessage = msg;
                                 infoWindow.innerHTML = ""
