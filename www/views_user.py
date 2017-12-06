@@ -16,12 +16,20 @@ from datamodel.photo import photo
 from datamodel.review import review
 from datamodel.tip import tip
 from datamodel.user import user
+from datamodel.frequentpattern import frequentpattern
 from viewmodel.pagination import Pagination
 from utility.lrudecorator import LRUDecorator
 
 FRIEND_PERPAGE = 5
 FRIEND_PAGES = 5
 
+
+def get_recommendation(user_id):
+    reviews = review.select('*',user_id)
+    print(len(reviews))
+    blist = [reviews[k]['business_id'] for k in reviews if reviews[k]['stars'] >= 4 ]
+    blist = list(set(blist))
+    return get_recommendation(blist)
 
 @LRUDecorator(50)
 def friend_result(user_id):
@@ -46,10 +54,12 @@ def view_user():
         friendlist = friendlist[ \
             friend_pagination['start']: friend_pagination['end']]
         print(friend_pagination)
+        recommendations = get_recommendation(user_id)
         return render_template('user.html',
             user=user.select(user_id),
             friendlist=friendlist,
             pagination=friend_pagination,
+            recommendations = recommendations
         )
     else:
         return redirect(request.args.get('next') or \
