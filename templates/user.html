@@ -515,7 +515,7 @@ _qevents.push({
                                 $("#sent_message").click(function(){
                                     var message = $("#message-box").val();
                                     $.get("/message/"+ message + "/")
-                                    confirm(message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}')
+{#                                    confirm(message + ":" + $("#sent_message").val() + ":" + '{{ user.id }}')#}
                     {#                history.go(0)#}
                                 });
                             })
