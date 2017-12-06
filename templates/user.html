@@ -423,18 +423,20 @@ _qevents.push({
                                             </div>
                                             <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
                                                 <strong>{{field.name}}</strong><br/><br/>
-                                                <dl>
-                                                    <dt>User ID</dt>
-                                                    <dd>{{field.id}}</dd>
-                                                    <dt>Review count</dt>
-                                                    <dd>{{field.review_count}}</dd>
-                                                    <dt>Yelping since:</dt>
-                                                    <dd>{{field.yelping_since}}</dd>
-                                                    <dt>Fans</dt>
-                                                    <dd>{{field.fans}}</dd>
-                                                    <dt>Useful</dt>
-                                                    <dd>{{field.useful}}</dd>
-                                                </dl>
+                                                <div id = "infobox-{{ field.id }}">
+                                                    <dl>
+                                                        <dt>User ID</dt>
+                                                        <dd>{{field.id}}</dd>
+                                                        <dt>Review count</dt>
+                                                        <dd>{{field.review_count}}</dd>
+                                                        <dt>Yelping since:</dt>
+                                                        <dd>{{field.yelping_since}}</dd>
+                                                        <dt>Fans</dt>
+                                                        <dd>{{field.fans}}</dd>
+                                                        <dt>Useful</dt>
+                                                        <dd>{{field.useful}}</dd>
+                                                    </dl>
+                                                </div>
                                             </div>
                                             <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
                                                 <strong>{{field.name}}</strong><br>
@@ -470,7 +472,9 @@ _qevents.push({
                                     <div class="panel-footer">
                                         <button class="btn btn-sm btn-primary" type="button"
                                                 data-toggle="tooltip"
-                                                data-original-title="Send message to user">
+                                                data-original-title="Send message to user"
+                                                value="{{field.id}}"
+                                                onclick="chatWithFriend(this.value)">
                                             <i class="glyphicon glyphicon-envelope"></i>
                                         </button>
                                         <button class="btn btn-sm btn-warning" type="button"
@@ -490,6 +494,18 @@ _qevents.push({
                             </div>
                         </div>
                         <script>
+                            var infobox;
+                            var url = "{{ url_for('stream') }}";
+
+                            function chatWithFriend(val){
+                                infobox = document.getElementById('infobox-' + val);
+                                var es = new EventSource(url); //连接服务器
+                                es.onmessage = msg;
+                                infobox.innerHTML = ""
+                            }
+                            function msg(e) {
+                                infobox.innerHTML = infobox.innerHTML + "<br>" + e.data;  // e.data即服务器返回的数据
+                            }
                             function removeFriend(val){
                                 $.get("/friend/remove/"+ val + '/' + '{{user.id }}')
                                 history.go(0)
