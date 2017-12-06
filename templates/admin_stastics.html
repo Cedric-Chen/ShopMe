@@ -120,6 +120,21 @@
 </div>
 
 
+{% if patterns is defined %}
+<div class='container col-md-10 col-md-offset-1'>
+    <a data-toggle="collapse" data-target="#patterns"><h3> 
+    Popular Business Pattern
+	</h3><a>
+    <hr md-2>
+</div>
+<div class='container col-md-1'></div>
+<div id='patterns' class="collapse">
+    {% for pattern in patterns %}
+        {{ pattern[0], pattern[1] }}
+    {% endfor %}
+</div>
+{% endif %}
+
 </body>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script> 
