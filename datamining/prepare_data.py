@@ -45,3 +45,6 @@ def to_reconstructed_file(data):
                     l.append(b)
             if(l != []):
                 f.write(','.join(l) + '\n')
+
+data = loadData('./busi_user_stars.txt')
+to_reconstructed_file(data)
