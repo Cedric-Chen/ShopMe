@@ -86,7 +86,11 @@
 }
 
 body {
-    padding-top: 60px;
+    background-image: url("{{ url_for('static', filename='image/empire-state-building.jpg') }}");
+background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+-webkit-background-size: cover;
 }
 @media (max-width: 980px) {
     body {
@@ -97,19 +101,19 @@ body {
 </head>
 
 
-<body>
+<body id="myPage" data-spy="scroll">
   {% include "navbar.html" %}
 
 <div class='container col-md-10 col-md-offset-1'>
 
 <form method='post' action="{{ url_for('admin_account_search') }}">
-  <button id='mybutton' type="submit">Search</button>
+  <button id='mybutton' type="submit" style="border-radius:5px;"><strong>Search</strong></button>
   <input type="text" id="searchbox-kw" name="kw"
     placeholder="Please enter your search condition"
-    style='' value='{% if kw is defined %}{{kw}}{% endif %}'>
+    style='border-radius:5px;' value='{% if kw is defined %}{{kw}}{% endif %}'>
 </form>
-
-<table id="myTable">
+<br/>
+<table id="myTable" style="background-color: white; border-radius:5px;">
   <tr class="header">
     <th>
   {% if kw is defined %}
@@ -174,10 +178,11 @@ body {
 {% endfor %}
 {% endif %}
 </table>
-
+<br/>
+<br/>
 </div>
-</body>
 
+</body>
 
 <script>
         $('#globalCheckbox').click(function(){

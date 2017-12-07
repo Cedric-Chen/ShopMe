@@ -12,6 +12,13 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <style>
+body {
+    background-image: url("{{ url_for('static', filename='image/new_york_city_buildings.jpg') }}");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
 .dropdown-content {
   display: none;
   position: absolute;
@@ -125,38 +132,38 @@
       </div>
     </div>
 
-    <div class="content-wrapper" style="margin-bottom: 30px; margin-top: 100px; margin-left: 50px; margin-right: 50px">
-        <div class="container-fluid">
+    <div class="content-wrapper" style="margin-top: 100px;">
+        <div class="container-fluid" style="background-color: #eee;">
             <hr class="mt-2">
-            <div class="row">
-    {% for review in reviews %}
-            <!-- Example Social Card-->
+            <div class="row" style="margin-left: 50px; margin-right: 50px">
+                {% for review in reviews %}
+                <!-- Example Social Card-->
                 <div class="col-md-3">
-                <div class="card">
-                  <a href="#">
-                    <img class="hideme card-img-top img-fluid mw-100 mh-100" src="{{ review['img'] }}" alt="" style="width:100%">
-                  </a>
-                  <div class="card-block">
-                    <h6 class="card-title mb-1">{{ review['user_name'] }}</h6>
-                    <p class="card-text small">{{ review['text'] }}
-                      <a href="{{ url_for('view_merchant_info') + review['business_id'] }}">#{{ review['business_name'] }}</a>
-                    </p>
-                  </div>
-                  <hr class="my-0">
-<!--
-                  <div class="card-body py-2 small">
-                    <a class="mr-3 d-inline-block" href="#">
-                      <i class="fa fa-fw fa-thumbs-up"></i>Like</a>
-                    <a class="mr-3 d-inline-block" href="#">
-                      <i class="fa fa-fw fa-comment"></i>Comment</a>
-                    <a class="d-inline-block" href="#">
-                      <i class="fa fa-fw fa-share"></i>Share</a>
-                  </div>
-                  <hr class="my-0">
--->
+                    <div class="card">
+                      <a href="#">
+                        <img class="hideme card-img-top img-fluid mw-100 mh-100" src="{{ review['img'] }}" alt="" style="width:100%">
+                      </a>
+                      <div class="card-block">
+                        <h6 class="card-title mb-1">{{ review['user_name'] }}</h6>
+                        <p class="card-text small">{{ review['text'] }}
+                          <a href="{{ url_for('view_merchant_info') + review['business_id'] }}">#{{ review['business_name'] }}</a>
+                        </p>
+                      </div>
+                      <hr class="my-0">
+    <!--
+                      <div class="card-body py-2 small">
+                        <a class="mr-3 d-inline-block" href="#">
+                          <i class="fa fa-fw fa-thumbs-up"></i>Like</a>
+                        <a class="mr-3 d-inline-block" href="#">
+                          <i class="fa fa-fw fa-comment"></i>Comment</a>
+                        <a class="d-inline-block" href="#">
+                          <i class="fa fa-fw fa-share"></i>Share</a>
+                      </div>
+                      <hr class="my-0">
+    -->
+                    </div>
                 </div>
-                </div>
-     {% endfor %}
+                {% endfor %}
 
             </div>
             </div>

@@ -1,7 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import make_response, render_template
+from datetime import datetime as dt
+
+from flask import flash, make_response, redirect, render_template, request, \
+    session, url_for
 
 from config import app
 from datamodel.attribute import attribute
@@ -25,7 +28,7 @@ REVIEW_PAGES = 5
 @app.route(u'/information/')
 @app.route(u'/information/<business_id>/')
 def view_merchant_info(business_id):
-    _attribute_ = attribute.select(business_id)
+    _attribute = attribute.select(business_id)
     _business = business.select(business_id)
     _category = category.select(business_id)
     _checkin = checkin.select(business_id)
@@ -33,10 +36,9 @@ def view_merchant_info(business_id):
     _review = review.sort(business_id, u'*', 'date', -1)
     review_pagination = Pagination(u'review', len(_review), REVIEW_PERPAGE, \
         REVIEW_PAGES)
-    print(review_pagination)
     _review = _review[review_pagination['start']: review_pagination['end']]
-    return render_template(u'information.html', business=_business, \
-        category=_category, hours=_hours, review=_review, \
+    return render_template(u'information.html', attribute=_attribute, \
+        business=_business, category=_category, hours=_hours, review=_review, \
         pagination=review_pagination)
 
 
@@ -60,9 +62,38 @@ def review_board(business_id, page, field, order):
 @app.route(u'/information/review/update/')
 @app.route(u'/information/review/update/<business_id>:<review_id>:<field>:<value>/')
 def review_update(business_id, review_id, field, value):
+    review_result.clear()
     current_review = review.select(business_id, u'*')
     new_review = dict()
     new_review[field] = current_review[review_id][field] + int(value)
     review.update(business_id, current_review[review_id][u'user_id'], \
         {review_id: new_review}, {review_id: current_review[review_id]})
     return make_response(u'succeed', 200)
+
+@app.route(u'/information/review/add/', methods=['POST'])
+def review_add():
+    review_result.clear()
+    business_id = request.form['business_id']
+    user_id = session.get(u'id', u'anonymous')
+    date_time = dt.now()
+    rv_id = str(date_time)[0:21]
+    new_review = {
+        rv_id: {
+            u'id': rv_id,
+            u'stars': 0,
+            u'date': date_time,
+            u'text': request.form[u'review'],
+            u'useful': 0,
+            u'funny': 0,
+            u'cool': 0,
+            u'business_id': business_id,
+            u'user_id': user_id,
+        }
+    }
+    review.insert(business_id, user_id, new_review)
+    if review.select(business_id, user_id):
+        flash(u'Add review succeeded!')
+        return redirect(url_for('view_merchant_info') + business_id + '/')
+    else:
+        flash(u'Add review failed. Please try later.')
+        return redirect(url_for(u'view_merchant_info') + business_id + '/')
