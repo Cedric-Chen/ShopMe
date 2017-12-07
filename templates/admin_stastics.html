@@ -146,7 +146,7 @@
   google.setOnLoadCallback(draw_state_checkin);
 
    function draw_state_is_open() {
-	raw_data = {{ state_review_count|tojson }};
+	raw_data = {{ state_is_open|tojson }};
 	new_data = change_state_is_open_data(raw_data);
 	var data = new google.visualization.DataTable();
 	data.addColumn('string','state');

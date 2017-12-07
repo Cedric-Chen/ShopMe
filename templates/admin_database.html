@@ -69,12 +69,15 @@
 <div class='container col-md-5 col-md-offset-1'>
     <label>Result</label>
     <textarea class="form-control" rows="12"  style="margin-top:10px;"
-        readonly>{% for result in results %}{{join(result,', ') }}
-        {%  endfor %}
+        readonly>
+{% for result in results %}{{join(result,', ') }}
+{%  endfor %}
     </textarea>
     <br/><br/>
     <label>Log</label>
-    <textarea class="form-control" rows="10"  style="margin-top:10px;" readonly>{% for command in commands %}{{(command[0]-1) * "+ " + command[2] + " ------ " +  command[1]}}{% endfor %}
+    <textarea class="form-control" rows="10"  style="margin-top:10px;" readonly>
+{% for command in commands %}{{(command[0]-1) * "+ " + command[2] + " ------ " +  command[1]}}
+{% endfor %}
     </textarea>
 </div>
 
