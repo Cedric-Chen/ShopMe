@@ -42,10 +42,10 @@
       <form class="navbar-form navbar-left">
         <ul class="input-group" style="padding-left:0;margin:auto">
            <li style="float:left;">
-              <input id="searchbox-kw" type="text" class="form-control" placeholder="Search" style="width:300px" {% if kw is defined %} value = {{kw}} {% endif %}>
+              <input id="searchbox-kw" type="text" class="form-control" placeholder="Search" style="width:300px" {% if kw is defined %} value ="{{kw}}" {% endif %}>
            </li>
            <li style="float:left;">
-              <input id="searchbox-loc" type="text" class="form-control" placeholder="Location" style="width:180px" {% if loc is defined %} value = {{loc}} {% endif %}>
+              <input id="searchbox-loc" type="text" class="form-control" placeholder="Location" style="width:180px" {% if loc is defined %} value = "{{loc}}" {% endif %}>
            </li>
           <li class="input-group-btn" style="float:left;">
             <button type="button" class="btn btn-info" id="search" onclick="search_box()">
